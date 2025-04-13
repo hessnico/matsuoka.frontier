@@ -1,0 +1,27 @@
+---
+title: "MatsuokaDistribution"
+output: rmarkdown::html_vignette
+description: Learn how to use "MatsuokaDistribution" class object to estimate the production frontier
+vignette: >
+  %\VignetteIndexEntry{MatsuokaDistribution}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(matsuoka.frontier)
+
+x <- data.frame(a = 1:5)
+y <- c(2, 4, 6, 8, 10)
+
+obj <- MatsuokaFrontier(x = x, y = y)
+str(obj)
+```

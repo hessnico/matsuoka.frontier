@@ -7,8 +7,7 @@
 MatsuokaFrontier(x, y)
 }
 \arguments{
-\item{x}{A numeric data frame or matrix representing the independent variables.
-If \code{x} is a data frame, the columns should be numeric.}
+\item{x}{A numeric data frame or matrix representing the independent variables.}
 
 \item{y}{A numeric vector representing the dependent variable.}
 }
@@ -17,11 +16,12 @@ An object of class \code{MatsuokaFrontier} containing:
 \describe{
 \item{x}{The input data frame of independent variables.}
 \item{y}{The dependent variable vector.}
-\item{estimated_p}{The estimated parameter \code{p}.}
-\item{estimated_g}{The estimated function \code{g(x)}.}
+\item{est_p}{The estimated parameter \code{p}.}
+\item{est_g}{The estimated function \code{g(x)}.}
 }
 }
 \description{
-This class estimates the production frontier based on the provided inputs.
+This class estimates the production frontier based on a three step approach with the provided inputs.
+The efficiency is estimated as a Matsuoka distribuition.
 It can handle both univariate and multivariate input data (\code{x}).
 }

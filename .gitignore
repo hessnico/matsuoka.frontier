@@ -50,3 +50,6 @@ rsconnect/
 
 # Cloud Setup options
 setup.R
+inst/doc
+/doc/
+/Meta/

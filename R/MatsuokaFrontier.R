@@ -1,18 +1,18 @@
 #' MatsuokaFrontier Class
 #'
-#' This class estimates the production frontier based on the provided inputs.
+#' This class estimates the production frontier based on a three step approach with the provided inputs.
+#' The efficiency is estimated as a Matsuoka distribuition.
 #' It can handle both univariate and multivariate input data (`x`).
 #'
 #' @param x A numeric data frame or matrix representing the independent variables.
-#'   If `x` is a data frame, the columns should be numeric.
 #' @param y A numeric vector representing the dependent variable.
 #'
 #' @return An object of class `MatsuokaFrontier` containing:
 #'   \describe{
 #'     \item{x}{The input data frame of independent variables.}
 #'     \item{y}{The dependent variable vector.}
-#'     \item{estimated_p}{The estimated parameter `p`.}
-#'     \item{estimated_g}{The estimated function `g(x)`.}
+#'     \item{est_p}{The estimated parameter `p`.}
+#'     \item{est_g}{The estimated function `g(x)`.}
 #'   }
 #' @export
 MatsuokaFrontier <- function(x, y) {
