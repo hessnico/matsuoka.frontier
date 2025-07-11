@@ -1,17 +1,15 @@
 Package: matsuoka.frontier
 Title: Three-step approach to production frontier estimation
 Version: 0.0.0.9000
-Authors@R: 
-    person("Nicolas", "Hess", 
-           email = "nicolashess1@gmail.com", 
-           role = c("aut", "cre"))
+Author: Nicolas Hess [aut, cre]
+Maintainer: Nicolas Hess <nicolashess1@gmail.com>
 Description: This package implements a deterministic production frontier model based on the three-step estimation approach described in "A Three-Step Approach to Production Frontier Estimation and the Matsuoka’s Distribution". It provides tools for estimating the production frontier, evaluating efficiency, and visualizing results. Various methods for nonparametric regression estimation of the production function are supported, including local linear regression and spline approaches.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
-Suggests: 
+Suggests:
     testthat (>= 3.0.0),
     rmarkdown,
     knitr,
