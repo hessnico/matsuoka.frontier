@@ -3,9 +3,9 @@
 ![R-CMD-check](https://github.com/hessnico/matsuoka.frontier/actions/workflows/r-cmd-check.yaml/badge.svg)
 
 An R package for estimating production frontiers using the **three-step approach** proposed by this paper:
-
-> Matsuoka, A. and Azom, S. (2023).  
-> [A three-step approach to production frontier estimation and the Matsuoka's distribution](https://arxiv.org/abs/2311.06086). arXiv:2311.06086.
+ 
+> [A three-step approach to production frontier estimation and the Matsuoka's distribution](https://arxiv.org/abs/2311.06086). arXiv:2311.06086.  
+> Matsuoka, D. H., Pumi, G., Torrent, H. da S., Valk, M. (2024).
 
 ---
 
