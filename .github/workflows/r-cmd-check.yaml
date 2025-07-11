@@ -9,6 +9,9 @@ on:
 jobs:
   R-CMD-check:
     runs-on: ubuntu-latest
+    
+    env:
+      R_REPOS: https://cran.r-project.org
 
     steps:
     - uses: actions/checkout@v3
@@ -21,8 +24,8 @@ jobs:
 
     - name: install R package dependencies
       run: |
-        Rscript -e 'install.packages(c("remotes", "devtools", "testthat"))'
-        Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        Rscript -e 'options(repos = c(CRAN = Sys.getenv("R_REPOS"))); install.packages(c("remotes", "devtools", "testthat"))'
+        Rscript -e 'options(repos = c(CRAN = Sys.getenv("R_REPOS"))); remotes::install_deps(dependencies = TRUE)'
 
     - name: check package 
       run: R CMD check --no-manual --as-cran .
