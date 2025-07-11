@@ -22,6 +22,7 @@ library(matsuoka.frontier)
 x <- data.frame(a = 1:5)
 y <- c(2, 4, 6, 8, 10)
 
-obj <- MatsuokaFrontier(x = x, y = y)
+obj <- matsuoka.frontier::matsuoka3step(x = x, y = y)
 str(obj)
+
 ```

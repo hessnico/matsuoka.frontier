@@ -12,5 +12,9 @@ VignetteBuilder: knitr
 Suggests: 
     testthat (>= 3.0.0),
     rmarkdown,
-    knitr
+    knitr,
+    Benchmarking
+Imports:
+    mgcv,
+    KernSmooth
 Config/testthat/edition: 3
