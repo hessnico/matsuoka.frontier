@@ -11,7 +11,7 @@
 #' @importFrom mgcv gam
 #' @importFrom KernSmooth locpoly
 #' @importFrom stats smooth.spline predict sd approx
-estimate_g <- function(X, z, strategy = "spline", ...) {
+estimate.g <- function(X, z, strategy = "spline", ...) {
     if (!is.data.frame(X)) stop("X must be a data.frame.")
     
     if (is.function(strategy)) {
