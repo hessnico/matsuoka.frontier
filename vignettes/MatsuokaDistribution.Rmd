@@ -19,10 +19,14 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(matsuoka.frontier)
 
-x <- data.frame(a = 1:5)
-y <- c(2, 4, 6, 8, 10)
+data(milkProd)
 
-obj <- matsuoka.frontier::matsuoka3step(x = x, y = y)
-str(obj)
+df = data.frame(
+  x1 = (milkProd$vet/milkProd$cows-min(milkProd$vet/milkProd$cows))/(max(milkProd$vet/milkProd$cows)-min(milkProd$vet/milkProd$cows)),
+  x2 = (milkProd$energy/milkProd$cows-min(milkProd$energy/milkProd$cows))/(max(milkProd$energy/milkProd$cows)-min(milkProd$energy/milkProd$cows))
+)
+y <- milkProd$milk/nc/10^3 
+obj <- matsuoka.frontier::matsuoka3step(x = df, y = y, g = "gam")
 
+obj$y
 ```
