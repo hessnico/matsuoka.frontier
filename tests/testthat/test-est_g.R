@@ -6,7 +6,7 @@ test_that("spline strategy", {
     X <- data.frame(x = runif(50))
     z <- log(runif(50, 1, 5))
     
-    res <- estimate_g(X, z, strategy = "spline")
+    res <- estimate.g(X, z, strategy = "spline")
     
     expect_true(is.list(res))
     expect_true("estimate" %in% names(res))
@@ -26,8 +26,8 @@ test_that("gam strategy", {
     y <- milkProd$milk / nc / 1e3
     z <- -log(y)
     
-    # Run estimate_g with gam
-    res <- estimate_g(X, z, strategy = "gam", method = "REML")
+    # Run estimate.g with gam
+    res <- estimate.g(X, z, strategy = "gam", method = "REML")
     
     expect_type(res, "list")
     expect_true(!is.null(res$estimate))
@@ -38,28 +38,28 @@ test_that("gam strategy", {
     expect_lt(sd(residuals), 1)  # variance should be somewhat controlled
 })
 
-test_that("estimate_g errors if X is not a data.frame", {
+test_that("estimate.g errors if X is not a data.frame", {
     X_mat <- matrix(runif(50), ncol = 1)
     z <- log(runif(50, 1, 5))
     
-    expect_error(estimate_g(X_mat, z, strategy = "spline"))
+    expect_error(estimate.g(X_mat, z, strategy = "spline"))
 })
 
-test_that("estimate_g errors if X is not a data.frame", {
+test_that("estimate.g errors if X is not a data.frame", {
     X_mat <- matrix(runif(50), ncol = 1)
     z <- log(runif(50, 1, 5))
     
-    expect_error(estimate_g(X_mat, z, strategy = "spline"))
+    expect_error(estimate.g(X_mat, z, strategy = "spline"))
 })
 
-test_that("estimate_g errors if spline input is multivariate", {
+test_that("estimate.g errors if spline input is multivariate", {
     X <- data.frame(x1 = runif(10), x2 = runif(10))
     z <- log(runif(10, 1, 5))
     
-    expect_error(estimate_g(X, z, strategy = "spline"))
+    expect_error(estimate.g(X, z, strategy = "spline"))
 })
 
-test_that("estimate_g works with custom function", {
+test_that("estimate.g works with custom function", {
     X <- data.frame(x = runif(20))
     z <- log(runif(20, 1, 5))
     
@@ -67,24 +67,24 @@ test_that("estimate_g works with custom function", {
         list(estimate = rep(mean(z), nrow(X)))
     }
     
-    res <- estimate_g(X, z, strategy = custom_fun)
+    res <- estimate.g(X, z, strategy = custom_fun)
     
     expect_true(is.list(res))
     expect_equal(length(res$estimate), nrow(X))
 })
 
-test_that("estimate_g errors if custom function returns invalid result", {
+test_that("estimate.g errors if custom function returns invalid result", {
     X <- data.frame(x = runif(10))
     z <- log(runif(10, 1, 5))
     
     bad_fun <- function(X, z, ...) NULL
     
-    expect_error(estimate_g(X, z, strategy = bad_fun))
+    expect_error(estimate.g(X, z, strategy = bad_fun))
 })
 
-test_that("estimate_g errors with unknown strategy", {
+test_that("estimate.g errors with unknown strategy", {
     X <- data.frame(x = runif(10))
     z <- log(runif(10, 1, 5))
     
-    expect_error(estimate_g(X, z, strategy = "not-valid-one"))
+    expect_error(estimate.g(X, z, strategy = "not-valid-one"))
 })

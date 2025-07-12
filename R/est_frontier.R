@@ -6,7 +6,7 @@
 #'
 #' @return Numeric vector of estimated frontier values f(x).
 #' @export
-estimate_frontier <- function(g_hat, p_hat) {
+estimate.frontier <- function(g_hat, p_hat) {
     stopifnot(is.numeric(g_hat), length(g_hat) > 0)
     stopifnot(is.numeric(p_hat), length(p_hat) == 1, p_hat > 0)
     

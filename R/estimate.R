@@ -15,12 +15,12 @@
 #' @export
 estimate <- function(X, y, g_strategy = "ll", ...) {
     z <- -log(y)
-    
-    g_res <- estimate_g(X, z, strategy = g_strategy, ...)
-    
+
+    g_res <- estimate.g(X, z, strategy = g_strategy, ...)
+
     residuals <- z - g_res$estimate
-    p_hat <- estimate_p(residuals)
-    f_hat <- estimate_frontier(g_res$estimate, p_hat)
+    p_hat <- estimate.p(residuals)
+    f_hat <- estimate.frontier(g_res$estimate, p_hat)
     
     list(
         g_hat = g_res,
