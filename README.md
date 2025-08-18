@@ -42,3 +42,15 @@ str(result)
 
 This package was developed as part of the final project for the Bachelor's degree in Statistics at UFRGS (Universidade Federal do Rio Grande do Sul).
 It aims to provide a practical and flexible implementation of the three-step production frontier estimation method.
+
+
+## Some enhacements to do 
+
+1. Add more private method on `estimate_g`;
+2. Find a way to plot the output of `matsuokafrontier::estimate`;
+3. Enhance documentation with examples on usage of the package, including all three functions;
+- Normal method;
+- Method with specific arguments;
+- User custom method.
+4. KS test with the Matsuoka's distribution
+- vec r_hat x Matsuoka(p_hat)

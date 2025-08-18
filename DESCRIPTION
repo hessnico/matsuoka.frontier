@@ -13,7 +13,9 @@ Suggests:
     testthat (>= 3.0.0),
     rmarkdown,
     knitr,
-    Benchmarking
+    Benchmarking,
+    devtools,
+    ggplot2
 Imports:
     mgcv,
     KernSmooth

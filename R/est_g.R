@@ -16,7 +16,7 @@ estimate.g <- function(X, z, strategy = "spline", ...) {
     
     if (is.function(strategy)) {
         res <- strategy(X, z, ...)
-        stopifnot(is.list(res), !is.null(res$estimate))
+        stopifnot(is.list(res), !is.null(res$estimate)) # TODO: error log
         return(res)
     }
     

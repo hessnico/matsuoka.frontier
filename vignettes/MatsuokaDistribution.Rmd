@@ -17,16 +17,38 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+devtools::load_all()
 library(matsuoka.frontier)
+library(ggplot2)
+library(Benchmarking)
 
 data(milkProd)
 
-df = data.frame(
-  x1 = (milkProd$vet/milkProd$cows-min(milkProd$vet/milkProd$cows))/(max(milkProd$vet/milkProd$cows)-min(milkProd$vet/milkProd$cows)),
-  x2 = (milkProd$energy/milkProd$cows-min(milkProd$energy/milkProd$cows))/(max(milkProd$energy/milkProd$cows)-min(milkProd$energy/milkProd$cows))
-)
-y <- milkProd$milk/nc/10^3 
-obj <- matsuoka.frontier::matsuoka3step(x = df, y = y, g = "gam")
+N=nrow(milkProd)                #N=108
+nc=milkProd$cows                #n cows
+xc1=milkProd$vet/nc             #vet. expenses per cow (X)
+x1=(xc1-min(xc1))/(max(xc1)-min(xc1))   #normalization 
+xc2=milkProd$energy/nc          #energy expenses per cow (X)
+x2=(xc2-min(xc2))/(max(xc2)-min(xc2))   #normalization
+X=cbind(x1,x2)
 
-obj$y
+y <- milkProd$milk/nc/10^3 
+
+obj <- matsuoka.frontier::matsuoka3step(
+  x = as.data.frame(X[,'x1']), y = y, g = "spline", lambda = 0.01
+)
+
+obj <- matsuoka.frontier::matsuoka3step(x = as.data.frame(X), y = y, g="gam")
+plot.df <- data.frame(
+  x = obj$x,
+  y = obj$y,
+  frontier = obj$f_hat
+) 
+
+plot.df$x.x1
+
+plot.df %>% ggplot(aes(x = x.x1, y = y)) +
+  geom_point(color="black") +
+  geom_line(aes(y = frontier), color="blue", size=1) +
+  theme_bw()
 ```
