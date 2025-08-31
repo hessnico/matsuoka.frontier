@@ -39,16 +39,32 @@ obj <- matsuoka.frontier::matsuoka3step(
 )
 
 obj <- matsuoka.frontier::matsuoka3step(x = as.data.frame(X), y = y, g="gam")
-plot.df <- data.frame(
-  x = obj$x,
-  y = obj$y,
-  frontier = obj$f_hat
-) 
+str(obj)
 
-plot.df$x.x1
+plot.matsuoka3step <- function(x, type = "fit", ...) {
+  if (type == "fit") {
+    plot(x$x, x$y, pch = 19, col = "gray", main = "Observed vs Fitted", ...)
+    lines(x$x, x$fitted, col = "blue", lwd = 2)
+  } 
+  else if (type == "residuals") {
+    plot(x$fitted, x$residuals, pch = 19, col = "red",
+         main = "Residuals vs Fitted", ...)
+    abline(h = 0, lty = 2)
+  } else {
+    stop("Unknown plot type")
+  }
+}
 
-plot.df %>% ggplot(aes(x = x.x1, y = y)) +
-  geom_point(color="black") +
-  geom_line(aes(y = frontier), color="blue", size=1) +
-  theme_bw()
+plot(obj, "fit")
+
+#plot.df <- data.frame(
+#  x = obj$x,
+#  y = obj$y,
+#  frontier = obj$f_hat
+#) 
+
+# plot.df %>% ggplot(aes(x = x.x1, y = y)) +
+#  geom_point(color="black") +
+#  geom_line(aes(y = frontier), color="blue", size=1) +
+#  theme_bw()
 ```
