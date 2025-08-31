@@ -11,12 +11,25 @@ matsuoka3step(x, y, g = "spline", ...)
 
 \item{y}{A numeric vector of outputs (must be > 0).}
 
-\item{g}{A strategy for estimating g(x) ("spline" or custom function).}
+\item{g}{A strategy for estimating g(x) ("spline" or custom function).
+Possible entries include:
+\describe{
+\item{"spline"}{Default value. Accepts only one indepedent variable.}
+\item{"gam"}{Wrapper for \code{gam} package function. Uses smoothing splines in the formula, e.g.: \eqn{z ~ s(x_1) + s(x_2)}.}
+}}
 
 \item{...}{Extra args passed to g(x) estimator.}
 }
 \value{
-An object of class \code{matsuoka3step}.
+An object of class \code{matsuoka3step}:
+\describe{
+\item{x}{The dependent variables.}
+\item{y}{The independet variable.}
+\item{g_hat}{Estimated values of the function \( g(x) \).}
+\item{g_hat_res}{Residuals from the estimation of \( g(x) \).}
+\item{p_hat}{Estimated parameter \( p \).}
+\item{f_hat}{Estimated productive frontier.}
+}
 }
 \description{
 matsuoka3step Class Constructor

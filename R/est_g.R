@@ -11,7 +11,7 @@
 #' @importFrom mgcv gam
 #' @importFrom KernSmooth locpoly
 #' @importFrom stats smooth.spline predict sd approx
-estimate.g <- function(X, z, strategy = "spline", ...) {
+estimate.g <- function(X, z, strategy = "gam", ...) {
     if (!is.data.frame(X)) stop("X must be a data.frame.")
     
     if (is.function(strategy)) {
@@ -25,13 +25,23 @@ estimate.g <- function(X, z, strategy = "spline", ...) {
             stop("Spline strategy currently supports univariate input only.")
         }
         fit <- smooth.spline(x = X[[1]], y = z, ...)
-        return(list(estimate = predict(fit, x = X[[1]])$y))
+        return(
+            list(
+                estimate = predict(fit, x = X[[1]])$y,
+                fn_obj = fit
+            )
+        )
+        # return(list(estimate = predict(fit, x = X[[1]])$y))
     } else if (strategy == "gam") {
         terms <- paste0("s(", names(X), ")", collapse = " + ")
         formula <- stats::as.formula(paste("z ~", terms))
         
         fit <- mgcv::gam(formula, data = cbind(z = z, X), ...)
-        return(list(estimate = predict(fit, newdata = X)))
+        return(list(
+            estimate = predict(fit, newdata = X),
+            fn_obj = fit
+            )
+        )
     }
     
     stop("Unknown strategy. Only 'spline' or a custom function supported.")

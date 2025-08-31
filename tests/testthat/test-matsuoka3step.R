@@ -18,12 +18,12 @@ test_that("matsuoka3step runs and returns expected structure on milkProd data", 
     
     expect_s3_class(fit, "matsuoka3step")
     expect_equal(nrow(fit$x), length(fit$y))
-    expect_length(fit$residuals, nrow(fit$x))
+    expect_length(fit$g_hat_res, nrow(fit$x))
     expect_length(fit$f_hat, nrow(fit$x))
     expect_true(is.numeric(fit$p_hat))
     expect_true(fit$p_hat > 0)
     
-    expect_lt(abs(mean(fit$residuals)), 1e-1)
+    expect_lt(abs(mean(fit$g_hat_res)), 1e-1)
 })
 
 test_that("matsuoka3step returns valid object with spline", {
@@ -38,7 +38,7 @@ test_that("matsuoka3step returns valid object with spline", {
     
     expect_equal(nrow(res$x), length(res$y))
     expect_equal(length(res$g_hat$estimate), nrow(res$x))
-    expect_equal(length(res$residuals), nrow(res$x))
+    expect_equal(length(res$g_hat_res), nrow(res$x))
     expect_true(is.numeric(res$p_hat))
     expect_equal(length(res$f_hat), nrow(res$x))
 })

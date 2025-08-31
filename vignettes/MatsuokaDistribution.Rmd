@@ -16,6 +16,17 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Summary
+
+In this vignette there will be shown cases of use of `matsuoka.frontier` package usage
+
+1. Pre-mounted `g(.)` estimation methods
+2. Method with specific arguments
+3. Method with custom `g(.)` estimative
+4. Without using the wrapper `matsuoka3step`
+
+## Setup for package use
+
 ```{r setup}
 devtools::load_all()
 library(matsuoka.frontier)
@@ -33,38 +44,44 @@ x2=(xc2-min(xc2))/(max(xc2)-min(xc2))   #normalization
 X=cbind(x1,x2)
 
 y <- milkProd$milk/nc/10^3 
+```
 
-obj <- matsuoka.frontier::matsuoka3step(
-  x = as.data.frame(X[,'x1']), y = y, g = "spline", lambda = 0.01
+## Pre-mounted `g(.)` estimation methods
+
+```{r premounted}
+x.df <- as.data.frame(X)
+res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "gam")
+```
+
+This generates the `matsuoka3step` class object.
+Please Check the documentation for more infomation with `help(matsuoka3step)`.
+
+The default non-parametric function that estimates `g(.)` is set to the `gam` function.
+It's possible to diagnose the `g(.)` function estimation through hierarchical built-in functions.
+
+For example, the diagnose the default parameter `g(.)` function estimation can be done using `summary` and `plot`. This works, because `gam` has this built-in in it's class.
+
+For example:
+```{r gam diagnose}
+summary(
+  res$g_hat$fn_obj
 )
 
-obj <- matsuoka.frontier::matsuoka3step(x = as.data.frame(X), y = y, g="gam")
-str(obj)
-
-plot.matsuoka3step <- function(x, type = "fit", ...) {
-  if (type == "fit") {
-    plot(x$x, x$y, pch = 19, col = "gray", main = "Observed vs Fitted", ...)
-    lines(x$x, x$fitted, col = "blue", lwd = 2)
-  } 
-  else if (type == "residuals") {
-    plot(x$fitted, x$residuals, pch = 19, col = "red",
-         main = "Residuals vs Fitted", ...)
-    abline(h = 0, lty = 2)
-  } else {
-    stop("Unknown plot type")
-  }
-}
-
-plot(obj, "fit")
-
-#plot.df <- data.frame(
-#  x = obj$x,
-#  y = obj$y,
-#  frontier = obj$f_hat
-#) 
-
-# plot.df %>% ggplot(aes(x = x.x1, y = y)) +
-#  geom_point(color="black") +
-#  geom_line(aes(y = frontier), color="blue", size=1) +
-#  theme_bw()
+plot(
+  res$g_hat$fn_obj
+)
 ```
+
+After diagnosing the `g(.)` function, we can forward to the production frontier estimation diagnostics.
+There is a built-in plot function that can be used, for example:
+```{r gam mat}
+plot(res)
+plot(res, ngrid = 200, counter_levels = 15)
+plot(res, ngrid = 300, counter_levels = 8, xlab = "vet/cow", ylab = "energy/cow")
+```
+
+## Method with specific arguments
+
+## Method with custom `g(.)` estimative
+
+## Without using the wrapper `matsuoka3step`

@@ -4,7 +4,7 @@
 \alias{estimate.g}
 \title{Estimate g(x) using specified strategy}
 \usage{
-estimate.g(X, z, strategy = "spline", ...)
+estimate.g(X, z, strategy = "gam", ...)
 }
 \arguments{
 \item{X}{A data.frame of input variables}
