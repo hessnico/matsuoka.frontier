@@ -11,7 +11,7 @@ estimate(X, y, g_strategy = "ll", ...)
 
 \item{y}{A numeric output vector}
 
-\item{g_strategy}{Method for estimating g(x). Options: "ll"
+\item{g_strategy}{Method for estimating g(x). Options: "splines"
 TODO: Options: "spline", or "scar"}
 
 \item{...}{Additional arguments passed to specific \code{g} estimators.}
