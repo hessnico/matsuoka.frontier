@@ -1,30 +1,32 @@
 #' Summary for matsuoka3step
+#' 
+#' @importFrom stats median
 #'
-#' @param obj A 'matsuoka3step' object.
+#' @param x A 'matsuoka3step' object.
 #' @param digits Number of digits to print.
 #' @param tol Tolerance to treat values as efficient (score >= 1 - tol).
 #' @param ... unused
 #' @export
-summary.matsuoka3step <- function(obj, digits = 4, tol = 1e-8, ...) {
-    if (!inherits(obj, "matsuoka3step")) {
+summary.matsuoka3step <- function(x, digits = 4, tol = 1e-8, ...) {
+    if (!inherits(x, "matsuoka3step")) {
         stop("object must be of class 'matsuoka3step'")
     }
     
-    eff <- as.numeric(obj$efficiency)
+    eff <- as.numeric(x$efficiency)
     eff_stats <- calculate.efficiency.stats(eff)
     
     gcall <- NULL
-    if (!is.null(obj$g_hat.fn_obj.call)) {
-        gcall <- obj$g_hat.fn_obj.call
-    } else if (!is.null(obj$g_hat) && is.list(obj$g_hat)) {
-        if (!is.null(obj$g_hat$fn_obj) && !is.null(obj$g_hat$fn_obj$call)) {
-            gcall <- obj$g_hat$fn_obj$call
-        } else if (!is.null(obj$g_hat$call)) {
-            gcall <- obj$g_hat$call
+    if (!is.null(x$g_hat.fn_obj.call)) {
+        gcall <- x$g_hat.fn_obj.call
+    } else if (!is.null(x$g_hat) && is.list(x$g_hat)) {
+        if (!is.null(x$g_hat$fn_obj) && !is.null(x$g_hat$fn_obj$call)) {
+            gcall <- x$g_hat$fn_obj$call
+        } else if (!is.null(x$g_hat$call)) {
+            gcall <- x$g_hat$call
         }
     }
     
-    model_call <- obj$call %||% obj$est.call %||% NULL
+    model_call <- x$call %||% x$est.call %||% NULL
     gcall_txt   <- get_deparsed(gcall)
     model_call_txt <- get_deparsed(model_call)
     

@@ -1,19 +1,22 @@
 #' Plot method for matsuoka3step objects
 #'
-#' @param obj An object of class `matsuoka3step`.
+#' @importFrom grDevices gray.colors
+#' @importFrom graphics filled.contour
+#'
+#' @param x An object of class `matsuoka3step`.
 #' @param ngrid Number of grid points per axis.
 #' @param counter_levels levels of contour from the plot.
 #' @param ... Extra graphical arguments passed to filled.contour.
 #'
 #' @export
-plot.matsuoka3step <- function(obj, ngrid = 500, counter_levels = 8, ...) {
-    if (ncol(obj$x) != 2) {
+plot.matsuoka3step <- function(x, ngrid = 500, counter_levels = 8, ...) {
+    if (ncol(x$x) != 2) {
         stop("Contour plot only implemented for 2D input (two covariates).")
     }
     
-    x1 <- obj$x[,1]
-    x2 <- obj$x[,2]
-    z  <- as.numeric(obj$f_hat)
+    x1 <- x$x[,1]
+    x2 <- x$x[,2]
+    z  <- as.numeric(x$f_hat)
     
     interp_grid <- akima::interp(
         x = x1, y = x2, z = z,

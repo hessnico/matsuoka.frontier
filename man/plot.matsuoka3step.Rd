@@ -4,10 +4,10 @@
 \alias{plot.matsuoka3step}
 \title{Plot method for matsuoka3step objects}
 \usage{
-\method{plot}{matsuoka3step}(obj, ngrid = 500, counter_levels = 8, ...)
+\method{plot}{matsuoka3step}(x, ngrid = 500, counter_levels = 8, ...)
 }
 \arguments{
-\item{obj}{An object of class \code{matsuoka3step}.}
+\item{x}{An object of class \code{matsuoka3step}.}
 
 \item{ngrid}{Number of grid points per axis.}
 

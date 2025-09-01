@@ -14,8 +14,8 @@ matsuoka3step(x, y, g = "spline", ...)
 \item{g}{A strategy for estimating g(x) ("spline" or custom function).
 Possible entries include:
 \describe{
-\item{"spline"}{Default value. Accepts only one indepedent variable.}
-\item{"gam"}{Wrapper for \code{gam} package function. Uses smoothing splines in the formula, e.g.: \eqn{z ~ s(x_1) + s(x_2)}.}
+\item{"spline"}{Default value. Accepts only one depedent variable.}
+\item{"gam"}{Wrapper for \code{gam} package function. Uses smoothing splines in the formula, e.g.: \eqn{z = s(x_1) + s(x_2)}.}
 }}
 
 \item{...}{Extra args passed to g(x) estimator.}

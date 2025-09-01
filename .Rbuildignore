@@ -4,4 +4,8 @@
 ^doc$
 ^Meta$
 ^dev$
+^Rcheck$
+
+^\.git$
+^\.gitignore$
 ^\.github$
