@@ -80,6 +80,11 @@ plot(res, ngrid = 200, counter_levels = 15)
 plot(res, ngrid = 300, counter_levels = 8, xlab = "vet/cow", ylab = "energy/cow")
 ```
 
+And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency stoces higher than one...
+```{r}
+summary(res)
+```
+
 ## Method with specific arguments
 
 ## Method with custom `g(.)` estimative

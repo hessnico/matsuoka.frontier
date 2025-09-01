@@ -23,12 +23,14 @@ Possible entries include:
 \value{
 An object of class \code{matsuoka3step}:
 \describe{
-\item{x}{The dependent variables.}
-\item{y}{The independet variable.}
-\item{g_hat}{Estimated values of the function \( g(x) \).}
-\item{g_hat_res}{Residuals from the estimation of \( g(x) \).}
-\item{p_hat}{Estimated parameter \( p \).}
-\item{f_hat}{Estimated productive frontier.}
+\item{x}{dependent variables.}
+\item{y}{independet variable.}
+\item{efficience}{deterministic efficiency calculated, being \eqn{y/\hat{f(x)}}}
+\item{call}{the matched call.}
+\item{g_hat}{estimated values of the function \( g(x) \).}
+\item{g_hat_res}{residuals from the estimation of \( g(x) \).}
+\item{p_hat}{estimated parameter \( p \).}
+\item{f_hat}{estimated productive frontier.}
 }
 }
 \description{
