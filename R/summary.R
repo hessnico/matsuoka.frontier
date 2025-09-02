@@ -2,31 +2,30 @@
 #' 
 #' @importFrom stats median
 #'
-#' @param x A 'matsuoka3step' object.
+#' @param object A 'matsuoka3step' object.
 #' @param digits Number of digits to print.
-#' @param tol Tolerance to treat values as efficient (score >= 1 - tol).
 #' @param ... unused
 #' @export
-summary.matsuoka3step <- function(x, digits = 4, tol = 1e-8, ...) {
-    if (!inherits(x, "matsuoka3step")) {
+summary.matsuoka3step <- function(object, digits = 4, ...) {
+    if (!inherits(object, "matsuoka3step")) {
         stop("object must be of class 'matsuoka3step'")
     }
     
-    eff <- as.numeric(x$efficiency)
+    eff <- as.numeric(object$efficiency)
     eff_stats <- calculate.efficiency.stats(eff)
     
     gcall <- NULL
-    if (!is.null(x$g_hat.fn_obj.call)) {
-        gcall <- x$g_hat.fn_obj.call
-    } else if (!is.null(x$g_hat) && is.list(x$g_hat)) {
-        if (!is.null(x$g_hat$fn_obj) && !is.null(x$g_hat$fn_obj$call)) {
-            gcall <- x$g_hat$fn_obj$call
-        } else if (!is.null(x$g_hat$call)) {
-            gcall <- x$g_hat$call
+    if (!is.null(object$g_hat.fn_obj.call)) {
+        gcall <- object$g_hat.fn_obj.call
+    } else if (!is.null(object$g_hat) && is.list(object$g_hat)) {
+        if (!is.null(object$g_hat$fn_obj) && !is.null(object$g_hat$fn_obj$call)) {
+            gcall <- object$g_hat$fn_obj$call
+        } else if (!is.null(object$g_hat$call)) {
+            gcall <- object$g_hat$call
         }
     }
     
-    model_call <- x$call %||% x$est.call %||% NULL
+    model_call <- object$call %||% object$est.call %||% NULL
     gcall_txt   <- get_deparsed(gcall)
     model_call_txt <- get_deparsed(model_call)
     
@@ -40,14 +39,18 @@ summary.matsuoka3step <- function(x, digits = 4, tol = 1e-8, ...) {
     }
     
     n <- length(eff)
-    n_efficient <- sum(eff >= 1 - tol, na.rm = TRUE)
+    n_efficient <- sum(eff >= 1, na.rm = TRUE)
     pct_efficient <- 100 * n_efficient / n
     
     cat("Efficiency summary:\n")
     print(round(eff_stats, digits = digits))
     cat("\n")
-    cat(sprintf("%% efficient (score >= 1 - %g): %.2f%% (%d of %d)\n",
-                tol, pct_efficient, n_efficient, n))
+    cat(sprintf("%% efficient (score >= 1): %.2f%% (%d of %d)\n",
+                pct_efficient, n_efficient, n))
+    cat("\n")
+    
+    cat(sprintf("Matsuoka's p parameter estimated value: %.*f\n", digits, object$p_hat))
+    
     cat("\n")
     
     invisible(list(

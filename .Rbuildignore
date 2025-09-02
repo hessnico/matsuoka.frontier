@@ -4,8 +4,13 @@
 ^doc$
 ^Meta$
 ^dev$
-^Rcheck$
 
 ^\.git$
-^\.gitignore$
 ^\.github$
+^\.gitignore$
+^\.Rproj$
+^\.Rproj\.user$
+^\.Rhistory$
+^\.RData$
+^\.DS_Store$
+^\.Rcheck$
