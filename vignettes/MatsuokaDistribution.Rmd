@@ -87,6 +87,64 @@ summary(res)
 
 ## Method with specific arguments
 
+The `matsuoka3step` estimation function inherits properties from S3 objects, such as three dots that can be used for the estimation of `g(x)`.
+
+```{r specific}
+res.specific.gam <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "gam",
+                                        family = "gaussian",
+                                        method = "NCV",
+                                        optimizer = "efs")
+summary(res.specific.gam)
+
+res.specific.spline <- matsuoka.frontier::matsuoka3step(x = as.data.frame(x.df$x1),
+                                                        y = y, g ="spline",
+                                                        lambda = 5,
+                                                        all.knots = TRUE,
+                                                        penalty = 0.95)
+
+summary(res.specific.spline)
+```
+
 ## Method with custom `g(.)` estimative
 
+Finally, there's the possibility to apply a customizable function from the user
+
+```{r custom}
+custom_fun <- function(X, z, ...) {
+    list(estimate = rep(mean(z), nrow(X)))
+}
+
+res.custom.fn <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = custom_fun)
+summary(res.custom.fn)
+plot(res.custom.fn)
+```
+
 ## Without using the wrapper `matsuoka3step`
+
+There's also the possibility to mount your own matsuoka three step approach, given that primary functions are being publicly exported
+
+```{r diy}
+diy.df <- x.df
+diy.df$y <- y
+
+diy.df
+
+## First step is to e stimate g
+
+X <- diy.df %>% dplyr::select(c(x1, x2))
+z <- -log(diy.df$y)
+g.fn.est <- matsuoka.frontier::estimate.g(X, z)
+
+## Then, estimate p
+
+res <- z - g.fn.est$estimate
+p.est <- matsuoka.frontier::estimate.p(res)
+
+## Then, estimate f hat
+
+f.fn.est <- matsuoka.frontier::estimate.frontier(g.fn.est$estimate, p.est)
+
+ef <- y / f.fn.est
+summary(ef)
+print(p.est)
+```

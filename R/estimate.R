@@ -13,7 +13,7 @@
 #'
 #' @return A list with elements: g_hat, residuals, p_hat, f_hat.
 #' @export
-estimate <- function(X, y, g_strategy = "ll", ...) {
+estimate <- function(X, y, g_strategy = "splines", ...) {
     z <- -log(y)
 
     g_res <- estimate.g(X, z, strategy = g_strategy, ...)
