@@ -127,8 +127,6 @@ There's also the possibility to mount your own matsuoka three step approach, giv
 diy.df <- x.df
 diy.df$y <- y
 
-diy.df
-
 ## First step is to e stimate g
 
 X <- diy.df %>% dplyr::select(c(x1, x2))
