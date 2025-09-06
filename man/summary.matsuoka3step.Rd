@@ -4,14 +4,12 @@
 \alias{summary.matsuoka3step}
 \title{Summary for matsuoka3step}
 \usage{
-\method{summary}{matsuoka3step}(x, digits = 4, tol = 1e-08, ...)
+\method{summary}{matsuoka3step}(object, digits = 4, ...)
 }
 \arguments{
-\item{x}{A 'matsuoka3step' object.}
+\item{object}{A 'matsuoka3step' object.}
 
 \item{digits}{Number of digits to print.}
-
-\item{tol}{Tolerance to treat values as efficient (score >= 1 - tol).}
 
 \item{...}{unused}
 }

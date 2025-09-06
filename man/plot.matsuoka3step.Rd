@@ -4,17 +4,32 @@
 \alias{plot.matsuoka3step}
 \title{Plot method for matsuoka3step objects}
 \usage{
-\method{plot}{matsuoka3step}(x, ngrid = 500, counter_levels = 8, ...)
+\method{plot}{matsuoka3step}(x, which = NULL, ngrid = 500, counter_levels = 8, ask = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{matsuoka3step}.}
 
-\item{ngrid}{Number of grid points per axis.}
+\item{which}{Which plot(s) to show:
+\code{1} = density,
+\code{2} = contour (requires 2D input),
+\code{c(1,2)} or \code{"both"} = both.}
 
-\item{counter_levels}{levels of contour from the plot.}
+\item{ngrid}{Number of grid points per axis for interpolation (contour only).}
 
-\item{...}{Extra graphical arguments passed to filled.contour.}
+\item{counter_levels}{Number of contour levels (contour only).}
+
+\item{ask}{Logical; if \code{TRUE}, pause between plots.}
+
+\item{...}{Additional graphical parameters passed to plotting functions.}
+}
+\value{
+Invisibly returns \code{NULL}. Called for its side effect of plotting.
 }
 \description{
-Plot method for matsuoka3step objects
+Produces diagnostic plots for a fitted Matsuoka frontier model:
+(i) the fitted density function based on \code{p_hat},
+(ii) a filled contour of the estimated production frontier.
+}
+\seealso{
+\code{\link[=matsuoka.density]{matsuoka.density()}}, \code{\link[=contour.plot.helper]{contour.plot.helper()}}, \code{\link[=den.plot]{den.plot()}}
 }

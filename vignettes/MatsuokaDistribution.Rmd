@@ -54,7 +54,7 @@ res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "gam")
 ```
 
 This generates the `matsuoka3step` class object.
-Please Check the documentation for more infomation with `help(matsuoka3step)`.
+Please Check the documentation for more information with `help(matsuoka3step)`.
 
 The default non-parametric function that estimates `g(.)` is set to the `gam` function.
 It's possible to diagnose the `g(.)` function estimation through hierarchical built-in functions.
@@ -75,9 +75,12 @@ plot(
 After diagnosing the `g(.)` function, we can forward to the production frontier estimation diagnostics.
 There is a built-in plot function that can be used, for example:
 ```{r gam mat}
-plot(res)
-plot(res, ngrid = 200, counter_levels = 15)
-plot(res, ngrid = 300, counter_levels = 8, xlab = "vet/cow", ylab = "energy/cow")
+plot(res, which = 2)
+plot(res, ngrid = 200, counter_levels = 15, which = 2)
+plot(res, ngrid = 300, counter_levels = 8, xlab = "vet/cow", ylab = "energy/cow",
+     main = "Countour plot",
+     sub = "With subplot"
+)
 ```
 
 And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency stoces higher than one...
@@ -129,7 +132,7 @@ diy.df$y <- y
 
 ## First step is to e stimate g
 
-X <- diy.df %>% dplyr::select(c(x1, x2))
+X <- as.data.frame(cbind(diy.df$x1, diy.df$x2))
 z <- -log(diy.df$y)
 g.fn.est <- matsuoka.frontier::estimate.g(X, z)
 

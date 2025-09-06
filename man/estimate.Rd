@@ -4,7 +4,7 @@
 \alias{estimate}
 \title{Run the Three-Step Frontier Estimation}
 \usage{
-estimate(X, y, g_strategy = "ll", ...)
+estimate(X, y, g_strategy = "splines", ...)
 }
 \arguments{
 \item{X}{A data.frame of input variables}
