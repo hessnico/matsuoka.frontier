@@ -2,18 +2,23 @@
 % Please edit documentation in R/matsuoka_density.R
 \name{matsuoka.density}
 \alias{matsuoka.density}
-\title{Implements Matsuoka density function}
+\title{Matsuoka Density Function}
 \usage{
 matsuoka.density(x, p)
 }
 \arguments{
-\item{x}{numeric vector of values \eqn{x \contains (0,1)}}
+\item{x}{Numeric vector. Values must lie strictly between 0 and 1. \code{NA} values are allowed and returned as 0.}
 
-\item{p}{positive parameter.}
+\item{p}{Positive numeric parameter of the density. Must be greater than 0.}
 }
 \value{
-numeric vector of density values.
+A numeric vector of the same length as \code{x}, giving the density values. Positions where \code{x <= 0}, \code{x >= 1}, or \code{x} is \code{NA} return 0.
 }
 \description{
-Implements Matsuoka density function
+Computes the \strong{Matsuoka density function} for a numeric vector of values in the interval (0,1).
+This function is commonly used in efficiency and frontier analysis.
+}
+\details{
+The density is defined as:
+\deqn{f(x; p) = 2 \sqrt{\frac{-p^3 \log(x)}{\pi}} \, x^{p-1}, \quad 0 < x < 1, \; p > 0}
 }
