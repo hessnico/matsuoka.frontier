@@ -3,6 +3,7 @@
 #' Produces diagnostic plots for a fitted Matsuoka frontier model:
 #' (i) the fitted density function based on \code{p_hat},
 #' (ii) a filled contour of the estimated production frontier.
+#' (iii) the plot for each xy values with productive estimated function
 #'
 #' @param x An object of class \code{matsuoka3step}.
 #' @param which Which plot(s) to show: 

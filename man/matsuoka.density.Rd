@@ -16,7 +16,6 @@ A numeric vector of the same length as \code{x}, giving the density values. Posi
 }
 \description{
 Computes the \strong{Matsuoka density function} for a numeric vector of values in the interval (0,1).
-This function is commonly used in efficiency and frontier analysis.
 }
 \details{
 The density is defined as:

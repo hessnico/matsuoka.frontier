@@ -28,14 +28,24 @@ remotes::install_github("hessnico/matsuoka.frontier")
 
 ## Usage 
 
+For detailed examples and explanations, please see the package vignette:
+
+[**Matsuoka Vignette**](vignettes/MatsuokaDistribution.Rmd)
+
+### Quick Example
+
 ```r
-library(matsuoka.frontier)
+# Load the package
+library(matsuokafrontier)
 
 x <- ...
 y <- ...
 
+# Example using the normal method
 result <- matsuoka.frontier::matsuoka3step(x = x, y = y)
-str(result)
+
+summary(result)
+plot(result)
 ```
 
 ## About
