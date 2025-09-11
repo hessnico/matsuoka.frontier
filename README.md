@@ -45,15 +45,20 @@ It aims to provide a practical and flexible implementation of the three-step pro
 
 
 ## Some enhacements to do 
+- [ ] **Add more private methods in `estimate_g`**  
+  Expand the internal functionality of the `estimate_g` function to include additional helper methods for improved estimation, as the ones cited in the article;
 
-1. Add more private method on `estimate_g`;
-2. Find a way to plot the output of `matsuokafrontier::estimate`;
-- 2D done;
-- For 1D: plot x=x and y=y, line=f_hat
-- For p, graph of density
-3. Enhance documentation with examples on usage of the package, including all three functions;
-- Normal method;
-- Method with specific arguments;
-- User custom method.
-4. KS test with the Matsuoka's distribution
-- vec r_hat x Matsuoka(p_hat)
+- [X] **Plotting the output of `matsuokafrontier::matsuoka3step`**  
+  Visualize the estimated frontiers or densities depending on the data dimension:
+  - [X] **1D data**: Plot `x` vs `y` and overlay the estimated frontier line `f_hat`.  
+  - [X] **2D data**: Create a contour plot of the estimated frontier.  
+  - [X] **Parameter `p`**: Visualize the density of the Matsuoka distribution.
+
+- [X] **Enhance documentation with usage examples**  
+  Provide clear examples for users to understand and apply the package functions:
+  - [X] Using the **normal method**.  
+  - [X] Using a method with **specific arguments**.  
+  - [X] Using a **user-defined custom method**.
+
+- [ ] **Kolmogorov-Smirnov (KS) test with the Matsuoka distribution**  
+  Perform a goodness-of-fit test comparing estimated values `r_hat` to the theoretical `Matsuoka(p_hat)` distribution.

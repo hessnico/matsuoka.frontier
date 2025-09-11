@@ -21,8 +21,12 @@
 #' @export
 #'
 #' @seealso [matsuoka.density()], [contour.plot.helper()], [den.plot()]
-plot.matsuoka3step <- function(x, which = NULL, 
-                               ngrid = 500, counter_levels = 8, ask = FALSE, ...) {
+plot.matsuoka3step <- function(x,
+                               which = NULL, 
+                               ngrid = 500,
+                               counter_levels = 8,
+                               ask = FALSE,
+                               ...) {
     oldpar <- par(no.readonly = TRUE)
     on.exit(par(oldpar), add = TRUE)
     if (ask && interactive()) par(ask = TRUE)
@@ -30,17 +34,19 @@ plot.matsuoka3step <- function(x, which = NULL,
     validate.matsuoka.plot(x)
     
     if (is.null(which)) {
-        which <- c(1, 2)
+        which <- c(1, 2, 3)
     }
     
     if (1 %in% which) {
         den.plot(x)
     }
-    if (2 %in% which) {
-        if (ncol(x$x) != 2) {
-            stop("Contour plot only implemented for 2D input (two covariates).")
-        }
+    
+    if (2 %in% which && ncol(x$x) == 2) {
         contour.plot.helper(x, ngrid = ngrid, counter_levels = counter_levels, ...)
+    }
+    
+    if (3 %in% which) {
+        f.hat.x.y.plot(x, ...)
     }
     
     invisible(NULL)
@@ -52,12 +58,72 @@ validate.matsuoka.plot <- function(x) {
     if (!inherits(x, "matsuoka3step")) {
         stop("x must be of class 'matsuoka3step'.")
     }
-    if (is.null(x$x) || is.null(x$f_hat) || is.null(x$p_hat)) {
-        stop("object must contain elements 'x', 'f_hat', and 'p_hat'.")
+    if (is.null(x$x) || is.null(x$f_hat) || is.null(x$p_hat) || is.null(x$y)) {
+        stop("object must contain elements 'x', 'y', 'f_hat', and 'p_hat'.")
     }
     if (x$p_hat <= 0) {
         stop("p_hat must be positive.")
     }
+}
+
+#' Plot each xy values with productive estimated function
+#' @keywords internal
+#' Plot estimated production functions
+#'
+#' This function plots the observed output \code{y} against each input variable
+#' in \code{res$x}, along with the corresponding estimated frontier
+#' \code{res$f_hat}.
+#'
+#' @param res A fitted object containing at least:
+#'   \describe{
+#'     \item{x}{A data frame of input variables.}
+#'     \item{y}{A numeric vector of observed outputs.}
+#'     \item{f_hat}{A numeric vector of fitted/estimated outputs.}
+#'   }
+#' @param ... Additional graphical parameters passed to [plot()].
+#'
+#' @details
+#' Axis labels can be set with \code{xlab} and \code{ylab}.  
+#' Defaults are \code{"x"} and \code{"y"} if not provided.
+#'
+#' @return Invisibly returns \code{NULL}. The function is called for its side
+#' effect of producing plots.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' res <- list(
+#'   x = data.frame(x1 = rnorm(50), x2 = rnorm(50)),
+#'   y = rnorm(50),
+#'   f_hat = rnorm(50)
+#' )
+#' f.hat.x.y.plot(res, xlab = "Inputs", ylab = "Outputs")
+#' }
+f.hat.x.y.plot <- function(res, ...) {
+    dots <- list(...)
+    if (is.null(dots$xlab)) dots$xlab <- "x"
+    if (is.null(dots$ylab)) dots$ylab <- "y"
+    xlab = dots$xlab
+    ylab = dots$ylab
+    
+    y.plot <- sort(res$y)
+    f.hat.plot <- sort(res$f_hat)
+    ylim = c(min(y.plot, f.hat.plot)*0.95, max(y.plot, f.hat.plot)*1.05)
+    
+    for (n in names(res$x)) {
+        x.plot <- sort(res$x[[n]])
+        
+        plot(
+            x.plot, y.plot,
+            ylim = ylim,
+            xlim = c(min(x.plot)*0.95, max(x.plot)*1.05),
+            xlab = xlab, ylab = ylab,
+            main = sprintf("Estimated production frontier plot for %s", xlab)
+        )
+        lines(x.plot, f.hat.plot, col = "red", lwd = 1)
+    }
+    
+    invisible(NULL)
 }
 
 #' Filled contour plot helper
@@ -76,7 +142,7 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
     breaks <- pretty(range(interp_grid$z, na.rm = TRUE), n = counter_levels)
     
     dots <- list(...)
-    if (is.null(dots$main)) dots$main <- "Contour of Estimated Production Frontier"
+    dots$main <- "Contour plot of estimated production frontier"
     if (is.null(dots$xlab)) dots$xlab <- "X1"
     if (is.null(dots$ylab)) dots$ylab <- "X2"
     if (is.null(dots$color.palette)) {

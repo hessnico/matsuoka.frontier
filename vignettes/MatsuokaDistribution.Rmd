@@ -78,12 +78,11 @@ There is a built-in plot function that can be used, for example:
 plot(res, which = 2)
 plot(res, ngrid = 200, counter_levels = 15, which = 2)
 plot(res, ngrid = 300, counter_levels = 8, xlab = "vet/cow", ylab = "energy/cow",
-     main = "Countour plot",
-     sub = "With subplot"
+     sub = "With 8 contour levels"
 )
 ```
 
-And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency stoces higher than one...
+And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency scores higher than one...
 ```{r}
 summary(res)
 ```
@@ -106,6 +105,7 @@ res.specific.spline <- matsuoka.frontier::matsuoka3step(x = as.data.frame(x.df$x
                                                         penalty = 0.95)
 
 summary(res.specific.spline)
+plot(res.specific.spline)
 ```
 
 ## Method with custom `g(.)` estimative
