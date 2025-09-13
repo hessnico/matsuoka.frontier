@@ -21,7 +21,7 @@
 #' @return Invisibly returns \code{NULL}. Called for its side effect of plotting.
 #' @export
 #'
-#' @seealso [matsuoka.density()], [contour.plot.helper()], [den.plot()]
+#' @seealso [c.matsuoka()], [contour.plot.helper()], [den.plot()]
 plot.matsuoka3step <- function(x,
                                which = NULL, 
                                ngrid = 500,
@@ -81,7 +81,6 @@ validate.matsuoka.plot <- function(x) {
 #'     \item{y}{A numeric vector of observed outputs.}
 #'     \item{f_hat}{A numeric vector of fitted/estimated outputs.}
 #'   }
-#' @param ... Additional graphical parameters passed to [plot()].
 #'
 #' @details
 #' Axis labels can be set with \code{xlab} and \code{ylab}.  
@@ -90,26 +89,13 @@ validate.matsuoka.plot <- function(x) {
 #' @return Invisibly returns \code{NULL}. The function is called for its side
 #' effect of producing plots.
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' res <- list(
-#'   x = data.frame(x1 = rnorm(50), x2 = rnorm(50)),
-#'   y = rnorm(50),
-#'   f_hat = rnorm(50)
-#' )
-#' f.hat.x.y.plot(res, xlab = "Inputs", ylab = "Outputs")
-#' }
 f.hat.x.y.plot <- function(res, ...) {
-    dots <- list(...)
-    if (is.null(dots$xlab)) dots$xlab <- "x"
-    if (is.null(dots$ylab)) dots$ylab <- "y"
-    xlab = dots$xlab
-    ylab = dots$ylab
-    
     y.plot <- sort(res$y)
     f.hat.plot <- sort(res$f_hat)
     ylim = c(min(y.plot, f.hat.plot)*0.95, max(y.plot, f.hat.plot)*1.05)
+    
+    dots = list(...)
+    ylab = dots$ylab
     
     for (n in names(res$x)) {
         x.plot <- sort(res$x[[n]])
@@ -117,9 +103,10 @@ f.hat.x.y.plot <- function(res, ...) {
         plot(
             x.plot, y.plot,
             ylim = ylim,
+            ylab = ylab,
+            xlab = n,
             xlim = c(min(x.plot)*0.95, max(x.plot)*1.05),
-            xlab = xlab, ylab = ylab,
-            main = sprintf("Estimated production frontier plot for %s", xlab)
+            main = sprintf("Estimated production frontier plot for %s", n)
         )
         lines(x.plot, f.hat.plot, col = "red", lwd = 1)
     }
@@ -132,6 +119,7 @@ f.hat.x.y.plot <- function(res, ...) {
 contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
     x1 <- x$x[, 1]
     x2 <- x$x[, 2]
+    
     z  <- as.numeric(x$f_hat)
     
     interp_grid <- akima::interp(
@@ -143,9 +131,9 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
     breaks <- pretty(range(interp_grid$z, na.rm = TRUE), n = counter_levels)
     
     dots <- list(...)
+    dots$xlab = names(x$x)[1]
+    dots$ylab = names(x$x)[2]
     dots$main <- "Contour plot of estimated production frontier"
-    if (is.null(dots$xlab)) dots$xlab <- "X1"
-    if (is.null(dots$ylab)) dots$ylab <- "X2"
     if (is.null(dots$color.palette)) {
         dots$color.palette <- function(n) gray.colors(n, start = 1, end = 0)
     }
@@ -183,7 +171,7 @@ den.plot <- function(obj) {
     x.seq <- seq(1e-10, 1 - 1e-10, length.out = 10000)
     p <- obj$p_hat
     
-    den <- matsuoka.density(x.seq, p)
+    den <- d.matsuoka(x.seq, p)
     
     plot(x.seq, den, type = "n",
          xlab = "x", ylab = "f(x)",

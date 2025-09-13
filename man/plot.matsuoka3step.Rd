@@ -29,7 +29,8 @@ Invisibly returns \code{NULL}. Called for its side effect of plotting.
 Produces diagnostic plots for a fitted Matsuoka frontier model:
 (i) the fitted density function based on \code{p_hat},
 (ii) a filled contour of the estimated production frontier.
+(iii) the plot for each xy values with productive estimated function
 }
 \seealso{
-\code{\link[=matsuoka.density]{matsuoka.density()}}, \code{\link[=contour.plot.helper]{contour.plot.helper()}}, \code{\link[=den.plot]{den.plot()}}
+\code{\link[=c.matsuoka]{c.matsuoka()}}, \code{\link[=contour.plot.helper]{contour.plot.helper()}}, \code{\link[=den.plot]{den.plot()}}
 }

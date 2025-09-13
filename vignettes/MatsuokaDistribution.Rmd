@@ -74,11 +74,19 @@ plot(
 
 After diagnosing the `g(.)` function, we can forward to the production frontier estimation diagnostics.
 There is a built-in plot function that can be used, for example:
-```{r gam mat}
-plot(res, which = 2)
+```{r gam mat plot 1}
+plot(res, which = 1)
+```
+
+```{r gam mat plot 2}
 plot(res, ngrid = 200, counter_levels = 15, which = 2)
-plot(res, ngrid = 300, counter_levels = 8, xlab = "vet/cow", ylab = "energy/cow",
-     sub = "With 8 contour levels"
+```
+
+```{r gam mat plot 3}
+names(res$x) <- c("vet/cow", "energy/cow")
+plot(res, ngrid = 300, counter_levels = 8,
+     sub = "With 8 contour levels",
+     ylab = "milk producde"
 )
 ```
 

@@ -13,8 +13,6 @@ f.hat.x.y.plot(res, ...)
 \item{y}{A numeric vector of observed outputs.}
 \item{f_hat}{A numeric vector of fitted/estimated outputs.}
 }}
-
-\item{...}{Additional graphical parameters passed to \code{\link[=plot]{plot()}}.}
 }
 \value{
 Invisibly returns \code{NULL}. The function is called for its side
@@ -26,16 +24,6 @@ Plot each xy values with productive estimated function
 \details{
 Axis labels can be set with \code{xlab} and \code{ylab}.
 Defaults are \code{"x"} and \code{"y"} if not provided.
-}
-\examples{
-\dontrun{
-res <- list(
-  x = data.frame(x1 = rnorm(50), x2 = rnorm(50)),
-  y = rnorm(50),
-  f_hat = rnorm(50)
-)
-f.hat.x.y.plot(res, xlab = "Inputs", ylab = "Outputs")
-}
 }
 \keyword{Plot}
 \keyword{This}
