@@ -21,7 +21,7 @@
 #' @return Invisibly returns \code{NULL}. Called for its side effect of plotting.
 #' @export
 #'
-#' @seealso [c.matsuoka()], [contour.plot.helper()], [den.plot()]
+#' @seealso [cmatsuoka()], [contour.plot.helper()], [den.plot()]
 plot.matsuoka3step <- function(x,
                                which = NULL, 
                                ngrid = 500,
@@ -171,7 +171,7 @@ den.plot <- function(obj) {
     x.seq <- seq(1e-10, 1 - 1e-10, length.out = 10000)
     p <- obj$p_hat
     
-    den <- d.matsuoka(x.seq, p)
+    den <- dmatsuoka(x.seq, p)
     
     plot(x.seq, den, type = "n",
          xlab = "x", ylab = "f(x)",

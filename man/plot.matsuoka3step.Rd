@@ -32,5 +32,5 @@ Produces diagnostic plots for a fitted Matsuoka frontier model:
 (iii) the plot for each xy values with productive estimated function
 }
 \seealso{
-\code{\link[=c.matsuoka]{c.matsuoka()}}, \code{\link[=contour.plot.helper]{contour.plot.helper()}}, \code{\link[=den.plot]{den.plot()}}
+\code{\link[=cmatsuoka]{cmatsuoka()}}, \code{\link[=contour.plot.helper]{contour.plot.helper()}}, \code{\link[=den.plot]{den.plot()}}
 }

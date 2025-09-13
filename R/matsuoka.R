@@ -11,7 +11,7 @@
 #' @return A numeric vector of the same length as `x`, giving the density values. Positions where `x <= 0`, `x >= 1`, or `x` is `NA` return 0.
 #'
 #' @export
-d.matsuoka <- function(x, p) {
+dmatsuoka <- function(x, p) {
     if (p <= 0) stop("p must be positive.")
     
     ind <- which(!is.na(x) & (x > 0) & (x < 1))
@@ -32,21 +32,21 @@ d.matsuoka <- function(x, p) {
 #' where \eqn{\Gamma(a, t)} is the upper incomplete gamma function
 #' and \eqn{I(\cdot)} denotes the indicator function.
 #'
-#' As mentioned \eqn{\Gamma(a, t)} is the upper incomplete gamma and
-#' \code{pgamma(t, shape = a, lower.tail = FALSE)} returns the regularized
-#' upper incomplete gamma \eqn{Q(a,t)=\Gamma(a,t)/\Gamma(a)} following \code{link[stats]{pgamma}} documentation.
+#' Following **stats::pgamma** documentation page, \eqn{\Gamma(a,t)} can be computed using
+#' \code{pgamma(t, shape = a, lower.tail = FALSE)} which returns the 
+#' upper incomplete gamma function value.
 #'
 #' @param x numeric scalar. Value at which to evaluate the cumulative function.
 #'          Must be a single non-NA numeric value.
 #' @param p positive numeric scalar parameter (must be > 0).
 #' @return A numeric scalar in \[0, 1\].
 #' @examples
-#' c.matsuoka(0.5, p = 2)
-#' c.matsuoka(1, p = 2)
-#' c.matsuoka(0, p = 2)
+#' cmatsuoka(0.5, p = 2)
+#' cmatsuoka(1, p = 2)
+#' cmatsuoka(0, p = 2)
 #' @seealso \code{\link[stats]{pgamma}}, \code{\link{gamma}}
 #' @export
-c.matsuoka <- function(x, p) {
+cmatsuoka <- function(x, p) {
     if (!is.numeric(x) || length(x) != 1) stop("`x` must be numeric.")
     if (!is.numeric(p) || length(p) != 1 || is.na(p)) stop("`p` must be a single numeric (non-NA).")
     if (p <= 0) stop("`p` must be positive.")
