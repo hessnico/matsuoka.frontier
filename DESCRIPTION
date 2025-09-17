@@ -7,7 +7,7 @@ Authors@R: person(given = "Nicolas",
                     role = c("aut", "cre"),
                     email = "nicolashess1@gmail.com")
 Maintainer: Nicolas Hess <nicolashess1@gmail.com>
-Description: Implementation of a deterministic production frontier model based on the three-step estimation approach described in "A Three-Step Approach to Production Frontier Estimation and the Matsuoka’s Distribution". It provides tools for estimating the production frontier, evaluating efficiency, and visualizing results. Various methods for nonparametric regression estimation of the production function are supported, including local linear regression and spline approaches.
+Description: Implementation of a deterministic production frontier model based on the three-step estimation approach described in "A Three-Step Approach to Production Frontier Estimation and the Matsuoka’s Distribution" article. This package provides tools for estimating the production frontier, evaluating efficiency, and visualizing results. Various methods for nonparametric regression estimation of the production function are supported, including local linear regression, splines, generalized additive models, etc...
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -23,5 +23,7 @@ Suggests:
     akima
 Imports:
     mgcv,
-    KernSmooth
+    KernSmooth,
+    scar,
+    stats
 Config/testthat/edition: 3

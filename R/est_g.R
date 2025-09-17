@@ -38,6 +38,8 @@
 #' \itemize{
 #'   \item `"spline"`: Fits a smoothing spline using \code{stats::smooth.spline}.
 #'   \item `"gam"`: Fits a generalized additive model using \code{mgcv::gam}.
+#'   \item `"scar"`: Fits a Shape-Constrained additive regression model using \code{scar::scar}.
+#'   \item `"locpoly"`: Fits a local polynomial function using \code{KernSmooth::locpoly}.
 #' }
 #'
 #' @export

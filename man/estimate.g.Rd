@@ -57,6 +57,8 @@ The following strategies are currently registered:
 \itemize{
 \item \code{"spline"}: Fits a smoothing spline using \code{stats::smooth.spline}.
 \item \code{"gam"}: Fits a generalized additive model using \code{mgcv::gam}.
+\item \code{"scar"}: Fits a Shape-Constrained additive regression model using \code{scar::scar}.
+\item \code{"locpoly"}: Fits a local polynomial function using \code{KernSmooth::locpoly}.
 }
 }
 

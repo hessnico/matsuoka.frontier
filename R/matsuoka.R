@@ -46,6 +46,8 @@ dmatsuoka <- function(x, p) {
 #' cmatsuoka(0, p = 2)
 #' @seealso \code{\link[stats]{pgamma}}, \code{\link{gamma}}
 #' @export
+#' 
+#' @importFrom stats pgamma
 cmatsuoka <- function(x, p) {
     if (!is.numeric(x)) stop("`x` must be numeric.")
     if (!is.numeric(p) || length(p) != 1 || is.na(p)) stop("`p` must be a single numeric (non-NA).")
@@ -80,13 +82,10 @@ rmatsuoka <- function(n, p) {
         stop("`p` must be a single positive numeric parameter.")
     }
     
-    # 1. generate uniforms
     u <- runif(n)
     
-    # 2. define vectorized CDF
     cdf <- function(x) vapply(x, function(z) c.matsuoka(z, p), numeric(1))
     
-    # 3. numeric inverse via uniroot for each u
     q <- vapply(u, function(ui) {
         if (ui <= 0) return(0)
         if (ui >= 1) return(1)

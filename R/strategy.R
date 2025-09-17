@@ -8,7 +8,7 @@ register_strategy <- function(name, fn) {
 }
 
 #' @importFrom stats smooth.spline predict
-spline <- function(x, z, ...) {
+.spline <- function(x, z, ...) {
     if (ncol(x) != 1) {
         stop("Spline strategy currently supports univariate input only.")
     }
@@ -21,7 +21,7 @@ spline <- function(x, z, ...) {
 }
 
 #' @importFrom mgcv gam
-gam <- function(x, z, ...) {
+.gam <- function(x, z, ...) {
     terms <- paste0("s(", names(x), ")", collapse = " + ")
     formula <- stats::as.formula(paste("z ~", terms))
     df <- cbind(z = z, x)
@@ -33,4 +33,43 @@ gam <- function(x, z, ...) {
     )
 }
 
+#' @importFrom scar scar
+.scar <- function(x, z, ...) {
+    if (is.data.frame(x)) {
+        if (ncol(x) == 1L) {
+            x <- as.numeric(x[[1L]])
+        } else {
+            x <- as.matrix(x)
+        }
+    }
+    
+    fit <- scar::scar(x = x, y = z, ...)
+    estimate <- predict(fit, newdata = x)
+    
+    list(
+        estimate = as.numeric(estimate),
+        model = fit,
+        meta = list(
+            method = "scar",
+            call = match.call()
+        )
+    )
+}
 
+#' @importFrom KernSmooth locpoly
+.locpoly <- function(x, z, ...) {
+    if (ncol(x) != 1) stop("locpoly_strategy currently supports univariate input only.")
+    
+    x_vec <- x[[1]]
+    fit <- KernSmooth::locpoly(x = x_vec, y = z, ...)
+    estimate <- stats::approx(fit$x, fit$y, xout = x_vec, rule = 2)$y
+    
+    list(
+        estimate = as.numeric(estimate),
+        model = fit,
+        meta = list(
+            method = "locpoly",
+            call = match.call()
+        )
+    )
+}
