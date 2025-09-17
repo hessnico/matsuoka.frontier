@@ -53,12 +53,13 @@ estimate.g <- function(X, z, strategy = "gam", ...) {
     }
     
     if (is.character(strategy) && length(strategy) == 1) {
-        fn <- get(strategy, envir = .strategy_env, inherits = FALSE)
-        if (!is.function(fn)) {
+        if (!exists(strategy, envir = .strategy_env, inherits = FALSE)) {
             stop(sprintf("Unknown strategy '%s'. Did you register it?", strategy))
         }
+        
+        fn <- get(strategy, envir = .strategy_env, inherits = FALSE)
         res <- fn(X, z, ...)
-        stopifnot(is.list(res), !is.null(res$estimate))
+        stopifnot(is.list(res), !is.null(res$estimate), !is.null(res$model), !is.null(res$meta))
         return(res)
     }
     

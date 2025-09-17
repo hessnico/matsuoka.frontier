@@ -12,7 +12,7 @@ test_that("Spline strategy works correctly", {
     expect_equal(length(res$estimate), nrow(X))
     expect_true(!is.null(res$model))
     expect_true("method" %in% names(res$meta))
-    expect_equal(res$meta$method, "smooth.spline")
+    expect_equal(res$meta$method, "spline")
     expect_true("call" %in% names(res$meta))
 })
 

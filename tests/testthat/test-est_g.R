@@ -16,8 +16,13 @@ test_that("estimate.g works for multiple strategies with proper data setup", {
     strategies <- list(
         list(name = "spline", X = X_full[1], args = list()),
         list(name = "gam",    X = X_full, args = list(method = "REML")),
+        list(name = "gam",    X = X_full, args = list(method = "REML")),
         list(name = "locpoly", X = X_full[1], args = list(bandwidth = 1)),
-        list(name = "scar", X = X_full, args = list(shape = data.frame("l", "l")))
+        list(name = "scar", X = X_full, args = list(shape = data.frame("l", "l"))),
+        
+        list(name = "backf.cl", X = X_full, args = list(windows=c(1, 1))),
+        # list(name = "sback", X = X_full, args = list()),
+        list(name = "backf.rob", X = X_full, args = list(windows=c(1, 1)))
     )
     
     for (s in strategies) {
@@ -25,7 +30,7 @@ test_that("estimate.g works for multiple strategies with proper data setup", {
             estimate.g,
             c(list(X = s$X, z = z, strategy = s$name), s$args)
         )
-        
+      
         expect_type(res, "list")
         expect_true(!is.null(res$estimate))
         expect_equal(length(res$estimate), N)
@@ -38,21 +43,20 @@ test_that("estimate.g errors if X is not a data.frame", {
     X_mat <- matrix(runif(50), ncol = 1)
     z <- log(runif(50, 1, 5))
     
+    # TODO: Refactor to follow the approach of the success case
     expect_error(estimate.g(X_mat, z, strategy = "spline"))
+    expect_error(estimate.g(X_mat, z, strategy = "locpoly"))
+    expect_error(estimate.g(X_mat, z, strategy = "backf.cl"))
+    expect_error(estimate.g(X_mat, z, strategy = "gam"))
+    expect_error(estimate.g(X_mat, z, strategy = "backf.rob"))
 })
 
-test_that("estimate.g errors if X is not a data.frame", {
-    X_mat <- matrix(runif(50), ncol = 1)
-    z <- log(runif(50, 1, 5))
-    
-    expect_error(estimate.g(X_mat, z, strategy = "spline"))
-})
-
-test_that("estimate.g errors if spline input is multivariate", {
+test_that("estimate.g errors if spline/locploy input is multivariate", {
     X <- data.frame(x1 = runif(10), x2 = runif(10))
     z <- log(runif(10, 1, 5))
     
     expect_error(estimate.g(X, z, strategy = "spline"))
+    expect_error(estimate.g(X, z, strategy = "locpoly"))
 })
 
 test_that("estimate.g works with custom function", {
@@ -82,5 +86,14 @@ test_that("estimate.g errors with unknown strategy", {
     X <- data.frame(x = runif(10))
     z <- log(runif(10, 1, 5))
     
-    expect_error(estimate.g(X, z, strategy = "not-valid-one"))
+    expect_error(
+        estimate.g(X, z, strategy = "not-valid-one")
+    )
+    expect_condition(
+        estimate.g(X, z, strategy = "not-valid-one"), "Unknown strategy 'not-valid-one'. Did you register it?"
+    )
+    
+    expect_error(
+        estimate.g(X, z, strategy = X)
+    )
 })
