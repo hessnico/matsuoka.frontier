@@ -2,23 +2,61 @@
 % Please edit documentation in R/est_g.R
 \name{estimate.g}
 \alias{estimate.g}
-\title{Estimate g(x) using specified strategy}
+\title{Estimate g(x) using a specified strategy}
 \usage{
 estimate.g(X, z, strategy = "gam", ...)
 }
 \arguments{
-\item{X}{A data.frame of input variables}
+\item{X}{A \code{data.frame} of input variables.}
 
-\item{z}{Numeric vector (-log(y))}
+\item{z}{A numeric vector of responses (e.g., \code{-log(y)}).}
 
-\item{strategy}{Character string specifying the strategy ("spline") or a custom function
-for estimating function g}
+\item{strategy}{A character string specifying the strategy name (e.g., \code{"spline"}, \code{"gam"})
+or a custom function with the signature \verb{function(X, z, ...)}.}
 
-\item{...}{Additional parameters passed to the spline function or custom function}
+\item{...}{Additional arguments passed to the chosen strategy.}
 }
 \value{
-List with element \code{estimate} (numeric vector).
+A \code{list} with elements:
+\itemize{
+\item \code{estimate}: numeric vector of estimated values.
+\item \code{model}: fitted model object.
+\item \code{meta}: list of metadata describing the estimation method.
+}
 }
 \description{
-Estimate g(x) using specified strategy
+This function provides a unified interface to estimate the function \eqn{g(x)}
+using different nonparametric strategies. Strategies can be built-in methods
+(e.g., spline, GAM) or user-supplied custom functions.
 }
+\details{
+The estimation process relies on the \strong{Strategy design pattern}, where the
+actual estimation is delegated to a strategy function. The strategy must accept
+the following inputs and return a standardized output:
+\itemize{
+\item \strong{Input}:
+\itemize{
+\item \code{X}: a \code{data.frame} of predictors.
+\item \code{z}: a numeric response vector.
+\item \code{...}: additional arguments passed to the underlying estimator.
+}
+\item \strong{Output}:
+\itemize{
+\item A \code{list} with components:
+\itemize{
+\item \code{estimate}: numeric vector of estimated values.
+\item \code{model}: the fitted model object.
+\item \code{meta}: a list with metadata about the method.
+}
+}
+}
+}
+\section{Available Strategies}{
+
+The following strategies are currently registered:
+\itemize{
+\item \code{"spline"}: Fits a smoothing spline using \code{stats::smooth.spline}.
+\item \code{"gam"}: Fits a generalized additive model using \code{mgcv::gam}.
+}
+}
+

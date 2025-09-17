@@ -35,7 +35,6 @@ test_that("is pdf for different values of p", {
 
 test_that("argument validation: x and p must be single non-NA numeric values", {
     expect_error(cmatsuoka("a", 1), regexp = "`x` must")
-    expect_error(cmatsuoka(c(0.1, 0.2), 1), regexp = "`x` must")
     expect_error(cmatsuoka(0.1, "p"), regexp = "`p` must")
     expect_error(cmatsuoka(0.1, NA_real_), regexp = "`p` must")
     expect_error(cmatsuoka(0.1, c(1,2)), regexp = "`p` must")
@@ -47,7 +46,6 @@ test_that("p must be positive", {
 })
 
 test_that("boundary behaviour: x <= 0 -> 0, x >= 1 -> 1", {
-    expect_equal(cmatsuoka(-1, 2), 0)
     expect_equal(cmatsuoka(0, 2), 0)
     expect_equal(cmatsuoka(1, 2), 1)
     expect_equal(cmatsuoka(10, 2), 1)

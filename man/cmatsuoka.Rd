@@ -7,13 +7,13 @@
 cmatsuoka(x, p)
 }
 \arguments{
-\item{x}{numeric scalar. Value at which to evaluate the cumulative function.
-Must be a single non-NA numeric value.}
+\item{x}{numeric vector. Values at which to evaluate the cumulative function.
+Must be non-NA and numeric.}
 
 \item{p}{positive numeric scalar parameter (must be > 0).}
 }
 \value{
-A numeric scalar in [0, 1].
+A list of numeric values in \link{0,1}.
 }
 \description{
 Distribution function for Matsuoka

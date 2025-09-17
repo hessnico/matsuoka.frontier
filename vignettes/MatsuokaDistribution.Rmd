@@ -68,7 +68,7 @@ summary(
 )
 
 plot(
-  res$g_hat$fn_obj
+  res$g_hat$model
 )
 ```
 
@@ -113,7 +113,6 @@ res.specific.spline <- matsuoka.frontier::matsuoka3step(x = as.data.frame(x.df$x
                                                         penalty = 0.95)
 
 summary(res.specific.spline)
-plot(res.specific.spline)
 ```
 
 ## Method with custom `g(.)` estimative
@@ -129,6 +128,8 @@ res.custom.fn <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = custom_fu
 summary(res.custom.fn)
 plot(res.custom.fn)
 ```
+
+Really bad results, huh? Educational purposes...
 
 ## Without using the wrapper `matsuoka3step`
 
