@@ -27,8 +27,8 @@ Defaults are \code{"x"} and \code{"y"} if not provided.
 }
 \keyword{Plot}
 \keyword{This}
-\keyword{\code{res$f_hat}.}
-\keyword{\code{res$x},}
+\keyword{\code{f_hat}.}
+\keyword{\code{x},}
 \keyword{\code{y}}
 \keyword{against}
 \keyword{along}

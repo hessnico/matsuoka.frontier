@@ -72,8 +72,8 @@ validate.matsuoka.plot <- function(x) {
 #' Plot estimated production functions
 #'
 #' This function plots the observed output \code{y} against each input variable
-#' in \code{res$x}, along with the corresponding estimated frontier
-#' \code{res$f_hat}.
+#' in \code{x}, along with the corresponding estimated frontier
+#' \code{f_hat}.
 #'
 #' @param res A fitted object containing at least:
 #'   \describe{

@@ -20,10 +20,13 @@ Suggests:
     Benchmarking,
     devtools,
     ggplot2,
-    akima
+    akima,
+    devtools
 Imports:
     mgcv,
     KernSmooth,
     scar,
-    stats
+    stats,
+    wsbackfit,
+    RBF
 Config/testthat/edition: 3
