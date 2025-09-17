@@ -16,7 +16,7 @@ register_strategy <- function(name, fn) {
     fit <- smooth.spline(x = x_vec, y = z, ...)
     estimate <- as.numeric(stats::predict(fit, x_vec, deriv = 1)$y)
     return(
-        list(estimate = estimate, model = fit, meta = list(method = "smooth.spline", call = match.call()))
+        list(estimate = estimate, model = fit, meta = list(method = "spline", call = match.call()))
     )
 }
 
