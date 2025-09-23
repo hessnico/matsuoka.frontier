@@ -55,9 +55,15 @@ It aims to provide a practical and flexible implementation of the three-step pro
 
 
 ## Some enhacements to do 
-- [ ] **Add more private methods in `estimate_g`**  
-  Expand the internal functionality of the `estimate_g` function to include additional helper methods for improved estimation, as the ones cited in the article;
-
+- [X] **Add more private methods in `estimate_g`**  
+  Expand the internal functionality of the `estimate_g` function to include additional helper methods for improved estimation, as the ones cited in this package article;
+  - [X] Local linear smoothing (using `KernSmooth`)
+  - [X] Spline regression (using `stats`)
+  - [X] Classical backfitting (using `RBF`)
+  - [X] Smooth backfitting (using `wsbackfit`)
+  - [X] Robust backfitting (using `RBF`)
+  - [X] Shape-Constrained Additive Regression (using `scar`)
+  
 - [X] **Plotting the output of `matsuokafrontier::matsuoka3step`**  
   Visualize the estimated frontiers or densities depending on the data dimension:
   - [X] **1D data**: Plot `x` vs `y` and overlay the estimated frontier line `f_hat`.  
@@ -70,5 +76,5 @@ It aims to provide a practical and flexible implementation of the three-step pro
   - [X] Using a method with **specific arguments**.  
   - [X] Using a **user-defined custom method**.
 
-- [ ] **Kolmogorov-Smirnov (KS) test with the Matsuoka distribution**  
+- [ ] **Cramer-Von Mises Test of Goodness-of-Fit test with the Matsuoka distribution**  
   Perform a goodness-of-fit test comparing estimated values `r_hat` to the theoretical `Matsuoka(p_hat)` distribution.

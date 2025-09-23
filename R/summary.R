@@ -14,19 +14,20 @@ summary.matsuoka3step <- function(object, digits = 4, ...) {
     eff <- as.numeric(object$efficiency)
     eff_stats <- calculate.efficiency.stats(eff)
     
-    gcall <- NULL
-    if (!is.null(object$g_hat.fn_obj.call)) {
-        gcall <- object$g_hat.fn_obj.call
-    } else if (!is.null(object$g_hat) && is.list(object$g_hat)) {
-        if (!is.null(object$g_hat$fn_obj) && !is.null(object$g_hat$fn_obj$call)) {
-            gcall <- object$g_hat$fn_obj$call
-        } else if (!is.null(object$g_hat$call)) {
-            gcall <- object$g_hat$call
+    get_gcall <- function(obj) {
+        if (!is.null(obj$g_hat.model.call)) {
+            return(obj$g_hat.model.call)
         }
+        if (!is.null(obj$g_hat) && is.list(obj$g_hat)) {
+            return(obj$g_hat$model$call %||% obj$g_hat$call)
+        }
+        NULL
     }
     
-    model_call <- object$call %||% object$est.call %||% NULL
+    gcall <- get_gcall(object)
     gcall_txt   <- get_deparsed(gcall)
+    
+    model_call <- object$call %||% object$est.call %||% NULL
     model_call_txt <- get_deparsed(model_call)
     
     cat("Summary for 'matsuoka3step'\n\n")
@@ -35,7 +36,8 @@ summary.matsuoka3step <- function(object, digits = 4, ...) {
     }
     if (!is.null(gcall_txt)) {
         cat("g(x) call (g_hat function):\n  ", gcall_txt, "\n")
-        cat("    - For more info of g(x) estimation, please use summary(...$g_hat$fn_obj) \n\n")
+        cat("")
+        cat("    - For more info of g(x) estimation, please use summary(...$g_hat$model) \n\n")
     }
     
     n <- length(eff)

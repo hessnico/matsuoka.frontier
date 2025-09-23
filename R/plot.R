@@ -90,16 +90,16 @@ validate.matsuoka.plot <- function(x) {
 #' effect of producing plots.
 #' @export
 f.hat.x.y.plot <- function(res, ...) {
-    y.plot <- sort(res$y)
-    f.hat.plot <- sort(res$f_hat)
+    y.plot <- res$y
+    f.hat.plot <- res$f_hat
     ylim = c(min(y.plot, f.hat.plot)*0.95, max(y.plot, f.hat.plot)*1.05)
     
     dots = list(...)
     ylab = dots$ylab
     
     for (n in names(res$x)) {
-        x.plot <- sort(res$x[[n]])
-        
+        x.plot <- res$x[[n]]
+        f.hat.plot.ordered <- f.hat.plot[order(x.plot)]
         plot(
             x.plot, y.plot,
             ylim = ylim,
@@ -108,7 +108,7 @@ f.hat.x.y.plot <- function(res, ...) {
             xlim = c(min(x.plot)*0.95, max(x.plot)*1.05),
             main = sprintf("Estimated production frontier plot for %s", n)
         )
-        lines(x.plot, f.hat.plot, col = "red", lwd = 1)
+        lines(x.plot[order(x.plot)], f.hat.plot, col = "red", lwd = 1)
     }
     
     invisible(NULL)

@@ -21,7 +21,7 @@ test_that("estimate.g works for multiple strategies with proper data setup", {
         list(name = "scar", X = X_full, args = list(shape = data.frame("l", "l"))),
         
         list(name = "backf.cl", X = X_full, args = list(windows=c(1, 1))),
-        # list(name = "sback", X = X_full, args = list()),
+        list(name = "sback", X = X_full, args = list()),
         list(name = "backf.rob", X = X_full, args = list(windows=c(1, 1)))
     )
     

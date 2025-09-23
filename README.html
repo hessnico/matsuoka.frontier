@@ -389,13 +389,24 @@ remotes::install_github(&quot;hessnico/matsuoka.frontier&quot;)</code></pre>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
-<pre class="r"><code>library(matsuoka.frontier)
+<p>For detailed examples and explanations, please see the package
+vignette:</p>
+<p><a href="vignettes/MatsuokaDistribution.Rmd"><strong>Matsuoka
+Vignette</strong></a></p>
+<div id="quick-example" class="section level3">
+<h3>Quick Example</h3>
+<pre class="r"><code># Load the package
+library(matsuokafrontier)
 
 x &lt;- ...
 y &lt;- ...
 
+# Example using the normal method
 result &lt;- matsuoka.frontier::matsuoka3step(x = x, y = y)
-str(result)</code></pre>
+
+summary(result)
+plot(result)</code></pre>
+</div>
 </div>
 <div id="about" class="section level2">
 <h2>About</h2>
@@ -408,15 +419,29 @@ method.</p>
 <div id="some-enhacements-to-do" class="section level2">
 <h2>Some enhacements to do</h2>
 <ul class="task-list">
-<li><p><label><input type="checkbox"></input><strong>Add more private methods
-in <code>estimate_g</code></strong><br />
+<li><label><input type="checkbox" checked></input><strong>Add more private
+methods in <code>estimate_g</code></strong><br />
 Expand the internal functionality of the <code>estimate_g</code>
 function to include additional helper methods for improved estimation,
-as the ones cited in the article;</label></p></li>
-<li><p><label><input type="checkbox" checked></input><strong>Plotting the
+as the ones cited in this package article;</label>
+<ul class="task-list">
+<li><label><input type="checkbox" checked></input>Local linear smoothing
+(using <code>KernSmooth</code>)</label></li>
+<li><label><input type="checkbox" checked></input>Spline regression (using
+<code>stats</code>)</label></li>
+<li><label><input type="checkbox" checked></input>Classical backfitting
+(using <code>RBF</code>)</label></li>
+<li><label><input type="checkbox" checked></input>Smooth backfitting (using
+<code>wsbackfit</code>)</label></li>
+<li><label><input type="checkbox" checked></input>Robust backfitting (using
+<code>RBF</code>)</label></li>
+<li><label><input type="checkbox" checked></input>Shape-Constrained
+Additive Regression (using <code>scar</code>)</label></li>
+</ul></li>
+<li><label><input type="checkbox" checked></input><strong>Plotting the
 output of <code>matsuokafrontier::matsuoka3step</code></strong><br />
 Visualize the estimated frontiers or densities depending on the data
-dimension:</label></p>
+dimension:</label>
 <ul class="task-list">
 <li><label><input type="checkbox" checked></input><strong>1D data</strong>:
 Plot <code>x</code> vs <code>y</code> and overlay the estimated frontier
@@ -429,10 +454,10 @@ Create a contour plot of the estimated frontier.<br />
 <code>p</code></strong>: Visualize the density of the Matsuoka
 distribution.</label></li>
 </ul></li>
-<li><p><label><input type="checkbox" checked></input><strong>Enhance
+<li><label><input type="checkbox" checked></input><strong>Enhance
 documentation with usage examples</strong><br />
 Provide clear examples for users to understand and apply the package
-functions:</label></p>
+functions:</label>
 <ul class="task-list">
 <li><label><input type="checkbox" checked></input>Using the <strong>normal
 method</strong>.<br />
@@ -443,11 +468,11 @@ method</strong>.<br />
 <li><label><input type="checkbox" checked></input>Using a
 <strong>user-defined custom method</strong>.</label></li>
 </ul></li>
-<li><p><label><input type="checkbox"></input><strong>Kolmogorov-Smirnov (KS)
-test with the Matsuoka distribution</strong><br />
+<li><label><input type="checkbox"></input><strong>Cramer-Von Mises Test of
+Goodness-of-Fit test with the Matsuoka distribution</strong><br />
 Perform a goodness-of-fit test comparing estimated values
 <code>r_hat</code> to the theoretical <code>Matsuoka(p_hat)</code>
-distribution.</label></p></li>
+distribution.</label></li>
 </ul>
 </div>
 </div>

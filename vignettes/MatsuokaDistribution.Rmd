@@ -64,7 +64,7 @@ For example, the diagnose the default parameter `g(.)` function estimation can b
 For example:
 ```{r gam diagnose}
 summary(
-  res$g_hat$fn_obj
+  res$g_hat$model
 )
 
 plot(
@@ -86,12 +86,13 @@ plot(res, ngrid = 200, counter_levels = 15, which = 2)
 names(res$x) <- c("vet/cow", "energy/cow")
 plot(res, ngrid = 300, counter_levels = 8,
      sub = "With 8 contour levels",
-     ylab = "milk producde"
+     ylab = "milk produced"
 )
 ```
 
 And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency scores higher than one...
 ```{r}
+devtools::load_all()
 summary(res)
 ```
 

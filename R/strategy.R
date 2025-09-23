@@ -106,10 +106,18 @@ register_strategy <- function(name, fn) {
 
 #' @importFrom wsbackfit sback
 .sback <- function(x, z, ...) {
+    if (!is.data.frame(x)) stop("x must be a data.frame.")
+    if (ncol(x) < 1L) stop("At least one predictor is required.")
+    
+    df <- data.frame(z = z, x)
+    terms <- paste("sb(", names(x), ")", collapse = " + ")
+    formula <- stats::as.formula(paste("z ~", terms))
+    fit <- wsbackfit::sback(formula, data = df)
+    
     list(
-        estimate = NULL,
-        model = NULL,
-        meta = list(method = "", call = NULL)
+        estimate = fit$fitted.values,
+        model = fit,
+        meta = list(method = "sback", call = match.call())
     )
 }
 
