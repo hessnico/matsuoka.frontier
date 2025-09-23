@@ -25,11 +25,11 @@ Plot each xy values with productive estimated function
 Axis labels can be set with \code{xlab} and \code{ylab}.
 Defaults are \code{"x"} and \code{"y"} if not provided.
 }
+\keyword{**f_hat**.}
+\keyword{**x**,}
+\keyword{**y**}
 \keyword{Plot}
 \keyword{This}
-\keyword{\code{f_hat}.}
-\keyword{\code{x},}
-\keyword{\code{y}}
 \keyword{against}
 \keyword{along}
 \keyword{corresponding}

@@ -37,5 +37,5 @@ cmatsuoka(1, p = 2)
 cmatsuoka(0, p = 2)
 }
 \seealso{
-\code{\link[stats]{pgamma}}, \code{\link{gamma}}
+\link[stats]{pgamma}
 }

@@ -44,7 +44,7 @@ dmatsuoka <- function(x, p) {
 #' cmatsuoka(0.5, p = 2)
 #' cmatsuoka(1, p = 2)
 #' cmatsuoka(0, p = 2)
-#' @seealso \code{\link[stats]{pgamma}}, \code{\link{gamma}}
+#' @seealso \link[stats]{pgamma} 
 #' @export
 #' 
 #' @importFrom stats pgamma
@@ -54,9 +54,8 @@ cmatsuoka <- function(x, p) {
     if (p <= 0) stop("`p` must be positive.")
     if (any(x < 0)) stop("All `x` values must be >= 0.")
     
-    a <- 3/2
+    a <- 1.5
     
-    # Compute cumulative values
     result <- sapply(x, function(xi) {
         if (xi >= 1) {
             1
@@ -68,29 +67,51 @@ cmatsuoka <- function(x, p) {
     return(result)
 }
 
+#' Quantile function of the Matsuoka distribution
+#'
+#' Computes the inverse CDF (quantile function) of the Matsuoka distribution
+#' with parameter `p`.
+#'
+#' @param q Numeric vector of probabilities (values in [0,1]).
+#' @param p Positive numeric scalar, distribution parameter.
+#' @param igamma_inv_fun Optional function to compute the inverse incomplete gamma.
+#'        Defaults to `Igamma.inv` from the zipfR package.
+#' @return Numeric vector of quantiles corresponding to `q`.
+#' @examples
+#' F.mv.i(q = c(0.1, 0.5, 0.9), p = 0.5)
+#' @export
+F.mv.i <- function(q, p, igamma_inv_fun = zipfR::Igamma.inv) {
+    if (!is.numeric(q) || any(q < 0 | q > 1)) {
+        stop("`q` must be numeric values in [0,1].")
+    }
+    if (!is.numeric(p) || length(p) != 1 || p <= 0 || is.na(p)) {
+        stop("`p` must be a single positive numeric value.")
+    }
+    
+    quantiles <- exp(-1 / p * igamma_inv_fun(a = 1.5, y = q * sqrt(pi) / 2, lower = FALSE))
+    return(quantiles)
+}
+
 #' Random generation from the Matsuoka distribution
 #'
-#' @param n number of observations
-#' @param p positive shape parameter
-#' @return numeric vector of length n with random draws
+#' Generates random samples from the Matsuoka distribution using the
+#' inverse CDF method.
+#'
+#' @param n Number of samples to generate (positive integer).
+#' @param p Positive numeric scalar, distribution parameter.
+#' @param igamma_inv_fun Optional function to compute the inverse incomplete gamma.
+#'        Defaults to `Igamma.inv` from the zipfR package.
+#' @return Numeric vector of length `n` of random Matsuoka samples.
+#' @examples
+#' set.seed(123)
+#' rmv(10, p = 0.5)
 #' @export
-rmatsuoka <- function(n, p) {
+rmv <- function(n, p, igamma_inv_fun = zipfR::Igamma.inv) {
     if (!is.numeric(n) || length(n) != 1 || n <= 0) {
-        stop("`n` must be a positive integer.")
-    }
-    if (!is.numeric(p) || length(p) != 1 || is.na(p) || p <= 0) {
-        stop("`p` must be a single positive numeric parameter.")
+        stop("`n` must be a single positive number.")
     }
     
-    u <- runif(n)
+    u <- stats::runif(n)
     
-    cdf <- function(x) vapply(x, function(z) c.matsuoka(z, p), numeric(1))
-    
-    q <- vapply(u, function(ui) {
-        if (ui <= 0) return(0)
-        if (ui >= 1) return(1)
-        uniroot(function(x) cdf(x) - ui, interval = c(0, 1))$root
-    }, numeric(1))
-    
-    return(q)
+    F.mv.i(q = u, p = p, igamma_inv_fun = igamma_inv_fun)
 }

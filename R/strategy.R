@@ -1,6 +1,23 @@
 .strategy_env <- new.env(parent = emptyenv())
 
-#' @export
+#' Register a custom strategy for estimating \eqn{g(\dot)}
+#'
+#' Registers a user-defined strategy function in the internal strategy environment.
+#' This allows custom estimation or modeling functions to be used in the workflow.
+#'
+#' @param name Character string of length 1. The name of the strategy.
+#' @param fn A function with signature \code{function(x, z, ...)} that returns a list 
+#'   containing at least the elements: \code{estimate}, \code{model}, and \code{meta}.
+#' @details
+#' The strategy function will be stored internally and can later be retrieved by name
+#' for use in other functions. The function must follow the convention of taking 
+#' x, z, and optional additional arguments, and returning a list with
+#' components:
+#' \describe{
+#'   \item{estimate}{numeric vector of predicted or estimated values.}
+#'   \item{model}{the fitted model object.}
+#'   \item{meta}{a list of additional metadata (e.g., method name, call).}
+#' }
 register_strategy <- function(name, fn) {
     stopifnot(is.character(name), length(name) == 1)
     if (!is.function(fn)) stop("fn must be a function(x, z, ...) returning list(estimate, model, meta).")
@@ -104,13 +121,17 @@ register_strategy <- function(name, fn) {
     )
 }
 
-#' @importFrom wsbackfit sback
+#' @importFrom wsbackfit sback sb
 .sback <- function(x, z, ...) {
     if (!is.data.frame(x)) stop("x must be a data.frame.")
     if (ncol(x) < 1L) stop("At least one predictor is required.")
     
     df <- data.frame(z = z, x)
     terms <- paste("sb(", names(x), ")", collapse = " + ")
+    
+    env <- environment()
+    env$sb <- wsbackfit::sb
+    
     formula <- stats::as.formula(paste("z ~", terms))
     fit <- wsbackfit::sback(formula, data = df)
     

@@ -71,9 +71,9 @@ validate.matsuoka.plot <- function(x) {
 #' @keywords internal
 #' Plot estimated production functions
 #'
-#' This function plots the observed output \code{y} against each input variable
-#' in \code{x}, along with the corresponding estimated frontier
-#' \code{f_hat}.
+#' This function plots the observed output **y** against each input variable
+#' in **x**, along with the corresponding estimated frontier
+#' **f_hat**.
 #'
 #' @param res A fitted object containing at least:
 #'   \describe{
@@ -167,6 +167,7 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
 #'   that contains a numeric scalar \code{p_hat} element, representing the
 #'   estimated \eqn{p} parameter of the distribution.
 #' @keywords internal
+#' @seealso \code{\link{matsuoka.density}} \code{\link{dmatsuoka}}
 den.plot <- function(obj) {
     x.seq <- seq(1e-10, 1 - 1e-10, length.out = 10000)
     p <- obj$p_hat

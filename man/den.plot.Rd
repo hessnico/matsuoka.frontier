@@ -23,4 +23,7 @@ The function extracts the estimated \eqn{p} parameter from the object
 on \code{x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)}.
 A simple plot with axis labels, main title, and grid lines is generated.
 }
+\seealso{
+\code{\link{matsuoka.density}} \code{\link{dmatsuoka}}
+}
 \keyword{internal}
