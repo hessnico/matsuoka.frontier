@@ -18,15 +18,14 @@ Suggests:
     rmarkdown,
     knitr,
     Benchmarking,
-    ggplot2,
-    akima,
-    ggplot2,
-    goftest
 Imports:
     mgcv,
     KernSmooth,
     scar,
     stats,
     wsbackfit,
-    RBF
+    RBF,
+    ggplot2,
+    akima,
+    goftest
 Config/testthat/edition: 3
