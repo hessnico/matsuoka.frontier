@@ -27,5 +27,6 @@ Imports:
     RBF,
     ggplot2,
     akima,
-    goftest
+    goftest,
+    zipfR
 Config/testthat/edition: 3

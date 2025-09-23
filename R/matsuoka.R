@@ -77,8 +77,6 @@ cmatsuoka <- function(x, p) {
 #' @param igamma_inv_fun Optional function to compute the inverse incomplete gamma.
 #'        Defaults to `Igamma.inv` from the zipfR package.
 #' @return Numeric vector of quantiles corresponding to `q`.
-#' @examples
-#' F.mv.i(q = c(0.1, 0.5, 0.9), p = 0.5)
 #' @export
 F.mv.i <- function(q, p, igamma_inv_fun = zipfR::Igamma.inv) {
     if (!is.numeric(q) || any(q < 0 | q > 1)) {
