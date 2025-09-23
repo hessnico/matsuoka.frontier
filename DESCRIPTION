@@ -18,10 +18,10 @@ Suggests:
     rmarkdown,
     knitr,
     Benchmarking,
-    devtools,
     ggplot2,
     akima,
-    devtools
+    ggplot2,
+    goftest
 Imports:
     mgcv,
     KernSmooth,
