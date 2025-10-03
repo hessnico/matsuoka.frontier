@@ -21,6 +21,3 @@ Numeric vector of quantiles corresponding to \code{q}.
 Computes the inverse CDF (quantile function) of the Matsuoka distribution
 with parameter \code{p}.
 }
-\examples{
-F.mv.i(q = c(0.1, 0.5, 0.9), p = 0.5)
-}

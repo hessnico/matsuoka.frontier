@@ -24,6 +24,7 @@ In this vignette there will be shown cases of use of `matsuoka.frontier` package
 2. Method with specific arguments
 3. Method with custom `g(.)` estimative
 4. Without using the wrapper `matsuoka3step`
+5. Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
 
 ## Setup for package use
 
@@ -92,7 +93,6 @@ plot(res, ngrid = 300, counter_levels = 8,
 
 And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency scores higher than one...
 ```{r}
-devtools::load_all()
 summary(res)
 ```
 
@@ -114,6 +114,14 @@ res.specific.spline <- matsuoka.frontier::matsuoka3step(x = as.data.frame(x.df$x
                                                         penalty = 0.95)
 
 summary(res.specific.spline)
+
+res.specific.sback <- matsuoka.frontier::matsuoka3step(x = x.df,
+                                                       y = y,
+                                                       g = "sback",
+                                                       KfoldCV = 30,
+                                                       kbin = 60)
+
+summary(res.specific.sback)
 ```
 
 ## Method with custom `g(.)` estimative
@@ -159,3 +167,7 @@ ef <- y / f.fn.est
 summary(ef)
 print(p.est)
 ```
+
+## Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
+
+

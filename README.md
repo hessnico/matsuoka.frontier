@@ -76,5 +76,5 @@ It aims to provide a practical and flexible implementation of the three-step pro
   - [X] Using a method with **specific arguments**.  
   - [X] Using a **user-defined custom method**.
 
-- [ ] **Cramer-Von Mises Test of Goodness-of-Fit test with the Matsuoka distribution**  
+- [X] **Cramer-Von Mises Test of Goodness-of-Fit test with the Matsuoka distribution**  
   Perform a goodness-of-fit test comparing estimated values `r_hat` to the theoretical `Matsuoka(p_hat)` distribution.
