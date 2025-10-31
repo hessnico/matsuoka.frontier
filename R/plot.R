@@ -100,6 +100,8 @@ f.hat.x.y.plot <- function(res, ...) {
     for (n in names(res$x)) {
         x.plot <- res$x[[n]]
         f.hat.plot.ordered <- f.hat.plot[order(x.plot)]
+        x.plot.ordered <- x.plot[order(x.plot)]
+        
         plot(
             x.plot, y.plot,
             ylim = ylim,
@@ -108,7 +110,7 @@ f.hat.x.y.plot <- function(res, ...) {
             xlim = c(min(x.plot)*0.95, max(x.plot)*1.05),
             main = sprintf("Estimated production frontier plot for %s", n)
         )
-        lines(x.plot[order(x.plot)], f.hat.plot, col = "red", lwd = 1)
+        lines(x.plot.ordered, f.hat.plot.ordered, col = "red", lwd = 1)
     }
     
     invisible(NULL)
@@ -152,8 +154,8 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
 
 #' Plot the Matsuoka density for a fitted object
 #'
-#' This is an internal helper function that produces a base R plot
-#' of the estimated Matsuoka probability density function (PDF)
+#' This function produces a base R plot of the estimated
+#'  Matsuoka probability density function (PDF)
 #' for a given fitted object. The density is evaluated on a fine grid
 #' over the support \eqn{(0, 1)} and drawn as a smooth curve.
 #'
@@ -166,7 +168,7 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
 #' @param obj A fitted object of class \code{matsuoka3step} (or a similar class)
 #'   that contains a numeric scalar \code{p_hat} element, representing the
 #'   estimated \eqn{p} parameter of the distribution.
-#' @keywords internal
+#' @export
 #' @seealso \code{\link{matsuoka.density}} \code{\link{dmatsuoka}}
 den.plot <- function(obj) {
     x.seq <- seq(1e-10, 1 - 1e-10, length.out = 10000)
