@@ -1,7 +1,7 @@
 ---
 title: "MatsuokaDistribution"
-output: rmarkdown::html_vignette
-description: Learn how to use "MatsuokaDistribution" class object to estimate the production frontier
+output: rmarkdown::pdf_document
+description: Learn how to use "MatsuokaDistribution" class object to estimate the production frontier using the three-step approach
 vignette: >
   %\VignetteIndexEntry{MatsuokaDistribution}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 
 # Summary
 
-In this vignette there will be shown cases of use of `matsuoka.frontier` package usage
+In this vignette, it is presented several use cases demonstrating the functionality of the `matsuoka.frontier` package.
+
+The examples below illustrate different ways to estimate the production frontier using the three-step approach:
 
 1. Pre-mounted `g(.)` estimation methods
 2. Method with specific arguments
@@ -55,7 +57,6 @@ res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "gam")
 ```
 
 This generates the `matsuoka3step` class object.
-Please Check the documentation for more information with `help(matsuoka3step)`.
 
 The default non-parametric function that estimates `g(.)` is set to the `gam` function.
 It's possible to diagnose the `g(.)` function estimation through hierarchical built-in functions.
@@ -73,6 +74,26 @@ plot(
 )
 ```
 
+The package does not have an automated plot function to extract `g(x)` components. However, since the `matsuoka3step` saves the `g(x)` estimated object, it is possible to extract the components through it, and diagnose each case, in our example case, we can:
+
+```{r}
+x1 <- res$x$x1
+x2 <- res$x$x2
+p_hat <- res$p_hat
+
+pred_1 <- predict(res$g_hat$model, newdata = data.frame(x1 = x1, x2 = median(x2)), type = "response")
+pred_2 <- predict(res$g_hat$model, newdata = data.frame(x1 = median(x1), x2 = x2), type = "response")
+
+comp_1 <- exp((3 / (2 * p_hat)) - pred_1)
+comp_2 <- exp((3 / (2 * p_hat)) - pred_2)
+
+plot(x1, y, ylim = c(4,10))
+lines(sort(x1), comp_1[order(x1)], col = "blue", lwd = 2)
+plot(x2, y, ylim = c(4,10))
+lines(sort(x2), comp_2[order(x2)], col = "red", lwd = 2)
+```
+
+
 After diagnosing the `g(.)` function, we can forward to the production frontier estimation diagnostics.
 There is a built-in plot function that can be used, for example:
 ```{r gam mat plot 1}
@@ -83,15 +104,8 @@ plot(res, which = 1)
 plot(res, ngrid = 200, counter_levels = 15, which = 2)
 ```
 
-```{r gam mat plot 3}
-names(res$x) <- c("vet/cow", "energy/cow")
-plot(res, ngrid = 300, counter_levels = 8,
-     sub = "With 8 contour levels",
-     ylab = "milk produced"
-)
-```
+And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency scores higher than one.
 
-And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency scores higher than one...
 ```{r}
 summary(res)
 ```
@@ -138,8 +152,6 @@ summary(res.custom.fn)
 plot(res.custom.fn)
 ```
 
-Really bad results, huh? Educational purposes...
-
 ## Without using the wrapper `matsuoka3step`
 
 There's also the possibility to mount your own matsuoka three step approach, given that primary functions are being publicly exported
@@ -170,4 +182,19 @@ print(p.est)
 
 ## Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
 
+To a better diagnose of the Matsuoka's distribuition, in this library it was also implemented the Cramer-von Mises test to verify adherence of the estimate `p`:
+
+```{r}
+set.seed(1234)
+
+x.t <- rmv(100, 8.3)
+res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "backf.cl", 
+                                        windows = c(1,1))
+cvm_matsuoka_test(x.t, p = res$p_hat)
+```
+
+And finally, a visual plot to compare:
+```{r}
+visual_cvm_matsuoka(x.t, p = res$p_hat, nullname = "test")
+```
 

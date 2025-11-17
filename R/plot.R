@@ -46,10 +46,6 @@ plot.matsuoka3step <- function(x,
         contour.plot.helper(x, ngrid = ngrid, counter_levels = counter_levels, ...)
     }
     
-    if (3 %in% which) {
-        f.hat.x.y.plot(x, ...)
-    }
-    
     invisible(NULL)
 }
 
@@ -65,55 +61,6 @@ validate.matsuoka.plot <- function(x) {
     if (x$p_hat <= 0) {
         stop("p_hat must be positive.")
     }
-}
-
-#' Plot each xy values with productive estimated function
-#' @keywords internal
-#' Plot estimated production functions
-#'
-#' This function plots the observed output **y** against each input variable
-#' in **x**, along with the corresponding estimated frontier
-#' **f_hat**.
-#'
-#' @param res A fitted object containing at least:
-#'   \describe{
-#'     \item{x}{A data frame of input variables.}
-#'     \item{y}{A numeric vector of observed outputs.}
-#'     \item{f_hat}{A numeric vector of fitted/estimated outputs.}
-#'   }
-#'
-#' @details
-#' Axis labels can be set with \code{xlab} and \code{ylab}.  
-#' Defaults are \code{"x"} and \code{"y"} if not provided.
-#'
-#' @return Invisibly returns \code{NULL}. The function is called for its side
-#' effect of producing plots.
-#' @export
-f.hat.x.y.plot <- function(res, ...) {
-    y.plot <- res$y
-    f.hat.plot <- res$f_hat
-    ylim = c(min(y.plot, f.hat.plot)*0.95, max(y.plot, f.hat.plot)*1.05)
-    
-    dots = list(...)
-    ylab = dots$ylab
-    
-    for (n in names(res$x)) {
-        x.plot <- res$x[[n]]
-        f.hat.plot.ordered <- f.hat.plot[order(x.plot)]
-        x.plot.ordered <- x.plot[order(x.plot)]
-        
-        plot(
-            x.plot, y.plot,
-            ylim = ylim,
-            ylab = ylab,
-            xlab = n,
-            xlim = c(min(x.plot)*0.95, max(x.plot)*1.05),
-            main = sprintf("Estimated production frontier plot for %s", n)
-        )
-        lines(x.plot.ordered, f.hat.plot.ordered, col = "red", lwd = 1)
-    }
-    
-    invisible(NULL)
 }
 
 #' Filled contour plot helper

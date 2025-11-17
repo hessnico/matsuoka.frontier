@@ -81,5 +81,5 @@ calculate.efficiency.stats <- function(eff) {
 
 get_deparsed <- function(x) {
     if (is.null(x)) return(NULL)
-    paste0(deparse(x), collapse = " ")
+    paste0(deparse(x), collapse = "\n")
 }

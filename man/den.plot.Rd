@@ -12,8 +12,8 @@ that contains a numeric scalar \code{p_hat} element, representing the
 estimated \eqn{p} parameter of the distribution.}
 }
 \description{
-This is an internal helper function that produces a base R plot
-of the estimated Matsuoka probability density function (PDF)
+This function produces a base R plot of the estimated
+Matsuoka probability density function (PDF)
 for a given fitted object. The density is evaluated on a fine grid
 over the support \eqn{(0, 1)} and drawn as a smooth curve.
 }
@@ -26,4 +26,3 @@ A simple plot with axis labels, main title, and grid lines is generated.
 \seealso{
 \code{\link{matsuoka.density}} \code{\link{dmatsuoka}}
 }
-\keyword{internal}
