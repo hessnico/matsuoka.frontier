@@ -81,8 +81,10 @@ x1 <- res$x$x1
 x2 <- res$x$x2
 p_hat <- res$p_hat
 
-pred_1 <- predict(res$g_hat$model, newdata = data.frame(x1 = x1, x2 = median(x2)), type = "response")
-pred_2 <- predict(res$g_hat$model, newdata = data.frame(x1 = median(x1), x2 = x2), type = "response")
+pred_1 <- predict(res$g_hat$model,
+                  newdata = data.frame(x1 = x1, x2 = median(x2)), type = "response")
+pred_2 <- predict(res$g_hat$model,
+                  newdata = data.frame(x1 = median(x1), x2 = x2), type = "response")
 
 comp_1 <- exp((3 / (2 * p_hat)) - pred_1)
 comp_2 <- exp((3 / (2 * p_hat)) - pred_2)
@@ -148,6 +150,8 @@ custom_fun <- function(X, z, ...) {
 }
 
 res.custom.fn <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = custom_fun)
+res.custom.fn$f_hat <- round(res.custom.fn$f_hat, 2)
+
 summary(res.custom.fn)
 plot(res.custom.fn)
 ```
