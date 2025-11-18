@@ -2,25 +2,45 @@
 % Please edit documentation in R/cvm.R
 \name{visual_cvm_matsuoka}
 \alias{visual_cvm_matsuoka}
-\title{Visual Cramér-von Mises test for the Matsuoka distribution}
+\title{Visual Cramér–von Mises Goodness-of-Fit Test for the Matsuoka Distribution}
 \usage{
 visual_cvm_matsuoka(x, p, ...)
 }
 \arguments{
 \item{x}{Numeric vector of observations.}
 
-\item{p}{Positive numeric scalar, the Matsuoka parameter.}
+\item{p}{Positive numeric scalar; the Matsuoka shape parameter.}
+
+\item{...}{Additional arguments forwarded to \code{cvm_matsuoka_test()}.}
 }
 \value{
-A \code{ggplot} object showing ECDF vs theoretical CDF with the CvM p-value in the subtitle.
+A \code{ggplot} object displaying:
+\itemize{
+\item the empirical CDF (ECDF),
+\item the theoretical Matsuoka CDF,
+\item the Cramér–von Mises statistic and p-value in the subtitle.
+}
 }
 \description{
-Performs the Cramér-von Mises goodness-of-fit test using
-\code{cvm_matsuoka_test()} and plots the empirical CDF of a sample
-against the theoretical Matsuoka CDF.
+Produces a diagnostic plot comparing the empirical cumulative
+distribution function (ECDF) of a numeric sample to the theoretical
+CDF of the Matsuoka distribution with parameter \eqn{p}.
+Internally, the function runs \code{cvm_matsuoka_test()}, and the
+resulting Cramér–von Mises statistic and p-value are shown in the plot subtitle.
 }
-\examples{
-set.seed(123)
-x_sample <- rmv(100, p = 0.5)
-visual_cvm_matsuoka(x_sample, p = 0.5)
+\details{
+This plot serves as an intuitive visual check for the adequacy of
+the Matsuoka distribution as a model for the data.
+
+The visual diagnostic highlights discrepancies between the empirical and
+theoretical distributions. Major deviations along the CDF curve indicate
+departures from the Matsuoka model for the specified \eqn{p}.
+}
+\seealso{
+\code{\link{cvm_matsuoka_test}} for the numerical test,
+\code{\link{cmatsuoka}} for the CDF,
+\code{\link{F.mv.i}} for the quantile function,
+the package vignette section \emph{"Goodness-of-fit with the Cramér–von Mises Test"}.
+\code{vignette("matsuoka.frontier")} — see section
+\emph{"Cramer–Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"}.
 }

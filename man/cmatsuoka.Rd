@@ -2,7 +2,7 @@
 % Please edit documentation in R/matsuoka.R
 \name{cmatsuoka}
 \alias{cmatsuoka}
-\title{Distribution function for Matsuoka}
+\title{Cumulative distribution function for Matsuoka}
 \usage{
 cmatsuoka(x, p)
 }
@@ -16,10 +16,10 @@ Must be non-NA and numeric.}
 A list of numeric values in \link{0,1}.
 }
 \description{
-Distribution function for Matsuoka
+Cumulative distribution function for Matsuoka
 }
 \details{
-The cumulative Matsuoka function is defined as
+The cumulative distribution function for Matsuoka distribution is defined as
 \deqn{
   F_p(x) = \frac{2}{\sqrt{\pi}} \, \Gamma\!\left(\tfrac{3}{2}, -p \ln(x)\right) \, I(0 < x < 1)
            \;+\; I(x \geq 1)
@@ -27,7 +27,7 @@ The cumulative Matsuoka function is defined as
 where \eqn{\Gamma(a, t)} is the upper incomplete gamma function
 and \eqn{I(\cdot)} denotes the indicator function.
 
-Following \strong{stats::pgamma} documentation page, \eqn{\Gamma(a,t)} can be computed using
+According to \strong{stats::pgamma}'s documentation page, \eqn{\Gamma(a,t)} can be computed using
 \code{pgamma(t, shape = a, lower.tail = FALSE)} which returns the
 upper incomplete gamma function value.
 }
@@ -37,5 +37,5 @@ cmatsuoka(1, p = 2)
 cmatsuoka(0, p = 2)
 }
 \seealso{
-\link[stats]{pgamma}
+\link[stats]{pgamma} \link[dmatsuoka]{dmatsuoka}
 }

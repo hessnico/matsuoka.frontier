@@ -2,22 +2,40 @@
 % Please edit documentation in R/matsuoka.R
 \name{dmatsuoka}
 \alias{dmatsuoka}
-\title{Density function for Matsuoka}
+\title{Probability Density Function of the Matsuoka Distribution}
 \usage{
 dmatsuoka(x, p)
 }
 \arguments{
-\item{x}{Numeric vector.}
+\item{x}{Numeric vector of evaluation points.}
 
-\item{p}{Positive numeric parameter of the density. Must be greater than 0.}
+\item{p}{Positive numeric scalar (parameter of the distribution).}
 }
 \value{
-A numeric vector of the same length as \code{x}, giving the density values. Positions where \code{x <= 0}, \code{x >= 1}, or \code{x} is \code{NA} return 0.
+A numeric vector of the same length as \code{x}, giving the density
+values. Values where \code{x <= 0}, \code{x >= 1}, or \code{x} is \code{NA}
+return 0.
 }
 \description{
-Computes the \strong{Matsuoka density function} for a numeric vector of values in the interval (0,1).
+Computes the probability density function (PDF) of the Matsuoka distribution
+with parameter \code{p}.
 }
 \details{
 The density is defined as:
-\deqn{f(x; p) = 2 \sqrt{\frac{-p^3 \log(x)}{\pi}} \, x^{p-1}, \quad 0 < x < 1, \; p > 0}
+\deqn{
+f(x; p) = 2 \sqrt{\frac{-p^3 \log(x)}{\pi}} \, x^{p-1},
+ \quad 0 < x < 1, \; p > 0
+ }
+}
+\examples{
+# Density at specific points
+dmatsuoka(c(0.2, 0.5, 0.8), p = 0.5)
+
+# Plotting the density
+curve(dmatsuoka(x, p = 0.5), from = 0, to = 1)
+
+}
+\seealso{
+\code{\link{cmatsuoka}} for the cumulative distribution function,
+\code{\link{F.mv.i}} for the inverse Matsuoka distribution function.
 }

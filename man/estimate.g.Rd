@@ -2,7 +2,7 @@
 % Please edit documentation in R/est_g.R
 \name{estimate.g}
 \alias{estimate.g}
-\title{Estimate g(x) using a specified strategy}
+\title{Estimate \eqn{g(x)} Using a Specified Strategy}
 \usage{
 estimate.g(X, z, strategy = "gam", ...)
 }
@@ -11,8 +11,12 @@ estimate.g(X, z, strategy = "gam", ...)
 
 \item{z}{A numeric vector of responses (e.g., \code{-log(y)}).}
 
-\item{strategy}{A character string specifying the strategy name (e.g., \code{"spline"}, \code{"gam"})
-or a custom function with the signature \verb{function(X, z, ...)}.}
+\item{strategy}{Either:
+\itemize{
+\item A \strong{character string} naming a registered strategy
+\item OR a \strong{function} with signature \verb{function(X, z, ...)} returning the
+required list (\code{estimate}, \code{model}, \code{meta}).
+}}
 
 \item{...}{Additional arguments passed to the chosen strategy.}
 }
@@ -20,45 +24,53 @@ or a custom function with the signature \verb{function(X, z, ...)}.}
 A \code{list} with elements:
 \itemize{
 \item \code{estimate}: numeric vector of estimated values.
-\item \code{model}: fitted model object.
-\item \code{meta}: list of metadata describing the estimation method.
+\item \code{model}: the fitted model object.
+\item \code{meta}: metadata describing the estimation method.
 }
 }
 \description{
-This function provides a unified interface to estimate the function \eqn{g(x)}
-using different nonparametric strategies. Strategies can be built-in methods
-(e.g., spline, GAM) or user-supplied custom functions.
+Provides a unified interface to estimate the regression function \eqn{g(x)}
+using different nonparametric strategies. Strategies may be one of the
+built-in methods or a user-supplied custom function.
 }
 \details{
-The estimation process relies on the \strong{Strategy design pattern}, where the
-actual estimation is delegated to a strategy function. The strategy must accept
-the following inputs and return a standardized output:
+This function follows the \strong{Strategy design pattern}: the actual estimation
+is delegated to a strategy function. The strategy must accept:
 \itemize{
-\item \strong{Input}:
+\item \strong{Inputs}:
 \itemize{
-\item \code{X}: a \code{data.frame} of predictors.
-\item \code{z}: a numeric response vector.
-\item \code{...}: additional arguments passed to the underlying estimator.
+\item \code{X}: a \code{data.frame} of predictors
+\item \code{z}: a numeric response vector
+\item \code{...}: optional additional arguments passed to the estimator
 }
 \item \strong{Output}:
+A \code{list} with components:
 \itemize{
-\item A \code{list} with components:
-\itemize{
-\item \code{estimate}: numeric vector of estimated values.
-\item \code{model}: the fitted model object.
-\item \code{meta}: a list with metadata about the method.
-}
+\item \code{estimate}: numeric vector of fitted values
+\item \code{model}: the fitted model object
+\item \code{meta}: list of metadata (method name, call, etc.)
 }
 }
 }
 \section{Available Strategies}{
 
-The following strategies are currently registered:
+The following strategy names are currently registered and available:
+
 \itemize{
-\item \code{"spline"}: Fits a smoothing spline using \code{stats::smooth.spline}.
-\item \code{"gam"}: Fits a generalized additive model using \code{mgcv::gam}.
-\item \code{"scar"}: Fits a Shape-Constrained additive regression model using \code{scar::scar}.
-\item \code{"locpoly"}: Fits a local polynomial function using \code{KernSmooth::locpoly}.
-}
+\item \code{"spline"} — Smoothing spline using \code{stats::smooth.spline}.
+\item \code{"gam"} — Generalized Additive Model using \code{mgcv::gam}.
+\item \code{"scar"} — Shape-Constrained Additive Regression using \code{scar::scar}.
+\item \code{"locpoly"} — Local polynomial regression using \code{KernSmooth::locpoly}.
+\item \code{"backf.cl"} — Backfitting using componentwise linear functions via \code{RBF::backf.cl}.
+\item \code{"sback"} — Smooth backfitting using \code{wsbackfit::sback}.
+\item \code{"backf.rob"} — Robust backfitting using \code{RBF::backf.rob}.
 }
 
+You may also register additional custom strategies via
+\code{\link{register_strategy}}.
+}
+
+\seealso{
+\code{\link{register_strategy}} for adding new strategies.
+\code{\link{estimate}} for the full three-step frontier estimation workflow.
+}

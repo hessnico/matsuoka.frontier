@@ -1,23 +1,52 @@
 .strategy_env <- new.env(parent = emptyenv())
 
-#' Register a custom strategy for estimating \eqn{g(\dot)}
+#' Register a Custom Strategy for Estimating \eqn{g(x)}
 #'
-#' Registers a user-defined strategy function in the internal strategy environment.
-#' This allows custom estimation or modeling functions to be used in the workflow.
+#' Registers a user-defined strategy function into the internal strategy 
+#' environment used by \code{estimate.g()}.  
+#' This enables users to extend the set of available nonparametric estimators
+#' by providing their own modeling routines.
 #'
-#' @param name Character string of length 1. The name of the strategy.
-#' @param fn A function with signature \code{function(x, z, ...)} that returns a list 
-#'   containing at least the elements: \code{estimate}, \code{model}, and \code{meta}.
+#' @param name A character string of length 1.  
+#'   The name under which the strategy will be registered.
+#'
+#' @param fn A function with signature \code{function(X, z, ...)} that performs 
+#'   the estimation of \eqn{g(x)}.  
+#'   The function **must return a list** with the following components:
+#'   \describe{
+#'     \item{estimate}{Numeric vector of estimated values \eqn{\hat g(x)}.}
+#'     \item{model}{The fitted model object produced by the strategy.}
+#'     \item{meta}{A list containing metadata (e.g., method name, call, parameters).}
+#'   }
+#'
 #' @details
-#' The strategy function will be stored internally and can later be retrieved by name
-#' for use in other functions. The function must follow the convention of taking 
-#' x, z, and optional additional arguments, and returning a list with
-#' components:
-#' \describe{
-#'   \item{estimate}{numeric vector of predicted or estimated values.}
-#'   \item{model}{the fitted model object.}
-#'   \item{meta}{a list of additional metadata (e.g., method name, call).}
+#' The registered strategy becomes accessible through \code{estimate.g()} by
+#' passing its name to the argument \code{strategy}.  
+#' This mechanism follows the **Strategy design pattern**, allowing flexible
+#' substitution of nonparametric methods without modifying existing code.
+#'
+#' Once registered, a strategy can be used like:
+#' \preformatted{
+#'   register_strategy("my_method", function(X, z, ...) {
+#'       # custom estimation
+#'       list(
+#'           estimate = fitted_values,
+#'           model = model_object,
+#'           meta = list(method = "my_method")
+#'       )
+#'   })
+#'
+#'   estimate.g(X, z, strategy = "my_method")
 #' }
+#'
+#' @return Invisibly returns \code{NULL}. Called for its side effect of storing
+#'   the strategy in the internal environment.
+#'
+#' @seealso 
+#'   `register_strategy()`, `estimate.g()`, `matsuoka3step()`,  
+#'   and the vignette section *"Registering a new method with register_strategy()"*.
+#'
+#' @export
 register_strategy <- function(name, fn) {
     stopifnot(is.character(name), length(name) == 1)
     if (!is.function(fn)) stop("fn must be a function(x, z, ...) returning list(estimate, model, meta).")

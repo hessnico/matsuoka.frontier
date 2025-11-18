@@ -1,10 +1,49 @@
-#' Summary for matsuoka3step
-#' 
-#' @importFrom stats median
+#' Summary method for `matsuoka3step` objects
 #'
-#' @param object A 'matsuoka3step' object.
-#' @param digits Number of digits to print.
-#' @param ... unused
+#' Provides a concise summary of the results produced by
+#' [matsuoka3step()], including the estimated efficiency scores,
+#' efficiency statistics, the estimated Matsuoka parameter `p`, and
+#' the calls used to estimate \eqn{g(x)} and to fit the frontier model.
+#'
+#' @param object An object of class `"matsuoka3step"`.
+#' @param digits Integer. Number of digits to display for printed numerical
+#'   output. Defaults to 4.
+#' @param ... Additional arguments (currently unused).
+#'
+#' @details
+#' This method prints:
+#' \itemize{
+#'   \item The original model call used in [matsuoka3step()].
+#'   \item The call used to estimate the \eqn{g(x)} component.
+#'   \item Summary statistics of the efficiency scores, including:
+#'     \itemize{
+#'       \item Minimum, median, mean, maximum efficiency;
+#'       \item Quantiles used by `calculate.efficiency.stats()`;
+#'       \item Percentage of fully efficient units (efficiency ≥ 1).
+#'     }
+#'   \item The estimated Matsuoka parameter `p`.
+#' }
+#'
+#' Users can inspect the underlying \eqn{g(x)} model via:
+#' `summary(object$g_hat$model)`.
+#'
+#' @return (Invisibly) a list containing:
+#' \describe{
+#'   \item{efficiency}{Vector of efficiency scores.}
+#'   \item{efficiency_summary}{Summary statistics returned by
+#'         `calculate.efficiency.stats()`.}
+#'   \item{n}{Number of observations.}
+#'   \item{n_efficient}{Count of fully efficient observations (eff ≥ 1).}
+#'   \item{pct_efficient}{Percentage of efficient observations.}
+#'   \item{model_call}{The recorded model call.}
+#'   \item{gcall}{The recorded \eqn{g(x)} estimation call.}
+#' }
+#'
+#' @seealso
+#'   [matsuoka3step()] for fitting the model,  
+#'   [register_strategy()] to define custom \eqn{g(x)} estimators,  
+#'   [vignette("matsuoka.frontier")] — section *"Registering a new method with `register_strategy()`"*.
+#'
 #' @export
 summary.matsuoka3step <- function(object, digits = 4, ...) {
     if (!inherits(object, "matsuoka3step")) {

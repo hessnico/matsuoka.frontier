@@ -1,46 +1,58 @@
-#' Estimate g(x) using a specified strategy
+#' Estimate \eqn{g(x)} Using a Specified Strategy
 #'
-#' This function provides a unified interface to estimate the function \eqn{g(x)}
-#' using different nonparametric strategies. Strategies can be built-in methods
-#' (e.g., spline, GAM) or user-supplied custom functions.
+#' Provides a unified interface to estimate the regression function \eqn{g(x)}
+#' using different nonparametric strategies. Strategies may be one of the
+#' built-in methods or a user-supplied custom function.
 #'
 #' @details
-#' The estimation process relies on the **Strategy design pattern**, where the 
-#' actual estimation is delegated to a strategy function. The strategy must accept
-#' the following inputs and return a standardized output:
+#' This function follows the **Strategy design pattern**: the actual estimation
+#' is delegated to a strategy function. The strategy must accept:
 #'
-#' - **Input**: 
-#'   - `X`: a `data.frame` of predictors.  
-#'   - `z`: a numeric response vector.  
-#'   - `...`: additional arguments passed to the underlying estimator.
+#' - **Inputs**:
+#'   - `X`: a `data.frame` of predictors  
+#'   - `z`: a numeric response vector  
+#'   - `...`: optional additional arguments passed to the estimator  
 #'
-#' - **Output**: 
-#'   - A `list` with components:  
-#'     - `estimate`: numeric vector of estimated values.  
-#'     - `model`: the fitted model object.  
-#'     - `meta`: a list with metadata about the method.  
+#' - **Output**:  
+#'   A `list` with components:  
+#'   - `estimate`: numeric vector of fitted values  
+#'   - `model`: the fitted model object  
+#'   - `meta`: list of metadata (method name, call, etc.)  
 #'
 #' @param X A `data.frame` of input variables.
 #' @param z A numeric vector of responses (e.g., `-log(y)`).
-#' @param strategy A character string specifying the strategy name (e.g., `"spline"`, `"gam"`) 
-#'   or a custom function with the signature `function(X, z, ...)`.
+#' @param strategy Either:
+#'   - A **character string** naming a registered strategy  
+#'   - OR a **function** with signature `function(X, z, ...)` returning the
+#'     required list (`estimate`, `model`, `meta`).
 #' @param ... Additional arguments passed to the chosen strategy.
 #'
 #' @return A `list` with elements:
 #' \itemize{
 #'   \item `estimate`: numeric vector of estimated values.
-#'   \item `model`: fitted model object.
-#'   \item `meta`: list of metadata describing the estimation method.
+#'   \item `model`: the fitted model object.
+#'   \item `meta`: metadata describing the estimation method.
 #' }
 #'
 #' @section Available Strategies:
-#' The following strategies are currently registered:
+#' The following strategy names are currently registered and available:
+#'
 #' \itemize{
-#'   \item `"spline"`: Fits a smoothing spline using \code{stats::smooth.spline}.
-#'   \item `"gam"`: Fits a generalized additive model using \code{mgcv::gam}.
-#'   \item `"scar"`: Fits a Shape-Constrained additive regression model using \code{scar::scar}.
-#'   \item `"locpoly"`: Fits a local polynomial function using \code{KernSmooth::locpoly}.
+#'   \item `"spline"` — Smoothing spline using \code{stats::smooth.spline}.
+#'   \item `"gam"` — Generalized Additive Model using \code{mgcv::gam}.
+#'   \item `"scar"` — Shape-Constrained Additive Regression using \code{scar::scar}.
+#'   \item `"locpoly"` — Local polynomial regression using \code{KernSmooth::locpoly}.
+#'   \item `"backf.cl"` — Backfitting using componentwise linear functions via \code{RBF::backf.cl}.
+#'   \item `"sback"` — Smooth backfitting using \code{wsbackfit::sback}.
+#'   \item `"backf.rob"` — Robust backfitting using \code{RBF::backf.rob}.
 #' }
+#'
+#' You may also register additional custom strategies via
+#' \code{\link{register_strategy}}.
+#'
+#' @seealso
+#' \code{\link{register_strategy}} for adding new strategies.  
+#' \code{\link{estimate}} for the full three-step frontier estimation workflow.
 #'
 #' @export
 estimate.g <- function(X, z, strategy = "gam", ...) {

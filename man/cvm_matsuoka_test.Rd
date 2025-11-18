@@ -2,7 +2,7 @@
 % Please edit documentation in R/cvm.R
 \name{cvm_matsuoka_test}
 \alias{cvm_matsuoka_test}
-\title{Cramér-von Mises test for the Matsuoka distribution}
+\title{Cramér-von Mises criterion test for the Matsuoka distribution}
 \usage{
 cvm_matsuoka_test(
   x,
@@ -17,9 +17,11 @@ cvm_matsuoka_test(
 
 \item{p}{Numeric scalar, the Matsuoka parameter.}
 
-\item{estimated}{Logical, whether the parameter \code{p} is estimated from the data.}
+\item{estimated}{Logical, whether the parameter \code{p} is estimated from the data, default is set to TRUE.}
 
 \item{nullname}{Character, name of the null distribution for reporting.}
+
+\item{...}{Additional arguments passed to \code{\link[goftest]{cvm.test}}.}
 }
 \value{
 An object of class \code{htest}, as returned by \code{cvm.test()}.
@@ -29,8 +31,18 @@ Performs the Cramér-von Mises goodness-of-fit test to check whether
 a numeric vector \code{x} follows a Matsuoka distribution.
 }
 \examples{
-\dontrun{
+# In practice, x_sample would be obtained as y / f_hat after using matsuoka3step.
+# For reproducibility in examples, we simulate Matsuoka data using `rmv()` function:
 x_sample <- rmv(100, p = 0.5)
+
+# Perform Cramér–von Mises test
 cvm_matsuoka_test(x_sample, p = 0.5)
+
+# Pass additional arguments to cvm.test()
+cvm_matsuoka_test(x_sample, p = 0.5, estimated = FALSE)
+
 }
+\seealso{
+\code{\link[goftest]{cvm.test}} for the underlying test implementation.
+\code{\link{visual_cvm_matsuoka}} for graphical assessment of the test.
 }

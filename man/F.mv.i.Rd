@@ -2,22 +2,51 @@
 % Please edit documentation in R/matsuoka.R
 \name{F.mv.i}
 \alias{F.mv.i}
-\title{Quantile function of the Matsuoka distribution}
+\title{Quantile Function of the Matsuoka Distribution}
 \usage{
 F.mv.i(q, p, igamma_inv_fun = zipfR::Igamma.inv)
 }
 \arguments{
-\item{q}{Numeric vector of probabilities (values in \link{0,1}).}
+\item{q}{Numeric vector of probabilities in \eqn{[0, 1]}.}
 
-\item{p}{Positive numeric scalar, distribution parameter.}
+\item{p}{Positive numeric scalar representing the Matsuoka distribution
+parameter.}
 
-\item{igamma_inv_fun}{Optional function to compute the inverse incomplete gamma.
-Defaults to \code{Igamma.inv} from the zipfR package.}
+\item{igamma_inv_fun}{Optional function used to compute the inverse incomplete
+gamma.
+Defaults to \code{zipfR::Igamma.inv}.
+The function must accept arguments \code{a}, \code{y}, and \code{lower}.}
 }
 \value{
-Numeric vector of quantiles corresponding to \code{q}.
+A numeric vector of quantiles corresponding to the probabilities
+supplied in \code{q}.
 }
 \description{
-Computes the inverse CDF (quantile function) of the Matsuoka distribution
-with parameter \code{p}.
+Computes the inverse cumulative distribution function (quantile function)
+of the Matsuoka distribution with parameter \eqn{p > 0}.
+}
+\details{
+The quantile function is given by:
+\deqn{
+F^{-1}(q; p) = \exp\!\left(
+  -\frac{1}{p} \, \Gamma^{-1}\!\left(
+     3/2,\; q \, \frac{\sqrt{\pi}}{2}
+  \right)
+\right),
+}
+where \eqn{\Gamma^{-1}(a, \cdot)} denotes the inverse upper incomplete
+gamma function.
+}
+\examples{
+# Median of a Matsuoka distribution with p = 0.5
+F.mv.i(0.5, p = 0.5)
+
+# Vector of quantiles
+F.mv.i(c(0.1, 0.5, 0.9), p = 1)
+
+}
+\seealso{
+\code{\link{dmatsuoka}} for the density function.
+\code{\link{cmatsuoka}} for the cumulative distribution function.
+\code{\link{rmv}} for random generation from the Matsuoka distribution.
 }

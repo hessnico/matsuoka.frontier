@@ -2,19 +2,34 @@
 % Please edit documentation in R/est_frontier.R
 \name{estimate.frontier}
 \alias{estimate.frontier}
-\title{Estimate the production frontier f(x)}
+\title{Estimate the Production Frontier \eqn{f(x)}}
 \usage{
 estimate.frontier(g_hat, p_hat)
 }
 \arguments{
-\item{g_hat}{Numeric vector of estimated g(x).}
+\item{g_hat}{Numeric vector containing the estimated values of \eqn{g(x)}.}
 
-\item{p_hat}{Numeric scalar estimate of parameter p.
-$p$ has to be greater than zero, as cited in the article}
+\item{p_hat}{Numeric scalar estimate of the parameter \eqn{p}.
+Must satisfy \code{p_hat > 0}, as required by the Matsuoka distribution.}
 }
 \value{
-Numeric vector of estimated frontier values f(x).
+A numeric vector of the same length as \code{g_hat}, containing the
+estimated frontier values \eqn{f(x)}.
 }
 \description{
-Estimate the production frontier f(x)
+Computes the plug-in estimator of the production frontier
+\eqn{f(x)} using the estimated regression function \eqn{g(x)} and
+the estimated parameter \eqn{p}.
+}
+\details{
+The estimator is defined as:
+\deqn{
+\hat{f}(x) = \exp\!\left( \frac{3}{2\hat{p}} - \hat{g}(x) \right),
+\qquad p > 0.
+}
+}
+\seealso{
+\code{\link{estimate}} for the full three-step frontier estimation workflow.
+\code{\link{estimate.g}} for estimating \eqn{g(x)}.
+\code{\link{estimate.p}} for estimating the parameter \eqn{p}.
 }

@@ -2,17 +2,23 @@
 % Please edit documentation in R/est_p.R
 \name{estimate.p}
 \alias{estimate.p}
-\title{Estimate parameter p from residuals}
+\title{Estimate the Parameter \eqn{p} from Residuals}
 \usage{
 estimate.p(residuals)
 }
 \arguments{
-\item{residuals}{Numeric vector of residuals (z - g_hat).}
+\item{residuals}{A numeric vector of residuals, typically computed as
+\eqn{z - g_hat}, where \eqn{z = -\log(y)}.}
 }
 \value{
-Numeric estimate of p.
+A positive numeric scalar giving the estimated value of \eqn{p}.
 }
 \description{
-Estimates the shape parameter \( p \) for Matsuoka's distribution
-using the method of moments.
+Estimates the shape parameter \eqn{p} of the Matsuoka distribution
+using the \strong{method of moments}, based on the residuals
+\eqn{z - g(x)} obtained in the first estimation step.
+}
+\seealso{
+\code{\link{estimate}} for the full three-step frontier estimation workflow.
+\code{\link{estimate.frontier}} for constructing the estimated frontier \eqn{f(x)}.
 }

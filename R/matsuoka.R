@@ -1,16 +1,34 @@
-#' Density function for Matsuoka 
+#' Probability Density Function of the Matsuoka Distribution
 #'
-#' Computes the **Matsuoka density function** for a numeric vector of values in the interval (0,1).
+#' Computes the probability density function (PDF) of the Matsuoka distribution
+#' with parameter \code{p}.
 #'
 #' The density is defined as:
-#' \deqn{f(x; p) = 2 \sqrt{\frac{-p^3 \log(x)}{\pi}} \, x^{p-1}, \quad 0 < x < 1, \; p > 0}
+#' \deqn{
+#' f(x; p) = 2 \sqrt{\frac{-p^3 \log(x)}{\pi}} \, x^{p-1},
+#'  \quad 0 < x < 1, \; p > 0
+#'  }
 #'
-#' @param x Numeric vector. 
-#' @param p Positive numeric parameter of the density. Must be greater than 0.
+#' @param x Numeric vector of evaluation points.
+#' @param p Positive numeric scalar (parameter of the distribution).
 #'
-#' @return A numeric vector of the same length as `x`, giving the density values. Positions where `x <= 0`, `x >= 1`, or `x` is `NA` return 0.
+#' @return A numeric vector of the same length as \code{x}, giving the density
+#'   values. Values where \code{x <= 0}, \code{x >= 1}, or \code{x} is \code{NA}
+#'   return 0.
+#'
+#' @examples
+#' # Density at specific points
+#' dmatsuoka(c(0.2, 0.5, 0.8), p = 0.5)
+#'
+#' # Plotting the density
+#' curve(dmatsuoka(x, p = 0.5), from = 0, to = 1)
+#' 
+#' @seealso
+#' \code{\link{cmatsuoka}} for the cumulative distribution function,
+#' \code{\link{F.mv.i}} for the inverse Matsuoka distribution function.
 #'
 #' @export
+#' 
 dmatsuoka <- function(x, p) {
     if (p <= 0) stop("p must be positive.")
     
@@ -21,10 +39,10 @@ dmatsuoka <- function(x, p) {
     return(out)
 }
 
-#' Distribution function for Matsuoka
+#' Cumulative distribution function for Matsuoka
 #'
 #' @details
-#' The cumulative Matsuoka function is defined as
+#' The cumulative distribution function for Matsuoka distribution is defined as
 #' \deqn{
 #'   F_p(x) = \frac{2}{\sqrt{\pi}} \, \Gamma\!\left(\tfrac{3}{2}, -p \ln(x)\right) \, I(0 < x < 1)
 #'            \;+\; I(x \geq 1)
@@ -32,7 +50,7 @@ dmatsuoka <- function(x, p) {
 #' where \eqn{\Gamma(a, t)} is the upper incomplete gamma function
 #' and \eqn{I(\cdot)} denotes the indicator function.
 #'
-#' Following **stats::pgamma** documentation page, \eqn{\Gamma(a,t)} can be computed using
+#' According to **stats::pgamma**'s documentation page, \eqn{\Gamma(a,t)} can be computed using
 #' \code{pgamma(t, shape = a, lower.tail = FALSE)} which returns the 
 #' upper incomplete gamma function value.
 #'
@@ -44,7 +62,7 @@ dmatsuoka <- function(x, p) {
 #' cmatsuoka(0.5, p = 2)
 #' cmatsuoka(1, p = 2)
 #' cmatsuoka(0, p = 2)
-#' @seealso \link[stats]{pgamma} 
+#' @seealso \link[stats]{pgamma} \link[dmatsuoka]{dmatsuoka}
 #' @export
 #' 
 #' @importFrom stats pgamma
@@ -67,16 +85,44 @@ cmatsuoka <- function(x, p) {
     return(result)
 }
 
-#' Quantile function of the Matsuoka distribution
+#' Quantile Function of the Matsuoka Distribution
 #'
-#' Computes the inverse CDF (quantile function) of the Matsuoka distribution
-#' with parameter `p`.
+#' Computes the inverse cumulative distribution function (quantile function)
+#' of the Matsuoka distribution with parameter \eqn{p > 0}.
+#' 
+#' The quantile function is given by:
+#' \deqn{
+#' F^{-1}(q; p) = \exp\!\left(
+#'   -\frac{1}{p} \, \Gamma^{-1}\!\left(
+#'      3/2,\; q \, \frac{\sqrt{\pi}}{2}
+#'   \right)
+#' \right),
+#' }
+#' where \eqn{\Gamma^{-1}(a, \cdot)} denotes the inverse upper incomplete
+#' gamma function.
+#' @param q Numeric vector of probabilities in \eqn{[0, 1]}.
+#' @param p Positive numeric scalar representing the Matsuoka distribution
+#'   parameter.
+#' @param igamma_inv_fun Optional function used to compute the inverse incomplete
+#'   gamma.  
+#'   Defaults to \code{zipfR::Igamma.inv}.  
+#'   The function must accept arguments \code{a}, \code{y}, and \code{lower}.
 #'
-#' @param q Numeric vector of probabilities (values in [0,1]).
-#' @param p Positive numeric scalar, distribution parameter.
-#' @param igamma_inv_fun Optional function to compute the inverse incomplete gamma.
-#'        Defaults to `Igamma.inv` from the zipfR package.
-#' @return Numeric vector of quantiles corresponding to `q`.
+#' @return A numeric vector of quantiles corresponding to the probabilities
+#'   supplied in \code{q}.
+#'
+#' @examples
+#' # Median of a Matsuoka distribution with p = 0.5
+#' F.mv.i(0.5, p = 0.5)
+#'
+#' # Vector of quantiles
+#' F.mv.i(c(0.1, 0.5, 0.9), p = 1)
+#'
+#' @seealso
+#' \code{\link{dmatsuoka}} for the density function.  
+#' \code{\link{cmatsuoka}} for the cumulative distribution function.  
+#' \code{\link{rmv}} for random generation from the Matsuoka distribution.
+#'
 #' @export
 F.mv.i <- function(q, p, igamma_inv_fun = zipfR::Igamma.inv) {
     if (!is.numeric(q) || any(q < 0 | q > 1)) {
@@ -95,14 +141,24 @@ F.mv.i <- function(q, p, igamma_inv_fun = zipfR::Igamma.inv) {
 #' Generates random samples from the Matsuoka distribution using the
 #' inverse CDF method.
 #'
-#' @param n Number of samples to generate (positive integer).
-#' @param p Positive numeric scalar, distribution parameter.
-#' @param igamma_inv_fun Optional function to compute the inverse incomplete gamma.
-#'        Defaults to `Igamma.inv` from the zipfR package.
-#' @return Numeric vector of length `n` of random Matsuoka samples.
+#' @param n Integer. Number of samples to generate (must be positive).
+#' @param p Positive numeric scalar. Shape parameter of the Matsuoka distribution.
+#' @param igamma_inv_fun Optional function computing the inverse incomplete gamma.
+#'   Defaults to `Igamma.inv` from the **zipfR** package.
+#'
+#' @return A numeric vector of length `n` containing random variates from the
+#'   Matsuoka distribution.
+#'
+#' @seealso
+#'   `F.mv.i()` for the inverse CDF used internally,  
+#'   `dmv()` and `pmv()` for the density and distribution functions,  
+#'   and the vignette section *"Matsuoka distribution and its components"*  
+#'   for a full description of the model.
+#'
 #' @examples
 #' set.seed(123)
 #' rmv(10, p = 0.5)
+#'
 #' @export
 rmv <- function(n, p, igamma_inv_fun = zipfR::Igamma.inv) {
     if (!is.numeric(n) || length(n) != 1 || n <= 0) {

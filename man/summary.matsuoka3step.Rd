@@ -2,17 +2,56 @@
 % Please edit documentation in R/summary.R
 \name{summary.matsuoka3step}
 \alias{summary.matsuoka3step}
-\title{Summary for matsuoka3step}
+\title{Summary method for \code{matsuoka3step} objects}
 \usage{
 \method{summary}{matsuoka3step}(object, digits = 4, ...)
 }
 \arguments{
-\item{object}{A 'matsuoka3step' object.}
+\item{object}{An object of class \code{"matsuoka3step"}.}
 
-\item{digits}{Number of digits to print.}
+\item{digits}{Integer. Number of digits to display for printed numerical
+output. Defaults to 4.}
 
-\item{...}{unused}
+\item{...}{Additional arguments (currently unused).}
+}
+\value{
+(Invisibly) a list containing:
+\describe{
+\item{efficiency}{Vector of efficiency scores.}
+\item{efficiency_summary}{Summary statistics returned by
+\code{calculate.efficiency.stats()}.}
+\item{n}{Number of observations.}
+\item{n_efficient}{Count of fully efficient observations (eff ≥ 1).}
+\item{pct_efficient}{Percentage of efficient observations.}
+\item{model_call}{The recorded model call.}
+\item{gcall}{The recorded \eqn{g(x)} estimation call.}
+}
 }
 \description{
-Summary for matsuoka3step
+Provides a concise summary of the results produced by
+\code{\link[=matsuoka3step]{matsuoka3step()}}, including the estimated efficiency scores,
+efficiency statistics, the estimated Matsuoka parameter \code{p}, and
+the calls used to estimate \eqn{g(x)} and to fit the frontier model.
+}
+\details{
+This method prints:
+\itemize{
+\item The original model call used in \code{\link[=matsuoka3step]{matsuoka3step()}}.
+\item The call used to estimate the \eqn{g(x)} component.
+\item Summary statistics of the efficiency scores, including:
+\itemize{
+\item Minimum, median, mean, maximum efficiency;
+\item Quantiles used by \code{calculate.efficiency.stats()};
+\item Percentage of fully efficient units (efficiency ≥ 1).
+}
+\item The estimated Matsuoka parameter \code{p}.
+}
+
+Users can inspect the underlying \eqn{g(x)} model via:
+\code{summary(object$g_hat$model)}.
+}
+\seealso{
+\code{\link[=matsuoka3step]{matsuoka3step()}} for fitting the model,
+\code{\link[=register_strategy]{register_strategy()}} to define custom \eqn{g(x)} estimators,
+\link{vignette("matsuoka.frontier")} — section \emph{"Registering a new method with \code{register_strategy()}"}.
 }

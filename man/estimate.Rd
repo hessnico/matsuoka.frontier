@@ -2,26 +2,64 @@
 % Please edit documentation in R/estimate.R
 \name{estimate}
 \alias{estimate}
-\title{Run the Three-Step Frontier Estimation}
+\title{Three-Step Frontier Estimation (Matsuoka Frontier)}
 \usage{
 estimate(X, y, g_strategy = "splines", ...)
 }
 \arguments{
-\item{X}{A data.frame of input variables}
+\item{X}{A data frame or matrix of input variables. Each row corresponds to
+one observation, and each column represents an input dimension.}
 
-\item{y}{A numeric output vector}
+\item{y}{A numeric vector of outputs, strictly positive and of the same
+length as the number of rows in \code{X}.}
 
-\item{g_strategy}{Method for estimating g(x). Options: "splines"
-TODO: Options: "spline", or "scar"}
+\item{g_strategy}{Either a character string or a function specifying the
+method for estimating the regression function \eqn{g(x)}.
+See \code{\link{estimate.g}} for the complete list of available
+strategies and instructions for implementing custom estimators.
 
-\item{...}{Additional arguments passed to specific \code{g} estimators.}
+If a \strong{function}, it must have signature \code{function(x, z, ...)} and
+return a list containing at least the element \code{estimate}, and typically
+also \code{model} and \code{meta}. If wanted, custom functions can be registered using
+\code{\link{register_strategy}}.}
+
+\item{...}{Additional arguments passed to the underlying \code{estimate.g()}
+method depending on \code{g_strategy}.}
 }
 \value{
-A list with elements: g_hat, residuals, p_hat, f_hat.
+A list with the following components:
+\describe{
+\item{g_hat}{The fitted nonparametric regression object returned by
+\code{estimate.g()}.}
+\item{residuals}{The vector of residuals \eqn{z - \hat{g}(x)}, where
+\eqn{z = -\log(y)}.}
+\item{p_hat}{The estimated Matsuoka parameter obtained via the method of
+moments.}
+\item{f_hat}{The estimated frontier values computed}
+}
 }
 \description{
-This function estimates the production frontier using the three-step method:
-(1) Any nonparametric regression to estimate g(x),
-(2) estimation of the parameter p via method of moments,
-(3) construction of f(x) via plug-in.
+Implements the three-step frontier estimation procedure based on the
+Matsuoka distribution. The method consists of:
+\enumerate{
+\item Nonparametric regression to estimate \eqn{g(x)},
+\item Estimation of the Matsuoka parameter \eqn{p} via the method of moments,
+\item Construction of the frontier estimate \eqn{f(x)}.
+}
+}
+\examples{
+\dontrun{
+set.seed(1)
+X <- data.frame(x = runif(100))
+y <- exp(-0.5 * X$x) * runif(100, 0.8, 1)
+
+fit <- estimate(X, y, g_strategy = "splines")
+fit$p_hat
+}
+
+}
+\seealso{
+\code{\link{estimate.g}},
+\code{\link{estimate.p}},
+\code{\link{estimate.frontier}},
 }

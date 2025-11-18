@@ -2,7 +2,7 @@
 % Please edit documentation in R/matsuoka3step.R
 \name{matsuoka3step}
 \alias{matsuoka3step}
-\title{matsuoka3step Class Constructor}
+\title{Matsuoka 3-Step Estimation Procedure}
 \usage{
 matsuoka3step(x, y, g = "spline", ...)
 }
@@ -11,28 +11,43 @@ matsuoka3step(x, y, g = "spline", ...)
 
 \item{y}{A numeric vector of outputs (must be > 0).}
 
-\item{g}{A strategy for estimating g(x) ("spline" or custom function).
-Possible entries include:
-\describe{
-\item{"spline"}{Default value. Accepts only one depedent variable.}
-\item{"gam"}{Wrapper for \code{gam} package function. Uses smoothing splines in the formula, e.g.: \eqn{z = s(x_1) + s(x_2)}.}
+\item{g}{A strategy for estimating \( g(x) \). The value may be:
+\itemize{
+\item a character string naming a built-in strategy, or
+\item a user-defined function with signature \code{fun(X, z, ...)}.
 }}
 
-\item{...}{Extra args passed to g(x) estimator.}
+\item{...}{Additional parameters passed to the selected g-strategy.}
 }
 \value{
-An object of class \code{matsuoka3step}:
+A \code{matsuoka3step} object containing:
 \describe{
-\item{x}{dependent variables.}
-\item{y}{independet variable.}
-\item{efficience}{deterministic efficiency calculated, being \eqn{y/\hat{f(x)}}}
-\item{call}{the matched call.}
-\item{g_hat}{estimated values of the function \( g(x) \).}
-\item{g_hat_res}{residuals from the estimation of \( g(x) \).}
-\item{p_hat}{estimated parameter \( p \).}
-\item{f_hat}{estimated productive frontier.}
+\item{x}{Input variables.}
+\item{y}{Output variable.}
+\item{efficiency}{Deterministic efficiency estimate: \eqn{y / \hat f(x)}.}
+\item{call}{The matched call.}
+\item{g_hat}{Estimated \( g(x) \).}
+\item{g_hat_res}{Residuals from the g(x) estimation.}
+\item{p_hat}{Estimated parameter \( p \).}
+\item{f_hat}{Estimated frontier.}
 }
 }
 \description{
-matsuoka3step Class Constructor
+Executes the full estimation pipeline:
+\enumerate{
+\item estimate \eqn{g(x)} using a selected strategy,
+\item estimate the Matsuoka shape parameter \eqn{p},
+\item compute the productive frontier \eqn{f(x)}.
+}
+}
+\details{
+The estimation of \( g(x) \) follows a \strong{Strategy design pattern}.
+See \code{\link{estimate.g}} for the complete list of available
+strategies and instructions for implementing custom estimators.
+}
+\seealso{
+\code{\link{estimate.g}} for available strategies;
+\code{\link{estimate}} for the full 3-step algorithm;
+\code{\link{estimate.p}} for estimation of \( p \);
+\code{\link{cmatsuoka}} and \code{\link{F.mv.i}} for distribution functions.
 }

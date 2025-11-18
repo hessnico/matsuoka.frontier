@@ -1,26 +1,41 @@
-#' matsuoka3step Class Constructor
+#' Matsuoka 3-Step Estimation Procedure
+#'
+#' Executes the full estimation pipeline:
+#' 1) estimate \eqn{g(x)} using a selected strategy,
+#' 2) estimate the Matsuoka shape parameter \eqn{p},
+#' 3) compute the productive frontier \eqn{f(x)}.
 #'
 #' @param x A data.frame of input variables.
 #' @param y A numeric vector of outputs (must be > 0).
-#' @param g A strategy for estimating g(x) ("spline" or custom function).
-#'   Possible entries include:
-#'   \describe{
-#'     \item{"spline"}{Default value. Accepts only one depedent variable.}
-#'     \item{"gam"}{Wrapper for `gam` package function. Uses smoothing splines in the formula, e.g.: \eqn{z = s(x_1) + s(x_2)}.}
-#'   }
-#' @param ... Extra args passed to g(x) estimator.
 #'
-#' @return An object of class `matsuoka3step`:
+#' @param g A strategy for estimating \( g(x) \). The value may be:
+#'   - a character string naming a built-in strategy, or  
+#'   - a user-defined function with signature \code{fun(X, z, ...)}.
+#'
+#' @details
+#' The estimation of \( g(x) \) follows a **Strategy design pattern**.
+#' See \code{\link{estimate.g}} for the complete list of available
+#' strategies and instructions for implementing custom estimators.
+#'
+#' @param ... Additional parameters passed to the selected g-strategy.
+#'
+#' @return A `matsuoka3step` object containing:
 #' \describe{
-#'   \item{x}{dependent variables.}
-#'   \item{y}{independet variable.}
-#'   \item{efficience}{deterministic efficiency calculated, being \eqn{y/\hat{f(x)}}}
-#'   \item{call}{the matched call.}
-#'   \item{g_hat}{estimated values of the function \( g(x) \).}
-#'   \item{g_hat_res}{residuals from the estimation of \( g(x) \).}
-#'   \item{p_hat}{estimated parameter \( p \).}
-#'   \item{f_hat}{estimated productive frontier.}
+#'   \item{x}{Input variables.}
+#'   \item{y}{Output variable.}
+#'   \item{efficiency}{Deterministic efficiency estimate: \eqn{y / \hat f(x)}.}
+#'   \item{call}{The matched call.}
+#'   \item{g_hat}{Estimated \( g(x) \).}
+#'   \item{g_hat_res}{Residuals from the g(x) estimation.}
+#'   \item{p_hat}{Estimated parameter \( p \).}
+#'   \item{f_hat}{Estimated frontier.}
 #' }
+#'
+#' @seealso
+#'   \code{\link{estimate.g}} for available strategies;  
+#'   \code{\link{estimate}} for the full 3-step algorithm;  
+#'   \code{\link{estimate.p}} for estimation of \( p \);  
+#'   \code{\link{cmatsuoka}} and \code{\link{F.mv.i}} for distribution functions.
 #'
 #' @export
 matsuoka3step <- function(x, y, g = "spline", ...) {

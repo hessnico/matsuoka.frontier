@@ -1,27 +1,44 @@
-#' Plot method for matsuoka3step objects
+#' Plot Method for `matsuoka3step` Objects
 #'
-#' Produces diagnostic plots for a fitted Matsuoka frontier model:
-#' (i) the fitted density function based on \code{p_hat},
-#' (ii) a filled contour of the estimated production frontier.
-#' (iii) the plot for each xy values with productive estimated function
+#' Generates diagnostic visualizations for a fitted frontier model.  
+#' The available plots include:
+#' \enumerate{
+#'   \item The fitted Matsuoka density function derived from the estimated parameter \code{p_hat};
+#'   \item A filled contour plot of the estimated production frontier 
+#'         (requires two-dimensional input \code{x}).
+#' }
 #'
 #' @param x An object of class \code{matsuoka3step}.
-#' @param which Which plot(s) to show: 
-#'   \code{1} = density, 
-#'   \code{2} = contour (requires 2D input), 
-#'   \code{c(1,2)} or \code{"both"} = both.
-#' @param ngrid Number of grid points per axis for interpolation (contour only).
-#' @param counter_levels Number of contour levels (contour only).
-#' @param ask Logical; if \code{TRUE}, pause between plots.
-#' @param ... Additional graphical parameters passed to plotting functions.
+#' @param which Specifies which plot(s) to display:
+#'   \describe{
+#'     \item{\code{1}}{Density plot.}
+#'     \item{\code{2}}{Frontier contour plot (only for 2D inputs).}
+#'     \item{\code{c(1, 2)} or \code{"both"}}{Produce both plots.}
+#'   }
+#' @param ngrid Integer; number of grid points per axis used for interpolation
+#'   in the contour plot.
+#' @param contour_levels Integer; number of contour levels to draw (contour plot only).
+#' @param ask Logical; if \code{TRUE}, the user will be prompted before each plot.
+#' @param ... Additional graphical parameters passed to the underlying plotting
+#'   functions.
+#'
+#' @details
+#' The density plot visualizes the estimated Matsuoka density based solely on
+#' \code{p_hat}.  
+#' The contour plot is based on an interpolated grid of \eqn{\hat{f}(x)} values
+#' using the information stored in the \code{matsuoka3step} object.
+#'
+#' @return Returns \code{NULL} invisibly. Called for its side effects (plots).
 #'
 #' @importFrom grDevices gray.colors
 #' @importFrom graphics filled.contour grid lines par
 #'
-#' @return Invisibly returns \code{NULL}. Called for its side effect of plotting.
-#' @export
+#' @seealso
+#'   \code{\link{cmatsuoka}} for the distribution function of the Matsuoka model;  
+#'   \code{\link{contour.plot.helper}} for internal frontier contouring utilities;  
+#'   \code{\link{den.plot}} for the density visualization helper.
 #'
-#' @seealso [cmatsuoka()], [contour.plot.helper()], [den.plot()]
+#' @export
 plot.matsuoka3step <- function(x,
                                which = NULL, 
                                ngrid = 500,
@@ -99,24 +116,29 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
     ), dots))
 }
 
-#' Plot the Matsuoka density for a fitted object
+
+#' Plot the Matsuoka Density for a Fitted Model
 #'
-#' This function produces a base R plot of the estimated
-#'  Matsuoka probability density function (PDF)
-#' for a given fitted object. The density is evaluated on a fine grid
-#' over the support \eqn{(0, 1)} and drawn as a smooth curve.
+#' Produces a base R plot of the estimated Matsuoka probability density
+#' function (PDF) for a given fitted model object. The density is evaluated on
+#' a fine grid over the support \eqn{(0, 1)} and drawn as a smooth curve.
 #'
 #' @details
-#' The function extracts the estimated \eqn{p} parameter from the object
-#' (`obj$p_hat`) and calls [matsuoka.density()] to evaluate the density
-#' on `x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)`.  
-#' A simple plot with axis labels, main title, and grid lines is generated.
+#' The function extracts the estimated parameter \eqn{p} from the fitted object
+#' (using \code{obj$p_hat}) and evaluates the density via
+#' \code{\link{dmatsuoka}} on a grid
+#' \code{x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)}.
+#' A simple base R plot is produced, including axis labels, a main title, and
+#' optional grid lines.
 #'
-#' @param obj A fitted object of class \code{matsuoka3step} (or a similar class)
-#'   that contains a numeric scalar \code{p_hat} element, representing the
-#'   estimated \eqn{p} parameter of the distribution.
+#' @param obj A fitted object of class \code{matsuoka3step} 
+#'   containing a numeric scalar \code{p_hat}, representing the estimated
+#'   shape parameter \eqn{p} of the Matsuoka distribution.
+#'
+#' @seealso
+#' \code{\link{dmatsuoka}} for the density function,  
+#'
 #' @export
-#' @seealso \code{\link{matsuoka.density}} \code{\link{dmatsuoka}}
 den.plot <- function(obj) {
     x.seq <- seq(1e-10, 1 - 1e-10, length.out = 10000)
     p <- obj$p_hat

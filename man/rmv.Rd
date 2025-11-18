@@ -7,15 +7,16 @@
 rmv(n, p, igamma_inv_fun = zipfR::Igamma.inv)
 }
 \arguments{
-\item{n}{Number of samples to generate (positive integer).}
+\item{n}{Integer. Number of samples to generate (must be positive).}
 
-\item{p}{Positive numeric scalar, distribution parameter.}
+\item{p}{Positive numeric scalar. Shape parameter of the Matsuoka distribution.}
 
-\item{igamma_inv_fun}{Optional function to compute the inverse incomplete gamma.
-Defaults to \code{Igamma.inv} from the zipfR package.}
+\item{igamma_inv_fun}{Optional function computing the inverse incomplete gamma.
+Defaults to \code{Igamma.inv} from the \strong{zipfR} package.}
 }
 \value{
-Numeric vector of length \code{n} of random Matsuoka samples.
+A numeric vector of length \code{n} containing random variates from the
+Matsuoka distribution.
 }
 \description{
 Generates random samples from the Matsuoka distribution using the
@@ -24,4 +25,11 @@ inverse CDF method.
 \examples{
 set.seed(123)
 rmv(10, p = 0.5)
+
+}
+\seealso{
+\code{F.mv.i()} for the inverse CDF used internally,
+\code{dmv()} and \code{pmv()} for the density and distribution functions,
+and the vignette section \emph{"Matsuoka distribution and its components"}
+for a full description of the model.
 }

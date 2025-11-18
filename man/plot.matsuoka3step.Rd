@@ -2,35 +2,50 @@
 % Please edit documentation in R/plot.R
 \name{plot.matsuoka3step}
 \alias{plot.matsuoka3step}
-\title{Plot method for matsuoka3step objects}
+\title{Plot Method for \code{matsuoka3step} Objects}
 \usage{
 \method{plot}{matsuoka3step}(x, which = NULL, ngrid = 500, counter_levels = 8, ask = FALSE, ...)
 }
 \arguments{
 \item{x}{An object of class \code{matsuoka3step}.}
 
-\item{which}{Which plot(s) to show:
-\code{1} = density,
-\code{2} = contour (requires 2D input),
-\code{c(1,2)} or \code{"both"} = both.}
+\item{which}{Specifies which plot(s) to display:
+\describe{
+\item{\code{1}}{Density plot.}
+\item{\code{2}}{Frontier contour plot (only for 2D inputs).}
+\item{\code{c(1, 2)} or \code{"both"}}{Produce both plots.}
+}}
 
-\item{ngrid}{Number of grid points per axis for interpolation (contour only).}
+\item{ngrid}{Integer; number of grid points per axis used for interpolation
+in the contour plot.}
 
-\item{counter_levels}{Number of contour levels (contour only).}
+\item{ask}{Logical; if \code{TRUE}, the user will be prompted before each plot.}
 
-\item{ask}{Logical; if \code{TRUE}, pause between plots.}
+\item{...}{Additional graphical parameters passed to the underlying plotting
+functions.}
 
-\item{...}{Additional graphical parameters passed to plotting functions.}
+\item{contour_levels}{Integer; number of contour levels to draw (contour plot only).}
 }
 \value{
-Invisibly returns \code{NULL}. Called for its side effect of plotting.
+Returns \code{NULL} invisibly. Called for its side effects (plots).
 }
 \description{
-Produces diagnostic plots for a fitted Matsuoka frontier model:
-(i) the fitted density function based on \code{p_hat},
-(ii) a filled contour of the estimated production frontier.
-(iii) the plot for each xy values with productive estimated function
+Generates diagnostic visualizations for a fitted frontier model.
+The available plots include:
+\enumerate{
+\item The fitted Matsuoka density function derived from the estimated parameter \code{p_hat};
+\item A filled contour plot of the estimated production frontier
+(requires two-dimensional input \code{x}).
+}
+}
+\details{
+The density plot visualizes the estimated Matsuoka density based solely on
+\code{p_hat}.
+The contour plot is based on an interpolated grid of \eqn{\hat{f}(x)} values
+using the information stored in the \code{matsuoka3step} object.
 }
 \seealso{
-\code{\link[=cmatsuoka]{cmatsuoka()}}, \code{\link[=contour.plot.helper]{contour.plot.helper()}}, \code{\link[=den.plot]{den.plot()}}
+\code{\link{cmatsuoka}} for the distribution function of the Matsuoka model;
+\code{\link{contour.plot.helper}} for internal frontier contouring utilities;
+\code{\link{den.plot}} for the density visualization helper.
 }

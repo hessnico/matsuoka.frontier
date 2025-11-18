@@ -2,27 +2,28 @@
 % Please edit documentation in R/plot.R
 \name{den.plot}
 \alias{den.plot}
-\title{Plot the Matsuoka density for a fitted object}
+\title{Plot the Matsuoka Density for a Fitted Model}
 \usage{
 den.plot(obj)
 }
 \arguments{
-\item{obj}{A fitted object of class \code{matsuoka3step} (or a similar class)
-that contains a numeric scalar \code{p_hat} element, representing the
-estimated \eqn{p} parameter of the distribution.}
+\item{obj}{A fitted object of class \code{matsuoka3step}
+containing a numeric scalar \code{p_hat}, representing the estimated
+shape parameter \eqn{p} of the Matsuoka distribution.}
 }
 \description{
-This function produces a base R plot of the estimated
-Matsuoka probability density function (PDF)
-for a given fitted object. The density is evaluated on a fine grid
-over the support \eqn{(0, 1)} and drawn as a smooth curve.
+Produces a base R plot of the estimated Matsuoka probability density
+function (PDF) for a given fitted model object. The density is evaluated on
+a fine grid over the support \eqn{(0, 1)} and drawn as a smooth curve.
 }
 \details{
-The function extracts the estimated \eqn{p} parameter from the object
-(\code{obj$p_hat}) and calls \code{\link[=matsuoka.density]{matsuoka.density()}} to evaluate the density
-on \code{x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)}.
-A simple plot with axis labels, main title, and grid lines is generated.
+The function extracts the estimated parameter \eqn{p} from the fitted object
+(using \code{obj$p_hat}) and evaluates the density via
+\code{\link{dmatsuoka}} on a grid
+\code{x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)}.
+A simple base R plot is produced, including axis labels, a main title, and
+optional grid lines.
 }
 \seealso{
-\code{\link{matsuoka.density}} \code{\link{dmatsuoka}}
+\code{\link{dmatsuoka}} for the density function,
 }
