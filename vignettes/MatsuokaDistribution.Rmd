@@ -1,5 +1,5 @@
 ---
-title: "MatsuokaDistribution"
+title: "matsuoka3step"
 output: rmarkdown::pdf_document
 description: Learn how to use "MatsuokaDistribution" class object to estimate the production frontier using the three-step approach
 vignette: >
@@ -74,7 +74,8 @@ plot(
 )
 ```
 
-The package does not have an automated plot function to extract `g(x)` components. However, since the `matsuoka3step` saves the `g(x)` estimated object, it is possible to extract the components through it, and diagnose each case, in our example case, we can:
+The package does not have an automated plot function to extract `g(x)` components.
+However, since the `matsuoka3step` saves the `g(x)` estimated object, it is possible to extract the components through it, and diagnose each case, in our example case, we can:
 
 ```{r}
 x1 <- res$x$x1
@@ -89,33 +90,38 @@ pred_2 <- predict(res$g_hat$model,
 comp_1 <- exp((3 / (2 * p_hat)) - pred_1)
 comp_2 <- exp((3 / (2 * p_hat)) - pred_2)
 
-plot(x1, y, ylim = c(4,10))
+plot(x1, y, ylim = c(4,10), type = "n")
 lines(sort(x1), comp_1[order(x1)], col = "blue", lwd = 2)
-plot(x2, y, ylim = c(4,10))
+plot(x2, y, ylim = c(4,10), type = "n")
 lines(sort(x2), comp_2[order(x2)], col = "red", lwd = 2)
 ```
 
 
 After diagnosing the `g(.)` function, we can forward to the production frontier estimation diagnostics.
-There is a built-in plot function that can be used, for example:
+
+There is a built-in plot function that can be used, the first graph is related to the Matsuoka density:
 ```{r gam mat plot 1}
 plot(res, which = 1)
 ```
 
+And the second one, is a contour plot, for multivariate dataframes:
 ```{r gam mat plot 2}
-plot(res, ngrid = 200, counter_levels = 15, which = 2)
+plot(res, which = 2)
+```
+
+The built-in plot function has optional args `...`, with that is possible to enhance the contour plot:
+```{r}
+plot(res, which = 2, ngrid = 200, counter_levels = 15)
 ```
 
 And also a summary built-in function that provides further insights on the estimation, such as efficiency scores and percentage of efficiency scores higher than one.
-
 ```{r}
 summary(res)
 ```
 
 ## Method with specific arguments
 
-The `matsuoka3step` estimation function inherits properties from S3 objects, such as three dots that can be used for the estimation of `g(x)`.
-
+The `matsuoka3step` estimation function inherits properties from S3 objects:
 ```{r specific}
 res.specific.gam <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "gam",
                                         family = "gaussian",
@@ -142,8 +148,7 @@ summary(res.specific.sback)
 
 ## Method with custom `g(.)` estimative
 
-Finally, there's the possibility to apply a customizable function from the user
-
+Finally, there's the possibility to apply a customizable function from the user:
 ```{r custom}
 custom_fun <- function(X, z, ...) {
     list(estimate = rep(mean(z), nrow(X)))
@@ -158,8 +163,7 @@ plot(res.custom.fn)
 
 ## Without using the wrapper `matsuoka3step`
 
-There's also the possibility to mount your own matsuoka three step approach, given that primary functions are being publicly exported
-
+There's also the possibility to mount your own matsuoka three step approach, given that primary functions are being publicly exported:
 ```{r diy}
 diy.df <- x.df
 diy.df$y <- y
@@ -186,19 +190,19 @@ print(p.est)
 
 ## Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
 
-To a better diagnose of the Matsuoka's distribuition, in this library it was also implemented the Cramer-von Mises test to verify adherence of the estimate `p`:
+To a better diagnose of the Matsuoka's distribution, it was also implemented the Cramer-von Mises test to verify adherence of the estimate `p`:
 
 ```{r}
-set.seed(1234)
-
-x.t <- rmv(100, 8.3)
-res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, g = "backf.cl", 
+res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, 
+                                        g = "backf.cl",
                                         windows = c(1,1))
-cvm_matsuoka_test(x.t, p = res$p_hat)
+
+ef <- res$y / res$f_hat
+cvm_matsuoka_test(ef, p = res$p_hat)
 ```
 
 And finally, a visual plot to compare:
 ```{r}
-visual_cvm_matsuoka(x.t, p = res$p_hat, nullname = "test")
+visual_cvm_matsuoka(ef, p = res$p_hat, nullname = "test")
 ```
 

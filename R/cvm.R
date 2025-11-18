@@ -76,9 +76,9 @@ visual_cvm_matsuoka <- function(x, p, ...) {
     
     p_plot <- ggplot2::ggplot(df_long, ggplot2::aes(x = x, y = CDF, color = Distribution)) +
         ggplot2::geom_step(data = subset(df_long, Distribution == "Empirical"),
-                           direction = "hv", size = 0.8, alpha = 0.9) +
+                           direction = "hv", linewidth = 0.8, alpha = 0.9) +
         ggplot2::geom_line(data = subset(df_long, Distribution == "Theoretical"),
-                           size = 0.8, alpha = 0.9) +
+                           linewidth = 0.8, alpha = 0.9) +
         ggplot2::scale_color_manual(values = c("Empirical" = "#D55E00",
                                                "Theoretical" = "#0072B2"),
                                     name = "Distribution") +
@@ -103,7 +103,7 @@ visual_cvm_matsuoka <- function(x, p, ...) {
                                     breaks = seq(0, 1, 0.2)) +
         ggplot2::guides(color = ggplot2::guide_legend(override.aes = list(
             linetype = c("solid", "solid"),
-            size = c(1, 1)
+            linewidth = c(1, 1)
         )))
     
     return(p_plot)
