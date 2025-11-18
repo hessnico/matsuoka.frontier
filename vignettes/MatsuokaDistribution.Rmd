@@ -25,8 +25,9 @@ The examples below illustrate different ways to estimate the production frontier
 1. Pre-mounted `g(.)` estimation methods
 2. Method with specific arguments
 3. Method with custom `g(.)` estimative
-4. Without using the wrapper `matsuoka3step`
-5. Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
+4. Registering a new method with `register_strategy()` and using it
+5. Without using the wrapper `matsuoka3step`
+6. Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
 
 ## Setup for package use
 
@@ -159,6 +160,51 @@ res.custom.fn$f_hat <- round(res.custom.fn$f_hat, 2)
 
 summary(res.custom.fn)
 plot(res.custom.fn)
+```
+
+## Registering a new method with `register_strategy()` and using it
+
+With `register_strategy`, it is possible to create a custom strategy, register it and extend the `g(x)` functions to be used, as shown below:
+```{r new strategy}
+custom_knn_strategy_example <- function(X, z, k, ...) {
+
+    if (!is.data.frame(X))
+        stop("X must be a data.frame")
+
+    Xmat <- as.matrix(X)
+    n <- nrow(Xmat)
+
+    dmat <- as.matrix(dist(Xmat))
+
+    g_hat <- numeric(n)
+    for (i in 1:n) {
+        ord <- order(dmat[i, ])
+        nn <- ord[1:k]
+        g_hat[i] <- mean(z[nn])
+    }
+
+    return(list(
+        estimate = g_hat,
+        model = list(k = k, distance = "euclidean"),
+        meta = list(
+            method = "my_custom_knn_local_strategy",
+            call = match.call()
+        )
+    ))
+}
+
+g = "knn_local"
+matsuoka.frontier::register_strategy(g, custom_knn_strategy_example)
+
+res.knn <- matsuoka.frontier::matsuoka3step(
+    x = x.df,
+    y = y,
+    g = "knn_local",
+    k = 20
+)
+summary(res.knn$g_hat)
+summary(res.knn)
+plot(res.knn)
 ```
 
 ## Without using the wrapper `matsuoka3step`
