@@ -15,6 +15,7 @@ An R package for estimating production frontiers using the **three-step approach
 - Compute the Matsuoka parameter `p` via method of moments
 - Construct the production frontier `f(x)` via plug-in formula
 - Includes `matsuoka3step()` class for a clean, object-oriented interface
+- Includes built-in S3 methods for `plot` and `summary` for diagnose
 - Designed for both univariate and multivariate inputs
 
 ---
@@ -51,6 +52,7 @@ plot(result)
 ## About
 
 This package was developed as part of the final project for the Bachelor's degree in Statistics at UFRGS (Universidade Federal do Rio Grande do Sul).
+
 It aims to provide a practical and flexible implementation of the three-step production frontier estimation method.
 
 
