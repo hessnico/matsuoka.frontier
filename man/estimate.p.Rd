@@ -8,7 +8,7 @@ estimate.p(residuals)
 }
 \arguments{
 \item{residuals}{A numeric vector of residuals, typically computed as
-\eqn{z - g_hat}, where \eqn{z = -\log(y)}.}
+\eqn{z - \hat{g}}, where \eqn{z = -\log(y)}.}
 }
 \value{
 A positive numeric scalar giving the estimated value of \eqn{p}.

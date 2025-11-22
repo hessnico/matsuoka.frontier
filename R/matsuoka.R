@@ -93,7 +93,7 @@ cmatsuoka <- function(x, p) {
 #' The quantile function is given by:
 #' \deqn{
 #' F^{-1}(q; p) = \exp\!\left(
-#'   -\frac{1}{p} \, \Gamma^{-1}\!\left(
+#'   \frac{1}{p} \, \Gamma^{-1}\!\left(
 #'      3/2,\; q \, \frac{\sqrt{\pi}}{2}
 #'   \right)
 #' \right),

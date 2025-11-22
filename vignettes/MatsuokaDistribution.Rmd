@@ -236,7 +236,7 @@ print(p.est)
 
 ## Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter
 
-To a better diagnose of the Matsuoka's distribution, it was also implemented the Cramer-von Mises test to verify adherence of the estimate `p`:
+To a better diagnose of the Matsuoka’s distribution, it was also implemented the Cramer-von Mises test to verify adherence of the estimated efficiency:
 
 ```{r}
 res <- matsuoka.frontier::matsuoka3step(x = x.df, y = y, 

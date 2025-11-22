@@ -39,8 +39,7 @@ departures from the Matsuoka model for the specified \eqn{p}.
 \seealso{
 \code{\link{cvm_matsuoka_test}} for the numerical test,
 \code{\link{cmatsuoka}} for the CDF,
-\code{\link{F.mv.i}} for the quantile function,
-the package vignette section \emph{"Goodness-of-fit with the Cramér–von Mises Test"}.
+\code{\link{F.mv.i}} for the quantile function
 \code{vignette("matsuoka.frontier")} — see section
 \emph{"Cramer–Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"}.
 }

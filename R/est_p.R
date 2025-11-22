@@ -5,7 +5,7 @@
 #' \eqn{z - g(x)} obtained in the first estimation step.
 #'
 #' @param residuals A numeric vector of residuals, typically computed as
-#'   \eqn{z - g_hat}, where \eqn{z = -\log(y)}.
+#'   \eqn{z - \hat{g}}, where \eqn{z = -\log(y)}.
 #'
 #' @return A positive numeric scalar giving the estimated value of \eqn{p}.
 #'

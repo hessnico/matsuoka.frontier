@@ -18,10 +18,9 @@ output. Defaults to 4.}
 (Invisibly) a list containing:
 \describe{
 \item{efficiency}{Vector of efficiency scores.}
-\item{efficiency_summary}{Summary statistics returned by
-\code{calculate.efficiency.stats()}.}
+\item{efficiency_summary}{Summary statistics.}
 \item{n}{Number of observations.}
-\item{n_efficient}{Count of fully efficient observations (eff ≥ 1).}
+\item{n_efficient}{Count of fully efficient observations (eff \eqn{\ge 1}).}
 \item{pct_efficient}{Percentage of efficient observations.}
 \item{model_call}{The recorded model call.}
 \item{gcall}{The recorded \eqn{g(x)} estimation call.}
@@ -41,8 +40,8 @@ This method prints:
 \item Summary statistics of the efficiency scores, including:
 \itemize{
 \item Minimum, median, mean, maximum efficiency;
-\item Quantiles used by \code{calculate.efficiency.stats()};
-\item Percentage of fully efficient units (efficiency ≥ 1).
+\item Quantiles;
+\item Percentage of fully efficient units (efficiency \eqn{\ge 1}).
 }
 \item The estimated Matsuoka parameter \code{p}.
 }
@@ -53,5 +52,5 @@ Users can inspect the underlying \eqn{g(x)} model via:
 \seealso{
 \code{\link[=matsuoka3step]{matsuoka3step()}} for fitting the model,
 \code{\link[=register_strategy]{register_strategy()}} to define custom \eqn{g(x)} estimators,
-\link{vignette("matsuoka.frontier")} — section \emph{"Registering a new method with \code{register_strategy()}"}.
+\link{vignette("matsuoka.frontier")}.
 }

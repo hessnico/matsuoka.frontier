@@ -27,6 +27,9 @@ A \code{list} with elements:
 \item \code{model}: the fitted model object.
 \item \code{meta}: metadata describing the estimation method.
 }
+
+You may also register additional custom strategies via
+\code{\link{register_strategy}}.
 }
 \description{
 Provides a unified interface to estimate the regression function \eqn{g(x)}
@@ -52,24 +55,6 @@ A \code{list} with components:
 }
 }
 }
-\section{Available Strategies}{
-
-The following strategy names are currently registered and available:
-
-\itemize{
-\item \code{"spline"} — Smoothing spline using \code{stats::smooth.spline}.
-\item \code{"gam"} — Generalized Additive Model using \code{mgcv::gam}.
-\item \code{"scar"} — Shape-Constrained Additive Regression using \code{scar::scar}.
-\item \code{"locpoly"} — Local polynomial regression using \code{KernSmooth::locpoly}.
-\item \code{"backf.cl"} — Backfitting using componentwise linear functions via \code{RBF::backf.cl}.
-\item \code{"sback"} — Smooth backfitting using \code{wsbackfit::sback}.
-\item \code{"backf.rob"} — Robust backfitting using \code{RBF::backf.rob}.
-}
-
-You may also register additional custom strategies via
-\code{\link{register_strategy}}.
-}
-
 \seealso{
 \code{\link{register_strategy}} for adding new strategies.
 \code{\link{estimate}} for the full three-step frontier estimation workflow.

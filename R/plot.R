@@ -35,7 +35,6 @@
 #'
 #' @seealso
 #'   \code{\link{cmatsuoka}} for the distribution function of the Matsuoka model;  
-#'   \code{\link{contour.plot.helper}} for internal frontier contouring utilities;  
 #'   \code{\link{den.plot}} for the density visualization helper.
 #'
 #' @export

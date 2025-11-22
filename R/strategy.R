@@ -7,7 +7,7 @@
 #' This enables users to extend the set of available nonparametric estimators
 #' by providing their own modeling routines.
 #'
-#' @param name A character string of length 1.  
+#' @param name A character string.  
 #'   The name under which the strategy will be registered.
 #'
 #' @param fn A function with signature \code{function(X, z, ...)} that performs 

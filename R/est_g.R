@@ -34,19 +34,6 @@
 #'   \item `meta`: metadata describing the estimation method.
 #' }
 #'
-#' @section Available Strategies:
-#' The following strategy names are currently registered and available:
-#'
-#' \itemize{
-#'   \item `"spline"` — Smoothing spline using \code{stats::smooth.spline}.
-#'   \item `"gam"` — Generalized Additive Model using \code{mgcv::gam}.
-#'   \item `"scar"` — Shape-Constrained Additive Regression using \code{scar::scar}.
-#'   \item `"locpoly"` — Local polynomial regression using \code{KernSmooth::locpoly}.
-#'   \item `"backf.cl"` — Backfitting using componentwise linear functions via \code{RBF::backf.cl}.
-#'   \item `"sback"` — Smooth backfitting using \code{wsbackfit::sback}.
-#'   \item `"backf.rob"` — Robust backfitting using \code{RBF::backf.rob}.
-#' }
-#'
 #' You may also register additional custom strategies via
 #' \code{\link{register_strategy}}.
 #'

@@ -18,8 +18,8 @@
 #'   \item Summary statistics of the efficiency scores, including:
 #'     \itemize{
 #'       \item Minimum, median, mean, maximum efficiency;
-#'       \item Quantiles used by `calculate.efficiency.stats()`;
-#'       \item Percentage of fully efficient units (efficiency ≥ 1).
+#'       \item Quantiles;
+#'       \item Percentage of fully efficient units (efficiency \eqn{\ge 1}).
 #'     }
 #'   \item The estimated Matsuoka parameter `p`.
 #' }
@@ -30,10 +30,9 @@
 #' @return (Invisibly) a list containing:
 #' \describe{
 #'   \item{efficiency}{Vector of efficiency scores.}
-#'   \item{efficiency_summary}{Summary statistics returned by
-#'         `calculate.efficiency.stats()`.}
+#'   \item{efficiency_summary}{Summary statistics.}
 #'   \item{n}{Number of observations.}
-#'   \item{n_efficient}{Count of fully efficient observations (eff ≥ 1).}
+#'   \item{n_efficient}{Count of fully efficient observations (eff \eqn{\ge 1}).}
 #'   \item{pct_efficient}{Percentage of efficient observations.}
 #'   \item{model_call}{The recorded model call.}
 #'   \item{gcall}{The recorded \eqn{g(x)} estimation call.}
@@ -42,7 +41,7 @@
 #' @seealso
 #'   [matsuoka3step()] for fitting the model,  
 #'   [register_strategy()] to define custom \eqn{g(x)} estimators,  
-#'   [vignette("matsuoka.frontier")] — section *"Registering a new method with `register_strategy()`"*.
+#'   [vignette("matsuoka.frontier")].
 #'
 #' @export
 summary.matsuoka3step <- function(object, digits = 4, ...) {

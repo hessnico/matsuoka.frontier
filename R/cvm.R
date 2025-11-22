@@ -76,8 +76,7 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
 #' @seealso 
 #'   \code{\link{cvm_matsuoka_test}} for the numerical test,
 #'   \code{\link{cmatsuoka}} for the CDF,
-#'   \code{\link{F.mv.i}} for the quantile function,
-#'   the package vignette section *"Goodness-of-fit with the Cramér–von Mises Test"*.
+#'   \code{\link{F.mv.i}} for the quantile function
 #'   \code{vignette("matsuoka.frontier")} — see section 
 #'   *"Cramer–Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"*.
 #'

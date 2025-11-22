@@ -7,7 +7,7 @@
 register_strategy(name, fn)
 }
 \arguments{
-\item{name}{A character string of length 1.
+\item{name}{A character string.
 The name under which the strategy will be registered.}
 
 \item{fn}{A function with signature \code{function(X, z, ...)} that performs

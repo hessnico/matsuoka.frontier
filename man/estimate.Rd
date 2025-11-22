@@ -15,7 +15,7 @@ length as the number of rows in \code{X}.}
 
 \item{g_strategy}{Either a character string or a function specifying the
 method for estimating the regression function \eqn{g(x)}.
-See \code{\link{estimate.g}} for the complete list of available
+See \code{\link{matsuoka3step}} for the complete list of available
 strategies and instructions for implementing custom estimators.
 
 If a \strong{function}, it must have signature \code{function(x, z, ...)} and

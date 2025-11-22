@@ -11,7 +11,7 @@ matsuoka3step(x, y, g = "spline", ...)
 
 \item{y}{A numeric vector of outputs (must be > 0).}
 
-\item{g}{A strategy for estimating \( g(x) \). The value may be:
+\item{g}{A strategy for estimating \eqn{g(x)}. The value may be:
 \itemize{
 \item a character string naming a built-in strategy, or
 \item a user-defined function with signature \code{fun(X, z, ...)}.
@@ -26,9 +26,9 @@ A \code{matsuoka3step} object containing:
 \item{y}{Output variable.}
 \item{efficiency}{Deterministic efficiency estimate: \eqn{y / \hat f(x)}.}
 \item{call}{The matched call.}
-\item{g_hat}{Estimated \( g(x) \).}
-\item{g_hat_res}{Residuals from the g(x) estimation.}
-\item{p_hat}{Estimated parameter \( p \).}
+\item{g_hat}{Estimated \eqn{g(x)}.}
+\item{g_hat_res}{Residuals from the \eqn{g(x)} estimation.}
+\item{p_hat}{Estimated parameter \eqn{p}.}
 \item{f_hat}{Estimated frontier.}
 }
 }
@@ -41,13 +41,28 @@ Executes the full estimation pipeline:
 }
 }
 \details{
-The estimation of \( g(x) \) follows a \strong{Strategy design pattern}.
+The estimation of \eqn{g(x)} follows a \strong{Strategy design pattern}.
 See \code{\link{estimate.g}} for the complete list of available
 strategies and instructions for implementing custom estimators.
 }
+\section{Available Strategies}{
+
+The following strategy names are currently registered and available:
+
+\itemize{
+\item \code{"spline"} — Smoothing spline using \code{stats::smooth.spline}.
+\item \code{"gam"} — Generalized Additive Model using \code{mgcv::gam}.
+\item \code{"scar"} — Shape-Constrained Additive Regression using \code{scar::scar}.
+\item \code{"locpoly"} — Local polynomial regression using \code{KernSmooth::locpoly}.
+\item \code{"backf.cl"} — Backfitting using componentwise linear functions via \code{RBF::backf.cl}.
+\item \code{"sback"} — Smooth backfitting using \code{wsbackfit::sback}.
+\item \code{"backf.rob"} — Robust backfitting using \code{RBF::backf.rob}.
+}
+}
+
 \seealso{
 \code{\link{estimate.g}} for available strategies;
 \code{\link{estimate}} for the full 3-step algorithm;
-\code{\link{estimate.p}} for estimation of \( p \);
+\code{\link{estimate.p}} for estimation of \eqn{p};
 \code{\link{cmatsuoka}} and \code{\link{F.mv.i}} for distribution functions.
 }
