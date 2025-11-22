@@ -30,6 +30,8 @@ and \eqn{I(\cdot)} denotes the indicator function.
 According to \strong{stats::pgamma}'s documentation page, \eqn{\Gamma(a,t)} can be computed using
 \code{pgamma(t, shape = a, lower.tail = FALSE)} which returns the
 upper incomplete gamma function value.
+
+See the package vignette for details.
 }
 \examples{
 cmatsuoka(0.5, p = 2)
@@ -37,5 +39,5 @@ cmatsuoka(1, p = 2)
 cmatsuoka(0, p = 2)
 }
 \seealso{
-\link[stats]{pgamma} \link[dmatsuoka]{dmatsuoka}
+\link[dmatsuoka]{dmatsuoka}
 }

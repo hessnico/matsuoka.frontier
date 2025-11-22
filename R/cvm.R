@@ -1,6 +1,6 @@
-#' Cramér-von Mises criterion test for the Matsuoka distribution
+#' Cramer-von Mises criterion test for the Matsuoka distribution
 #'
-#' Performs the Cramér-von Mises goodness-of-fit test to check whether
+#' Performs the Cramer-von Mises goodness-of-fit test to check whether
 #' a numeric vector `x` follows a Matsuoka distribution.
 #'
 #' @param x Numeric vector of observations.
@@ -14,7 +14,7 @@
 #' # For reproducibility in examples, we simulate Matsuoka data using `rmv()` function:
 #' x_sample <- rmv(100, p = 0.5)
 #'
-#' # Perform Cramér–von Mises test
+#' # Perform Cramer-von Mises test
 #' cvm_matsuoka_test(x_sample, p = 0.5)
 #'
 #' # Pass additional arguments to cvm.test()
@@ -45,13 +45,13 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
     return(res)
 }
 
-#' Visual Cramér–von Mises Goodness-of-Fit Test for the Matsuoka Distribution
+#' Visual Cramer-von Mises Goodness-of-Fit Test for the Matsuoka Distribution
 #'
 #' Produces a diagnostic plot comparing the empirical cumulative 
 #' distribution function (ECDF) of a numeric sample to the theoretical
 #' CDF of the Matsuoka distribution with parameter \eqn{p}.
 #' Internally, the function runs \code{cvm_matsuoka_test()}, and the
-#' resulting Cramér–von Mises statistic and p-value are shown in the plot subtitle.
+#' resulting Cramer-von Mises statistic and p-value are shown in the plot subtitle.
 #'
 #' This plot serves as an intuitive visual check for the adequacy of
 #' the Matsuoka distribution as a model for the data.
@@ -65,7 +65,7 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
 #' \itemize{
 #'   \item the empirical CDF (ECDF),
 #'   \item the theoretical Matsuoka CDF,
-#'   \item the Cramér–von Mises statistic and p-value in the subtitle.
+#'   \item the Cramer-von Mises statistic and p-value in the subtitle.
 #' }
 #'
 #' @details
@@ -77,8 +77,8 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
 #'   \code{\link{cvm_matsuoka_test}} for the numerical test,
 #'   \code{\link{cmatsuoka}} for the CDF,
 #'   \code{\link{F.mv.i}} for the quantile function
-#'   \code{vignette("matsuoka.frontier")} — see section 
-#'   *"Cramer–Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"*.
+#'   \code{vignette("matsuoka.frontier")} - see section 
+#'   *"Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"*.
 #'
 #' @import ggplot2
 #' @export
@@ -118,7 +118,7 @@ visual_cvm_matsuoka <- function(x, p, ...) {
         ggplot2::labs(
             x = "x",
             y = "Cumulative Distribution Function",
-            title = "Cramér-von Mises Goodness-of-Fit Test",
+            title = "Cramer-von Mises Goodness-of-Fit Test",
             subtitle = paste0("CvM statistic = ", signif(cvm_statistic, 6),
                               ", p-value = ", signif(test_res$p.value, 6),
                               "\nMatsuoka parameter p = ", signif(p, 6))

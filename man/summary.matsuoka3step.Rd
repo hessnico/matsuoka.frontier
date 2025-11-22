@@ -51,6 +51,5 @@ Users can inspect the underlying \eqn{g(x)} model via:
 }
 \seealso{
 \code{\link[=matsuoka3step]{matsuoka3step()}} for fitting the model,
-\code{\link[=register_strategy]{register_strategy()}} to define custom \eqn{g(x)} estimators,
-\link{vignette("matsuoka.frontier")}.
+\code{\link[=register_strategy]{register_strategy()}} to define custom \eqn{g(x)} estimators
 }

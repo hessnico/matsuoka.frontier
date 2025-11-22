@@ -1,6 +1,6 @@
 Package: matsuoka.frontier
 Title: Three-Step Approach to Production Frontier Estimation
-Version: 0.0.0.9000
+Version: 0.1.0
 Author: Nicolas Hess [aut, cre]
 Authors@R: person(given = "Nicolas",
                     family = "Hess",
@@ -22,11 +22,11 @@ Imports:
     mgcv,
     KernSmooth,
     scar,
-    stats,
     wsbackfit,
     RBF,
     ggplot2,
     akima,
     goftest,
-    zipfR
+    zipfR,
+    stats
 Config/testthat/edition: 3

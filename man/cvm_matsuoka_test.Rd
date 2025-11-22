@@ -2,7 +2,7 @@
 % Please edit documentation in R/cvm.R
 \name{cvm_matsuoka_test}
 \alias{cvm_matsuoka_test}
-\title{Cramér-von Mises criterion test for the Matsuoka distribution}
+\title{Cramer-von Mises criterion test for the Matsuoka distribution}
 \usage{
 cvm_matsuoka_test(
   x,
@@ -27,7 +27,7 @@ cvm_matsuoka_test(
 An object of class \code{htest}, as returned by \code{cvm.test()}.
 }
 \description{
-Performs the Cramér-von Mises goodness-of-fit test to check whether
+Performs the Cramer-von Mises goodness-of-fit test to check whether
 a numeric vector \code{x} follows a Matsuoka distribution.
 }
 \examples{
@@ -35,7 +35,7 @@ a numeric vector \code{x} follows a Matsuoka distribution.
 # For reproducibility in examples, we simulate Matsuoka data using `rmv()` function:
 x_sample <- rmv(100, p = 0.5)
 
-# Perform Cramér–von Mises test
+# Perform Cramer-von Mises test
 cvm_matsuoka_test(x_sample, p = 0.5)
 
 # Pass additional arguments to cvm.test()

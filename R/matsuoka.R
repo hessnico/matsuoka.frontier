@@ -54,6 +54,8 @@ dmatsuoka <- function(x, p) {
 #' \code{pgamma(t, shape = a, lower.tail = FALSE)} which returns the 
 #' upper incomplete gamma function value.
 #'
+#' See the package vignette for details.
+#'
 #' @param x numeric vector. Values at which to evaluate the cumulative function.
 #'          Must be non-NA and numeric.
 #' @param p positive numeric scalar parameter (must be > 0).
@@ -62,7 +64,7 @@ dmatsuoka <- function(x, p) {
 #' cmatsuoka(0.5, p = 2)
 #' cmatsuoka(1, p = 2)
 #' cmatsuoka(0, p = 2)
-#' @seealso \link[stats]{pgamma} \link[dmatsuoka]{dmatsuoka}
+#' @seealso \link[dmatsuoka]{dmatsuoka}
 #' @export
 #' 
 #' @importFrom stats pgamma

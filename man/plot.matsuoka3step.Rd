@@ -19,12 +19,12 @@
 \item{ngrid}{Integer; number of grid points per axis used for interpolation
 in the contour plot.}
 
+\item{counter_levels}{Integer; number of contour levels to draw (contour plot only).}
+
 \item{ask}{Logical; if \code{TRUE}, the user will be prompted before each plot.}
 
 \item{...}{Additional graphical parameters passed to the underlying plotting
 functions.}
-
-\item{contour_levels}{Integer; number of contour levels to draw (contour plot only).}
 }
 \value{
 Returns \code{NULL} invisibly. Called for its side effects (plots).

@@ -40,8 +40,7 @@
 #'
 #' @seealso
 #'   [matsuoka3step()] for fitting the model,  
-#'   [register_strategy()] to define custom \eqn{g(x)} estimators,  
-#'   [vignette("matsuoka.frontier")].
+#'   [register_strategy()] to define custom \eqn{g(x)} estimators
 #'
 #' @export
 summary.matsuoka3step <- function(object, digits = 4, ...) {

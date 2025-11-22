@@ -2,7 +2,7 @@
 % Please edit documentation in R/cvm.R
 \name{visual_cvm_matsuoka}
 \alias{visual_cvm_matsuoka}
-\title{Visual Cramér–von Mises Goodness-of-Fit Test for the Matsuoka Distribution}
+\title{Visual Cramer-von Mises Goodness-of-Fit Test for the Matsuoka Distribution}
 \usage{
 visual_cvm_matsuoka(x, p, ...)
 }
@@ -18,7 +18,7 @@ A \code{ggplot} object displaying:
 \itemize{
 \item the empirical CDF (ECDF),
 \item the theoretical Matsuoka CDF,
-\item the Cramér–von Mises statistic and p-value in the subtitle.
+\item the Cramer-von Mises statistic and p-value in the subtitle.
 }
 }
 \description{
@@ -26,7 +26,7 @@ Produces a diagnostic plot comparing the empirical cumulative
 distribution function (ECDF) of a numeric sample to the theoretical
 CDF of the Matsuoka distribution with parameter \eqn{p}.
 Internally, the function runs \code{cvm_matsuoka_test()}, and the
-resulting Cramér–von Mises statistic and p-value are shown in the plot subtitle.
+resulting Cramer-von Mises statistic and p-value are shown in the plot subtitle.
 }
 \details{
 This plot serves as an intuitive visual check for the adequacy of
@@ -40,6 +40,6 @@ departures from the Matsuoka model for the specified \eqn{p}.
 \code{\link{cvm_matsuoka_test}} for the numerical test,
 \code{\link{cmatsuoka}} for the CDF,
 \code{\link{F.mv.i}} for the quantile function
-\code{vignette("matsuoka.frontier")} — see section
-\emph{"Cramer–Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"}.
+\code{vignette("matsuoka.frontier")} - see section
+\emph{"Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"}.
 }
