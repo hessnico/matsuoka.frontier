@@ -7,4 +7,5 @@ devtools::build_vignettes()
 
 devtools::check(remote = TRUE)
 devtools::check_win_devel()
-rhub::check_for_cran()
+
+devtools::build()
