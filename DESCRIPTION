@@ -11,7 +11,7 @@ Description: Implementation of a production frontier model based on the three-st
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Suggests:
     testthat (>= 3.0.0),
@@ -25,8 +25,8 @@ Imports:
     wsbackfit,
     RBF,
     ggplot2,
-    akima,
     goftest,
     zipfR,
-    stats
+    stats,
+    interp
 Config/testthat/edition: 3

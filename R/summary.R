@@ -1,7 +1,7 @@
 #' Summary method for `matsuoka3step` objects
 #'
 #' Provides a concise summary of the results produced by
-#' [matsuoka3step()], including the estimated efficiency scores,
+#' `matsuoka3step()`, including the estimated efficiency scores,
 #' efficiency statistics, the estimated Matsuoka parameter `p`, and
 #' the calls used to estimate \eqn{g(x)} and to fit the frontier model.
 #'
@@ -13,7 +13,7 @@
 #' @details
 #' This method prints:
 #' \itemize{
-#'   \item The original model call used in [matsuoka3step()].
+#'   \item The original model call used in `matsuoka3step()`.
 #'   \item The call used to estimate the \eqn{g(x)} component.
 #'   \item Summary statistics of the efficiency scores, including:
 #'     \itemize{
@@ -39,18 +39,18 @@
 #' }
 #'
 #' @seealso
-#'   [matsuoka3step()] for fitting the model,  
-#'   [register_strategy()] to define custom \eqn{g(x)} estimators
+#'   `matsuoka3step()` for fitting the model,
+#'   `register_strategy()` to define custom \eqn{g(x)} estimators
 #'
 #' @export
 summary.matsuoka3step <- function(object, digits = 4, ...) {
     if (!inherits(object, "matsuoka3step")) {
         stop("object must be of class 'matsuoka3step'")
     }
-    
+
     eff <- as.numeric(object$efficiency)
     eff_stats <- calculate.efficiency.stats(eff)
-    
+
     get_gcall <- function(obj) {
         if (!is.null(obj$g_hat.model.call)) {
             return(obj$g_hat.model.call)
@@ -60,13 +60,13 @@ summary.matsuoka3step <- function(object, digits = 4, ...) {
         }
         NULL
     }
-    
+
     gcall <- get_gcall(object)
     gcall_txt   <- get_deparsed(gcall)
-    
+
     model_call <- object$call %||% object$est.call %||% NULL
     model_call_txt <- get_deparsed(model_call)
-    
+
     cat("Summary for 'matsuoka3step'\n\n")
     if (!is.null(model_call_txt)) {
         cat("Model call:\n  ", model_call_txt, "\n\n")
@@ -76,22 +76,22 @@ summary.matsuoka3step <- function(object, digits = 4, ...) {
         cat("")
         cat("    - For more info of g(x) estimation, please use summary(...$g_hat$model) \n\n")
     }
-    
+
     n <- length(eff)
     n_efficient <- sum(eff >= 1, na.rm = TRUE)
     pct_efficient <- 100 * n_efficient / n
-    
+
     cat("Efficiency summary:\n")
     print(round(eff_stats, digits = digits))
     cat("\n")
     cat(sprintf("%% efficient (score >= 1): %.2f%% (%d of %d)\n",
                 pct_efficient, n_efficient, n))
     cat("\n")
-    
+
     cat(sprintf("Matsuoka's p parameter estimated value: %.*f\n", digits, object$p_hat))
-    
+
     cat("\n")
-    
+
     invisible(list(
         efficiency = eff,
         efficiency_summary = eff_stats,
@@ -103,6 +103,7 @@ summary.matsuoka3step <- function(object, digits = 4, ...) {
     ))
 }
 
+#' @importFrom stats median
 calculate.efficiency.stats <- function(eff) {
     return(c(
         Min = min(eff, na.rm = TRUE),

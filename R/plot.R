@@ -1,10 +1,10 @@
 #' Plot Method for `matsuoka3step` Objects
 #'
-#' Generates diagnostic visualizations for a fitted frontier model.  
+#' Generates diagnostic visualizations for a fitted frontier model.
 #' The available plots include:
 #' \enumerate{
 #'   \item The fitted Matsuoka density function derived from the estimated parameter \code{p_hat};
-#'   \item A filled contour plot of the estimated production frontier 
+#'   \item A filled contour plot of the estimated production frontier
 #'         (requires two-dimensional input \code{x}).
 #' }
 #'
@@ -24,7 +24,7 @@
 #'
 #' @details
 #' The density plot visualizes the estimated Matsuoka density based solely on
-#' \code{p_hat}.  
+#' \code{p_hat}.
 #' The contour plot is based on an interpolated grid of \eqn{\hat{f}(x)} values
 #' using the information stored in the \code{matsuoka3step} object.
 #'
@@ -34,12 +34,12 @@
 #' @importFrom graphics filled.contour grid lines par
 #'
 #' @seealso
-#'   \code{\link{cmatsuoka}} for the distribution function of the Matsuoka model;  
+#'   \code{\link{cmatsuoka}} for the distribution function of the Matsuoka model;
 #'   \code{\link{den.plot}} for the density visualization helper.
 #'
 #' @export
 plot.matsuoka3step <- function(x,
-                               which = NULL, 
+                               which = NULL,
                                ngrid = 500,
                                counter_levels = 8,
                                ask = FALSE,
@@ -47,21 +47,21 @@ plot.matsuoka3step <- function(x,
     oldpar <- par(no.readonly = TRUE)
     on.exit(par(oldpar), add = TRUE)
     if (ask && interactive()) par(ask = TRUE)
-    
+
     validate.matsuoka.plot(x)
-    
+
     if (is.null(which)) {
         which <- c(1, 2, 3)
     }
-    
+
     if (1 %in% which) {
         den.plot(x)
     }
-    
+
     if (2 %in% which && ncol(x$x) == 2) {
         contour.plot.helper(x, ngrid = ngrid, counter_levels = counter_levels, ...)
     }
-    
+
     invisible(NULL)
 }
 
@@ -84,17 +84,17 @@ validate.matsuoka.plot <- function(x) {
 contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
     x1 <- x$x[, 1]
     x2 <- x$x[, 2]
-    
+
     z  <- as.numeric(x$f_hat)
-    
-    interp_grid <- akima::interp(
+
+    interp_grid <- interp::interp(
         x = x1, y = x2, z = z,
         nx = ngrid, ny = ngrid,
         linear = TRUE, extrap = FALSE
     )
-    
+
     breaks <- pretty(range(interp_grid$z, na.rm = TRUE), n = counter_levels)
-    
+
     dots <- list(...)
     dots$xlab = names(x$x)[1]
     dots$ylab = names(x$x)[2]
@@ -102,7 +102,7 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
     if (is.null(dots$color.palette)) {
         dots$color.palette <- function(n) gray.colors(n, start = 1, end = 0)
     }
-    
+
     do.call(filled.contour, c(list(
         x = interp_grid,
         levels = breaks,
@@ -125,30 +125,30 @@ contour.plot.helper <- function(x, ngrid = 500, counter_levels = 8, ...) {
 #' @details
 #' The function extracts the estimated parameter \eqn{p} from the fitted object
 #' (using \code{obj$p_hat}) and evaluates the density via
-#' \code{\link{dmatsuoka}} on a grid
+#' \link{dmatsuoka} on a grid
 #' \code{x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)}.
 #' A simple base R plot is produced, including axis labels, a main title, and
 #' optional grid lines.
 #'
-#' @param obj A fitted object of class \code{matsuoka3step} 
+#' @param obj A fitted object of class \code{matsuoka3step}
 #'   containing a numeric scalar \code{p_hat}, representing the estimated
 #'   shape parameter \eqn{p} of the Matsuoka distribution.
 #'
 #' @seealso
-#' \code{\link{dmatsuoka}} for the density function,  
+#' \link{dmatsuoka} for the density function,
 #'
 #' @export
 den.plot <- function(obj) {
     x.seq <- seq(1e-10, 1 - 1e-10, length.out = 10000)
     p <- obj$p_hat
-    
+
     den <- dmatsuoka(x.seq, p)
-    
+
     plot(x.seq, den, type = "n",
          xlab = "x", ylab = "f(x)",
          main = sprintf("Matsuoka density (p = %.3f)", p),
          xlim = c(0, 1), ylim = c(0, max(den) * 1.1))
-    
+
     lines(x.seq, den, col = "black", lwd = 1.5)
     grid()
 }

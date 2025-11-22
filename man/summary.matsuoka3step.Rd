@@ -28,14 +28,14 @@ output. Defaults to 4.}
 }
 \description{
 Provides a concise summary of the results produced by
-\code{\link[=matsuoka3step]{matsuoka3step()}}, including the estimated efficiency scores,
+\code{matsuoka3step()}, including the estimated efficiency scores,
 efficiency statistics, the estimated Matsuoka parameter \code{p}, and
 the calls used to estimate \eqn{g(x)} and to fit the frontier model.
 }
 \details{
 This method prints:
 \itemize{
-\item The original model call used in \code{\link[=matsuoka3step]{matsuoka3step()}}.
+\item The original model call used in \code{matsuoka3step()}.
 \item The call used to estimate the \eqn{g(x)} component.
 \item Summary statistics of the efficiency scores, including:
 \itemize{
@@ -50,6 +50,6 @@ Users can inspect the underlying \eqn{g(x)} model via:
 \code{summary(object$g_hat$model)}.
 }
 \seealso{
-\code{\link[=matsuoka3step]{matsuoka3step()}} for fitting the model,
-\code{\link[=register_strategy]{register_strategy()}} to define custom \eqn{g(x)} estimators
+\code{matsuoka3step()} for fitting the model,
+\code{register_strategy()} to define custom \eqn{g(x)} estimators
 }

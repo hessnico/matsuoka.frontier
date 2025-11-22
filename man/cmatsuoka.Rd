@@ -13,7 +13,7 @@ Must be non-NA and numeric.}
 \item{p}{positive numeric scalar parameter (must be > 0).}
 }
 \value{
-A list of numeric values in \link{0,1}.
+A list of numeric values in (0,1).
 }
 \description{
 Cumulative distribution function for Matsuoka
@@ -39,5 +39,5 @@ cmatsuoka(1, p = 2)
 cmatsuoka(0, p = 2)
 }
 \seealso{
-\link[dmatsuoka]{dmatsuoka}
+\link{dmatsuoka}
 }

@@ -56,7 +56,7 @@ This package was developed as part of the final project for the Bachelor's degre
 It aims to provide a practical and flexible implementation of the three-step production frontier estimation method.
 
 
-## Some enhacements to do 
+## Some enhancements to do 
 - [X] **Add more private methods in `estimate_g`**  
   Expand the internal functionality of the `estimate_g` function to include additional helper methods for improved estimation, as the ones cited in this package article;
   - [X] Local linear smoothing (using `KernSmooth`)

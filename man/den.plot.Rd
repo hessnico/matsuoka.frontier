@@ -19,11 +19,11 @@ a fine grid over the support \eqn{(0, 1)} and drawn as a smooth curve.
 \details{
 The function extracts the estimated parameter \eqn{p} from the fitted object
 (using \code{obj$p_hat}) and evaluates the density via
-\code{\link{dmatsuoka}} on a grid
+\link{dmatsuoka} on a grid
 \code{x.seq = seq(1e-10, 1 - 1e-10, length.out = 10000)}.
 A simple base R plot is produced, including axis labels, a main title, and
 optional grid lines.
 }
 \seealso{
-\code{\link{dmatsuoka}} for the density function,
+\link{dmatsuoka} for the density function,
 }

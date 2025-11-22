@@ -21,7 +21,7 @@
 #' cvm_matsuoka_test(x_sample, p = 0.5, estimated = FALSE)
 #'
 #' @seealso
-#' \code{\link[goftest]{cvm.test}} for the underlying test implementation.  
+#' \code{\link[goftest]{cvm.test}} for the underlying test implementation.
 #' \code{\link{visual_cvm_matsuoka}} for graphical assessment of the test.
 #'
 #' @export
@@ -31,9 +31,9 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
     if (!is.null(p) && (!is.numeric(p) || length(p) != 1 || p <= 0)) {
         stop("`p` must be a single positive numeric value or NULL.")
     }
-    
+
     F_p <- function(xi) cmatsuoka(xi, p = p)
-    
+
     res <- goftest::cvm.test(
         x,
         F_p,
@@ -41,13 +41,13 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
         nullname = nullname,
         ...
     )
-    
+
     return(res)
 }
 
 #' Visual Cramer-von Mises Goodness-of-Fit Test for the Matsuoka Distribution
 #'
-#' Produces a diagnostic plot comparing the empirical cumulative 
+#' Produces a diagnostic plot comparing the empirical cumulative
 #' distribution function (ECDF) of a numeric sample to the theoretical
 #' CDF of the Matsuoka distribution with parameter \eqn{p}.
 #' Internally, the function runs \code{cvm_matsuoka_test()}, and the
@@ -73,14 +73,15 @@ cvm_matsuoka_test <- function(x, p, estimated = TRUE, nullname = "Matsuoka Distr
 #' theoretical distributions. Major deviations along the CDF curve indicate
 #' departures from the Matsuoka model for the specified \eqn{p}.
 #'
-#' @seealso 
+#' @seealso
 #'   \code{\link{cvm_matsuoka_test}} for the numerical test,
 #'   \code{\link{cmatsuoka}} for the CDF,
 #'   \code{\link{F.mv.i}} for the quantile function
-#'   \code{vignette("matsuoka.frontier")} - see section 
+#'   \code{vignette("matsuoka.frontier")} - see section
 #'   *"Cramer-Von Mises test with the Matsuoka's distribution after estimating Matsuoka parameter"*.
 #'
 #' @import ggplot2
+#' @importFrom stats ecdf
 #' @export
 visual_cvm_matsuoka <- function(x, p, ...) {
     if (!is.numeric(x)) stop("`x` must be numeric.")
@@ -88,25 +89,27 @@ visual_cvm_matsuoka <- function(x, p, ...) {
     if (!is.numeric(p) || length(p) != 1 || p <= 0) {
         stop("`p` must be a single positive numeric value.")
     }
-    
+
+    CDF <- Distribution <- NULL
+
     test_res <- cvm_matsuoka_test(x = x, p = p, ...)
-    
+
     x_sorted <- sort(x)
     df_plot <- data.frame(
         x = x_sorted,
         ecdf = ecdf(x)(x_sorted),
         theoretical = cmatsuoka(x_sorted, p = p)
     )
-    
+
     df_long <- data.frame(
         x = rep(x_sorted, 2),
         CDF = c(df_plot$ecdf, df_plot$theoretical),
         Distribution = factor(rep(c("Empirical", "Theoretical"), each = length(x_sorted)),
                               levels = c("Empirical", "Theoretical"))
     )
-    
+
     cvm_statistic <- test_res$statistic
-    
+
     p_plot <- ggplot2::ggplot(df_long, ggplot2::aes(x = x, y = CDF, color = Distribution)) +
         ggplot2::geom_step(data = subset(df_long, Distribution == "Empirical"),
                            direction = "hv", linewidth = 0.8, alpha = 0.9) +
@@ -132,12 +135,12 @@ visual_cvm_matsuoka <- function(x, p, ...) {
             panel.grid.minor = ggplot2::element_blank(),
             panel.border = ggplot2::element_rect(color = "grey80", fill = NA)
         ) +
-        ggplot2::scale_y_continuous(limits = c(0, 1), 
+        ggplot2::scale_y_continuous(limits = c(0, 1),
                                     breaks = seq(0, 1, 0.2)) +
         ggplot2::guides(color = ggplot2::guide_legend(override.aes = list(
             linetype = c("solid", "solid"),
             linewidth = c(1, 1)
         )))
-    
+
     return(p_plot)
 }

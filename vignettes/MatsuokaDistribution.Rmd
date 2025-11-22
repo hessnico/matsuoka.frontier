@@ -1,12 +1,13 @@
 ---
 title: "matsuoka3step"
-output: rmarkdown::pdf_document
-description: Learn how to use "MatsuokaDistribution" class object to estimate the production frontier using the three-step approach
+output: rmarkdown::html_vignette
+description: >
+  Learn how to use the MatsuokaDistribution class to estimate the
+  production frontier using the three-step approach.
 vignette: >
-  %\VignetteIndexEntry{MatsuokaDistribution}
+  %\VignetteIndexEntry{matsuoka3step}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-
 ---
 
 ```{r, include = FALSE}
@@ -32,7 +33,6 @@ The examples below illustrate different ways to estimate the production frontier
 ## Setup for package use
 
 ```{r setup}
-devtools::load_all()
 library(matsuoka.frontier)
 library(ggplot2)
 library(Benchmarking)
